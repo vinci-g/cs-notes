@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>1. A Tour of Computer Systems.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1 id="a-tour-of-computer-systems">A Tour of Computer Systems</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;hello, world</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="compilation-system">Compilation System</h2>
+<figure>
+<img src="../resources/compilation-system.png"
+alt="Compilation System Diagram" />
+<figcaption aria-hidden="true">Compilation System Diagram</figcaption>
+</figure>
+<pre><code>gcc -o hello hello.c</code></pre>
+<ul>
+<li><code>GCC</code> is a C compiler</li>
+<li><code>-o</code> basically says output our source code
+(<code>hello.c</code>) in
+<code>&lt;file&gt;</code>(<code>hello</code>)</li>
+<li><code>hello</code> is the name we want for our executable</li>
+<li><code>hello.c</code> is our source code file</li>
+</ul>
+<p>The programs that perform the four phases in the diagram are known as
+the <em>compilation system</em>.</p>
+<ol type="1">
+<li><strong>Preprocessing Phase</strong>
+<ul>
+<li>The preprocessor modifies the original C program according to the
+directives.</li>
+<li>Result is another C program with the <code>.i</code> suffix.</li>
+</ul></li>
+<li><strong>Compilation Phase</strong>
+<ul>
+<li><code>.i</code> -&gt; <code>.s</code> (assembly language)</li>
+</ul></li>
+<li><strong>Assembly Phase</strong>
+<ul>
+<li><code>.s</code> to machine language instructions and packages them
+in a form as a <em>relocatable object program</em></li>
+<li><code>.o</code></li>
+</ul></li>
+<li><strong>Linking Phase</strong>
+<ul>
+<li>Merges (in this case, our <code>hello</code> program) the
+<code>printf</code> function (which resides in a separate precompiled
+object file) with our <code>hello.o</code> program.</li>
+<li>Result is <code>hello</code> executable</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="hardware-organization-of-a-system">Hardware Organization of a
+System</h2>
+<figure>
+<img src="../resources/hardware-organization.png"
+alt="Hardware Organization of a System" />
+<figcaption aria-hidden="true">Hardware Organization of a
+System</figcaption>
+</figure>
+<ul>
+<li><strong>Buses</strong>
+<ul>
+<li>Collection of electrical conduits that carry bytes of information
+back and forth between components.</li>
+<li>Typically designed to transfer fixed-sized bytes known as
+<em>words</em>.
+<ul>
+<li>Either 4 bytes (32 bits) or 8 bytes (64 bits).</li>
+</ul></li>
+</ul></li>
+<li><strong>I/O Devices</strong>
+<ul>
+<li>Input/Output</li>
+<li>System’s connection to the external world.</li>
+<li>Each I/O is connected to the I/O bus by either a controller or an
+adapter.</li>
+<li><em>Controllers</em> are chips sets on the device itself or on the
+motherboard.</li>
+<li><em>Adapters</em> plugs into the motherboard.</li>
+</ul></li>
+<li><strong>Main Memory</strong>
+<ul>
+<li>Temporary storage device that holds the progam &amp; data while the
+processor is executing the program.</li>
+<li>Consist of a collection of <em>dynamic random access
+memory</em>(DRAM) chips.</li>
+<li>Organized as a linear array of bytes with it’s own unique address
+that starts at 0.</li>
+</ul></li>
+<li><strong>Processor</strong>
+<ul>
+<li>Also called the <em>central processing unit</em> (CPU).</li>
+<li>Interprets/Executes instructions stored in the main memory.</li>
+<li>At its core is a word-size storage device (<em>register</em>) called
+the <em>program counter</em> which at any point in time, points at some
+instruction in main memory.</li>
+<li>Operates to a very simple instruction execution model, defined by
+its <em>instruction set architecture</em>, where instructions are
+exectud in a strict sequence:
+<ul>
+<li>Processor reads instruction from memory pointed out by the PC.</li>
+<li>Interprets the bits in the instruction</li>
+<li>Perform operation dictated by the instruction.</li>
+<li>Updates PC to point at the next instruction.</li>
+</ul></li>
+<li>These operations mainly revolve around the main memory, register
+file, and ALU.
+<ul>
+<li><em>ALU</em> - computes new data and address values.</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="running-our-hello-program">Running our <code>hello</code>
+program</h2>
+<ol type="1">
+<li>As we type <code>./hello</code> on our keyboard, the shell program
+reads each input in to a register and stores it in memory.</li>
+<li>Hitting the <code>&lt;RET&gt;</code> key on our keyboard signifies
+the shell that we have finished executing that command.</li>
+<li>The shell loads the executable <code>hello</code> file by executing
+a sequence of instructions that copies the the code and data in the
+<code>hello</code> object file from disk to main memory.
+<ul>
+<li>Using a technique called <em>direct memory access</em>(DMA), data
+travels from the disk to the main memory without passing through the
+processor</li>
+</ul></li>
+<li>Once the code and data in <code>hello</code> are loaded in memory,
+the processor executes the instruction in the <code>hello</code>
+program’s <code>main</code> routine.</li>
+<li>These instructions copy the bytes in the <code>hello, world\n</code>
+string from memory to register file, to the display device.</li>
+</ol>
+<hr />
+<h2 id="caches">Caches</h2>
+<p>From running our <code>hello</code> program, we can see that a lot of
+work involves copying from one component to the next, which slows down
+the program.</p>
+<p>With the current technology, it is also more expensive the make
+memory faster than to make processors faster leading to a problem called
+the <em>processsor-memory gap</em>.</p>
+<p><em>Cache memories</em> (or simply <em>caches</em>) are the solution
+to this gap for faster storage devices which serve as <em>temporary</em>
+staging areas for information that the processor might need in the
+future.</p>
+<figure>
+<img src="../resources/cache-memory.png" alt="Cache Memory Diagram" />
+<figcaption aria-hidden="true">Cache Memory Diagram</figcaption>
+</figure>
+<p>There are different levels to cache memory. There are what’s called
+L1 caches, L2 caches, and so on. L1 caches for this example can probably
+hold about tens of thousands of bytes and have the speed nearly as fast
+as a register. L2 caches on the other hand are larger, which can
+probably hold 1,000 - 1,000,000+ bytes but at the expense of speed. It
+might be slower, say around 5 times slower than an L1 cache but it still
+is way faster than accesssing the main memory. L1 and L2 caches are
+implemented with hardware technology known as <em>static random access
+memory</em>(SRAM).</p>
+<p>The idea for caching is that the system can have both a large memory
+and a fast one by exploting what is called <strong>locality</strong>,
+the tendency for programs to access data and code in localized
+regions.</p>
+<hr />
+<h2 id="memory-hierarchy">Memory Hierarchy</h2>
+<p>Storage devices in every computer system are organized as a memory
+hierarchy.</p>
+<figure>
+<img src="../resources/memory-hierarchy.png" alt="Memory Hierarchy" />
+<figcaption aria-hidden="true">Memory Hierarchy</figcaption>
+</figure>
+<p>As we move from the top to the bottom, the devices becomes slower,
+larger, and less cost per byte.</p>
+<p>The main idea of a memory hierarchy is that the storage at one level
+serves as a cache storage for the lower level. Thus register file is a
+cache for the L1 cache, L1 cache for the L2 cache, and so on.</p>
+<hr />
+<h2 id="os-manages-the-hardware">OS Manages the Hardware</h2>
+<p>Going back to the <code>hello</code> program, when the program was
+loaded and when it was printed on the screen, neither program accessed
+the keyboard, disk, display or main memory directly. It relied on the
+services provided by the operating system.</p>
+<figure>
+<img src="../resources/os_system.png" alt="OS on a System" />
+<figcaption aria-hidden="true">OS on a System</figcaption>
+</figure>
+<p>All attempts by the application to manipulate hardware must go
+through the operating system.</p>
+<p>The OS has 2 primary purposes: 1. To protect the hardware from misuse
+by runaway applications. 2. To provide applications with a simple and
+uniform mechanism for manipulating complicated and often wildly
+different low-level hardware devices.</p>
+<p>The OS achieves both purposes via the fundamental abstractions,
+<em>processes</em>, <em>virtual memory</em>, and <em>files</em>.</p>
+<figure>
+<img src="../resources/os-abstraction.png" alt="OS Abstraction" />
+<figcaption aria-hidden="true">OS Abstraction</figcaption>
+</figure>
+<p>Files are abstractions for I/O devices, virtual memory for main
+memory and disk, and processes for processor, main memory, and I/O
+devices.</p>
+<h3 id="processes">Processes</h3>
+<p>When <code>hello</code> runs, the OS provides the illusion that it is
+the only one running in the system. The program appears to have
+exclusive use of the processor, main memory, and I/O devices. The
+processor appears to execute the instructions in the program without
+interruption. The code and data of the program appear to be the only
+objects in memory.</p>
+<p>These illusions are provided by the notion of a process.</p>
+<p>A <em>process</em> is the OS abstraction for running programs.
+Multiple processes can run concurrently on the same system and each
+process appears to have exclusive use of the hardware.</p>
+<p>A single CPU can execute multiple processes concurrently by having
+the processor switch among them which is called <em>context
+switching</em>.</p>
+<p>The OS keeps track all of the state information that is needed for
+the process to run. This state is called the <em>context</em> which
+includes the following: - Current values of the PC - Register file -
+Contents of the main memory</p>
+<p>When a processor executes a context switch, which happens when the
+processor decides to transfer control from the current process to some
+new process, it saves the context of the current process, restoring the
+contents of the new process, and passing control to the new process. The
+new process picks up where it left off.</p>
+<figure>
+<img src="../resources/context-switching.png" alt="Context Switching" />
+<figcaption aria-hidden="true">Context Switching</figcaption>
+</figure>
+<p>The transition from one process to another is managed by the OS
+<em>kernel</em>. It is the portion of the OS that always resides in
+memory.</p>
+<p>When an application requires some action by the OS such as read/write
+a file, it executes a <em>system call</em> instruction, transfers
+control to the kernel, then the kernel performs the instruction and
+transfers control back to the application.</p>
+<h3 id="threads">Threads</h3>
+<p>Threads are multiple execution units with each running in the context
+of the process and sharing the sane code and global data.</p>
+<h3 id="virtual-memory">Virtual Memory</h3>
+<p>VM is an abstraction that provides each process with the illusion
+that it has exclusive use of the main memory. Each process has the same
+unifrom view of memory known as its <em>virtual address space</em>.</p>
+<figure>
+<img src="../resources/virtual-address-space.png"
+alt="Virtual Address Space" />
+<figcaption aria-hidden="true">Virtual Address Space</figcaption>
+</figure>
+<p>Virtual address space seen by each process consists of well-defined
+areas, each with a specific purpose: - <strong>Program code and
+data</strong> - Code begins at the same fixed address for all processes
+followed by data locations that correspond to global C variables. - Code
+and data areas are initialized from the contents of an executable. -
+<strong>Heap</strong> - Expands and contracts dynamically at run time as
+a result of calls to C standard library routines such as
+<code>malloc</code> and <code>free</code>. - <strong>Shared
+libraries</strong> - Holds code and data for shared libraries such as C
+standard library. - <strong>Stack</strong> - Used by the compiler to
+implement function calls. - Also expands and contracts dynamically, like
+the heap, during the execution of the program. - Grows whenever we call
+a function, and contracts when we return from a function. -
+<strong>Kernel virtual memory</strong> - Top most region of the address
+space. - Invoked by application programs to perform functions defined in
+the kernel code.</p>
+<h3 id="files">Files</h3>
+<p>File is just a sequence of bytes. Every I/O device, disks, keyboards,
+even networks, is modeled as a file.</p>
+<p>All I/O is performed by reading and writing files using a small set
+of system calls known as <em>Unix I/O</em>.</p>
+<hr />
+<h2 id="system-communication-using-networks">System Communication Using
+Networks</h2>
+
+</body>
+</html>
