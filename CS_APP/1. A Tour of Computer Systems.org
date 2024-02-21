@@ -15,6 +15,13 @@
 - [[#memory-hierarchy][Memory Hierarchy]]
 - [[#os-manages-the-hardware][OS Manages the Hardware]]
   - [[#processes][Processes]]
+  - [[#threads][Threads]]
+  - [[#virtual-memory][Virtual Memory]]
+  - [[#files][Files]]
+- [[#systems-communicate-with-other-systems-using-networks][Systems Communicate with Other Systems Using Networks]]
+- [[#important-themes][Important Themes]]
+  - [[#amdahls-law][Amdahl's Law]]
+  - [[#concurrency-and-parallelism][Concurrency and Parallelism]]
 
 * Introduction Code /hello.c/
 #+begin_src c
@@ -120,4 +127,49 @@ _ /*ALU*/ (Arithmetic/Logic Unit) is responsible for computing new data and addr
 
 [[file:../resources/context-switching.png]]
 
-- 
+- The transition from one process to another is managed by the OS /kernel/ and it is the portion of the OS that always resides in memory.
+- When an application requires the OS to read/write a file: executes a /system call/, transfer control to the kernel, kernel performs instructions, transfer control back to the application.
+
+** Threads
+
+- Threads are multiple executions units with each running in the context of the process and sharing the same code and global data.
+
+** Virtual Memory
+
+- VM gives the illusion that each process has exclusive use of the main memory.
+- /Virtual address space/ is the same uniform view of memory for each process.
+
+[[file:../resources/virtual-address-space.png]]
+
+- Virtual address space consists of well defined areas each with a specific purpose:
+  - *Program code and data*: Code begins at the same fixed address for all processes followed by data locations, and is initialized from the contents of an executable.
+  - *Heap* expands and contracts dynamically at run time as a result of calls to C standard function libraries such as ~malloc~ and ~free~.
+  - *Shared Libraries* holds code and data for shared libraries such as C standard library
+  - *Stack* is used by the compiler to implement function calles and like the heap, expands and contracts dynamically during the execution of the program.
+  - *Kernel Virtual Memory* is the top most region of the address space and is invoked by applications to perform functions defined in the kernel code.
+
+** Files
+
+- File is just a sequence of bytes.
+- All I/O is performed by reading and writing files using a small set of system calls known as /Unix I/O/
+
+* Systems Communicate with Other Systems Using Networks
+
+- Modern systems are often linked to other systems by networks.
+- A network can be viewed as another I/O device.
+
+[[file:../resources/network-io.png]]
+
+[[file:../resources/communication-over-network.png]]
+
+* Important Themes
+
+Highlighting important concepts that cut across all aspects of computer systems
+
+** Amdahl's Law
+
+- In speeding one part of a system, the effect on the overall system performance depends on both how significant those part was and how much it sped up.
+
+** Concurrency and Parallelism
+
+- /Concurrency/ 
