@@ -1,0 +1,200 @@
+#+TITLE: What is Cloud Computing
+#+AUTHOR: vinci_g
+#+DESCRIPTION: Introduction to Cloud Computing
+#+OPTIONS: toc:nil
+
+* Table of Contents :toc:
+- [[#traditional-it-overview][Traditional IT Overview]]
+  - [[#how-websites-work][How websites work]]
+  - [[#what-is-a-server-composed-of][What is a server composed of?]]
+  - [[#it-terminology][IT Terminology]]
+  - [[#how-traditional-infrastructure-was-built][How traditional infrastructure was built]]
+- [[#what-is-cloud-computing][What is Cloud Computing?]]
+  - [[#deployment-models-of-the-cloud][Deployment Models of the Cloud]]
+  - [[#five-characteristics-of-cloud-computing][Five Characteristics of Cloud Computing]]
+  - [[#six-advantages-of-cloud-computing][Six Advantages of Cloud Computing]]
+  - [[#problems-solved-by-the-cloud][Problems solved by the Cloud]]
+- [[#types-of-cloud-computing][Types of Cloud Computing]]
+  - [[#example-of-cloud-computing-types][Example of Cloud Computing Types]]
+  - [[#pricing-of-the-cloud---quick-overview][Pricing of the Cloud - Quick Overview]]
+- [[#aws-cloud-overview][AWS Cloud Overview]]
+  - [[#aws-cloud-use-cases][AWS Cloud Use Cases]]
+  - [[#aws-global-infrastructure][AWS Global Infrastructure]]
+
+* Traditional IT Overview
+** How websites work
+
+- A client and a server are connected in a network.
+- Clients and servers have IP addresses which allows clients to communicate with specific servers and vice versa, much like sending a mail.
+
+** What is a server composed of?
+
+| Compute | Memory | Storage | Database                       | Network                     |
+|---------+--------+---------+--------------------------------+-----------------------------|
+| CPU     | RAM    | Data    | Store data in a structured way | Routers, switch, DNS server |
+n
+- CPU and RAM makes up the brain of the server.
+
+** IT Terminology
+
+- *Network* are cables, routers, and servers connected with each other.
+- *Routers* are networking devices that forwards data packets between computer networks.
+- *Switch* takes a packet and send it to the correct server/client on your network.
+
+** How traditional infrastructure was built
+
+1. Starts as a home/garage with a server.
+2. Increasing demand needs to scale up moving to offices and datacenters with more servers and hardware.
+
+The downsides:
+- Rent cost for data centers
+- Maintenance cost like power supply, cooling, and general maintenance
+- Adding and replacing hardware takes time
+- Scaling is limited due to the amount of hardware and space needed when scaling up
+- 24/7 monitoring of the infrastructure
+- Natural disasters
+
+* What is Cloud Computing?
+
+- Cloud computing is the *on-demand delivery* of compute power, database storage, applications, and other IT resources.
+- *Pay-as-you-go* pricing throug cloud services platform.
+- Can provision *the exact type and size* of computing resources needed.
+- *Instant* access to as many resources needed.
+- Simple way to access servers, storage, databases, and a set of application services.
+
+** Deployment Models of the Cloud
+
+| Private Cloud                                                           | Public Cloud                                                                             | Hybrid Cloud                                                            |
+|-------------------------------------------------------------------------+------------------------------------------------------------------------------------------+-------------------------------------------------------------------------|
+| Cloud services used by a single organization, not exposed to the public | Cloud resources owned and operated by a third party provider delivered over the internet | Keep some servers on premises and extend some capabilities to the Cloud |
+| Complete control                                                        | Six Advantages of Cloud Computing                                                        | Control over sensitive assets in private infrastructure                 |
+| Security for sensitive applications                                     |                                                                                          | Flexibility and cost effectiveness of public cloud                      |
+| Meet specific business needs                                            |                                                                                          |                                                                         |
+
+** Five Characteristics of Cloud Computing
+
+1. *On-demand self service*
+   - Users can provision resources and use them without human interaction from the service provider.
+2. *Broad network access*
+   - Resources available over the network can be accessed by diverse client platforms.
+3. *Multi-tenancy and resource pooling*
+   - Multiple customers can share the same infrastructure and applications with security and privacy.
+   - Multiple customers are serviced from the same physical resources.
+4. *Rapid elasticity and scalability*
+   - Automatically and quickly acquire and dispose resources when needed resulting to fast and easy scaling based on demand.
+5. *Measured service*
+   - Measured usage, users pay for what they have used
+
+** Six Advantages of Cloud Computing
+
+1. *Trade CAPEX for OPEX*
+   - Pay-on-demand: don't own hardware
+   - Reduced Total Cost of Ownership (TCO) & Operational Expense (OPEX)
+2. *Benefit from massive economies of scale*
+   - Reduced prices as AWS is more efficient due to large scale
+3. *Stop guessing capacity*
+   - Scale based on measured usage
+4. *Increase speed and agility*
+5. *Stop spending money running and maintaining data centers*
+6. *Go global in minutes*
+   - Leverage AWS global infrastructure
+
+** Problems solved by the Cloud
+
+- *Flexibility*: change resource type when needed
+- *Cost effectiveness*: pay as you go, for what you use
+- *Scalability*: accomodate larger loads by making hardware stronger or adding additional nodes
+- *Elasticity*: scale in or out when needed
+- *High availability and fault-tolerance*: build across data centers
+- *Agility*: rapidly develop, test, and launch software applications
+
+* Types of Cloud Computing
+
+- *Infrastructure as a Service (IaaS)*
+  - Provide building blocks for cloud IT
+  - Provides networking, computers, data storage space
+  - High level of flexibility
+  - Easy parallel with traditional on-premise IT
+
+- *Platform as a Service (PaaS)*
+  - Removes the need for underlying infrastructure management
+  - Focus on the deployment and management of applications
+
+- *Software as a Service (SaaS)*
+  - Completed product that is run and managed by the service provider
+
+
+*x* = managed by you, *o* = managed by others
+|               | On-premises | IaaS | PaaS | SaaS |
+|---------------+-------------+------+------+------|
+| Applications  | x           | x    | x    | o    |
+| Data          | x           | x    | x    | o    |
+| Runtime       | x           | x    | o    | o    |
+| Middleware    | x           | x    | o    | o    |
+| O/S           | x           | x    | o    | o    |
+| Virtualiztion | x           | o    | o    | o    |
+| Servers       | x           | o    | o    | o    |
+| Storage       | x           | o    | o    | o    |
+| Networking    | x           | o    | o    | o    |
+
+** Example of Cloud Computing Types
+
+- *IaaS*
+  - Amazon EC2 (on AWS)
+  - GCP, Azure, Rackspace, Digital Ocean, Linode
+- *PaaS*
+  - Elastic Beanstalk (on AWS)
+  - Heroku, Google App Engine (GCP), Windows Azure (Microsoft)
+- *SaaS*
+  - Many AWS services (ex: Rekognition for Machine Learning)
+  - Google Apps (Gmail), Dropbox, Zoom
+
+** Pricing of the Cloud - Quick Overview
+- AWS has 3 pricing fundamentals, following the pay-as-you-go pricing model
+  1. *Compute*
+     - Pay for compute time
+  2. *Storage*
+     - Pay for data stored in the Cloud
+  3. *Networking*: Data transfer *OUT* of the cloud
+     - Pay for data transfer *OUT only*
+     - Data transfer *IN* is free
+
+* AWS Cloud Overview
+
+** AWS Cloud Use Cases
+- Enables you to build sophisticated, scalable applications
+- Applicable to diverse set of industries
+- Use cases:
+  - Enterprise IT, Backup & Storage, Big Data analytics
+  - Website hosting, Mobile & Social Apps
+  - Gaming
+
+** AWS Global Infrastructure
+*** AWS Regions
+
+- AWS has *Regions* all around the world
+- Names can be /us-east-1/, /eu-west-3/, /ap-southeast-2/, ...
+- A region is a *cluster of data centers*
+- *Most AWS Services are region-scoped*
+
+**** How to choose an AWS Region
+
+1. *Compliance* with data governance and legal requirements.
+   - Data never leaves a region without your explicit permission
+2. *Proximity* to customers for reduced latency.
+3. *Available services* within a Region as new services and features aren't available in every Region.
+4. *Pricing* as it varies from region to region
+
+*** AWS Availability Zones
+
+- Each region has many availability zones, /usually 3/ (min is 3, max is 6).
+  - Example: /ap-southeast-2/
+    - ap-southeast-2a
+    - ap-southeast-2b
+    - ap-southeast-2c
+- Each availability zone (AZ) is one or more discrete data centers with redundant power, networking, and connectivity,
+- They are separate from one another to be isolated if any disaster occurs.
+- Connected with high bandwidth, ultra-low latency networking
+
+*** AWS Data Centers
+*** AWS Edge Locations/Points of Presence
