@@ -1,6 +1,6 @@
 * CS Notes
 
-The notes here are from books I am studying from [Teach Yourself Computer Science](https://teachyourselfcs.com). As a self taught software engineer, I want to fill up the knowledge gaps I have from not taking CS in university.
+The notes here are from books I am studying from [[https://teachyourselfcs.com][Teach Yourself Computer Science]]. As a self taught software engineer, I want to fill up the knowledge gaps I have from not taking CS in university.
 
 
 ** Programming Languages
