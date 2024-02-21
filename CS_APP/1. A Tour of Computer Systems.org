@@ -4,14 +4,17 @@
 #+OPTIONS: toc:nil
 
 * TABLE OF CONTENTS :toc:
-- [[#introduction-code---helloc][Introduction Code - hello.c]]
+- [[#introduction-code-helloc][Introduction Code /hello.c/]]
 - [[#11-information-is-bits--context][1.1 Information is Bits + Context]]
 - [[#12-programs-are-translated-by-other-programs-into-different-forms][1.2 Programs Are Translated by Other Programs into Different Forms]]
 - [[#13-it-pays-to-understand-how-compilation-systems-work][1.3 It Pays to Understand How Compilation Systems Work]]
 - [[#14-processor-read-and-interpret-instructions-stored-in-memory][1.4 Processor Read and Interpret Instructions Stored in Memory]]
   - [[#hardware-organization-of-a-system][Hardware Organization of a System]]
+  - [[#running-the-hello-program][Running the ~hello~ Program]]
+- [[#caches-matter][Caches Matter]]
+- [[#memory-hierarchy][Memory Hierarchy]]
 
-* Introduction Code - hello.c
+* Introduction Code /hello.c/
 #+begin_src c
   #include <stdio.h>
 
@@ -67,6 +70,26 @@
 
 - *Buses* is a colletion of electrical conduits that runs through a system and is responsible for carrying fixed size chunks of bytes, known as /words/, back and forth between components.
 - *I/O Devices* are a systems connection to the external world and is connected to the I/O bus by either a /controller/, which are chips printed on the motherboard, or an /adapter/, which plugs into a motherboard.
-- *Main Memory*
+- *Main Memory* which consists of a collection of /dynamic random access memory/ (DRAM), temporarily stores the program and data while the processor executes the program.
+- *Processor* (CPU) executes/interprets the program stored in memory pointed at by the /program counter/ then updates the /PC/ to point at the next instruction for the processor to run.
+_ /*ALU*/ (Arithmetic/Logic Unit) is responsible for computing new data and address values.
+
+** Running the ~hello~ Program
+
+1. We input ~./hello~ in our keyboard that the shell reads to a register and stores it in memory until we hit ~<RET>~ signifying that we have finished executing that command.
+2. The shell loads the executable ~hello~ and copies the code and data in ~hello~ from disk to main memory (called /direct memory access/ (DMA) where data travels from the disk to main memory without passing through the processor).
+3. Processor executes the instructions in ~hello~ program's ~main~ routine (or function).
+4. The instructions to print (~printf~) the bytes in ~hello, world\n~ string from memory to register to display device.
+
+* Caches Matter
+
+- Running the ~hello~ program creates a lot of work by copying instructions from one component to the next which slows down the program.
+- *Cache memories* (/caches/) serves as a temporary staging area for information that the processor might need in the future.
+- There are different levels to caches (L1, L2, L3, ...) from fastest but with the least storage to slowest but with more storage and are implemented with a hardware technology called /static random access memory/ (SRAM).
+- Caching can make a system have a more larger and faster memory by exploiting /locality/, where data and code are in localized regions.
+  
+  [[file:../resources/cache-memory.png]]
+
+* Memory Hierarchy
 
 
