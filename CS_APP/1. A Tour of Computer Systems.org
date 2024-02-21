@@ -22,6 +22,7 @@
 - [[#important-themes][Important Themes]]
   - [[#amdahls-law][Amdahl's Law]]
   - [[#concurrency-and-parallelism][Concurrency and Parallelism]]
+  - [[#importance-of-abstractions][Importance of Abstractions]]
 
 * Introduction Code /hello.c/
 #+begin_src c
@@ -172,4 +173,28 @@ Highlighting important concepts that cut across all aspects of computer systems
 
 ** Concurrency and Parallelism
 
-- /Concurrency/ 
+- /Concurrency/ refers to a system with multiple, simultaneous activities.
+- /Parallelism/ refers to the use of concurrency to make a system run faster.
+- Parallelism can be exploted at multiple levels of abstraction in a computer system.
+
+- *Thread-Level Concurrency*
+  - With threads we can have multiple control flows executing a single process which allows multiple users to interact with a system at the same time or a single user to engage in multiple tasks concurrently.
+  - /Hyperthreading/ allows a single CPU to execute multiple flows of control.
+  - Multiprocessing, the use of multiple processors on a system, can improve system performance by reducing the need for concurrency for performing multiple tasks and to run single applications faster.
+
+  [[file:../resources/uniprocessor-vs-multiprocessor.png]]
+
+  [[file:../resources/multicore-processor-organization.png]]
+
+- *Instruction-Level Parallelism*
+  - Execution of multiple instructions at one time at a much lower level abstraction.
+  - /Pipelining/ are actions required to execute an instruction are partitioned into different steps.
+  - /Superscalar/ processors are processors that can sustain execution rates faster then 1 instruction per cycle.
+
+- *Single-Instruction, Multiple-Data (SIMD) Parallelism*
+  - Single instruction to cause multiple operations to be performed in parallel.
+  - Provided mostly to speed up applications that process images, sound, and video data.
+
+** Importance of Abstractions
+- Abstractions are one of the most important concepts in computer science where an example would be programmers using an API without having to delve into its inner workings.
+- Along with the introduced OS abstractions, we add another one called the /virtual machine/ which provides abstraction of the entire computer.
