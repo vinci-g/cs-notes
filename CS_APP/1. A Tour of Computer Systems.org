@@ -13,6 +13,8 @@
   - [[#running-the-hello-program][Running the ~hello~ Program]]
 - [[#caches-matter][Caches Matter]]
 - [[#memory-hierarchy][Memory Hierarchy]]
+- [[#os-manages-the-hardware][OS Manages the Hardware]]
+  - [[#processes][Processes]]
 
 * Introduction Code /hello.c/
 #+begin_src c
@@ -92,4 +94,30 @@ _ /*ALU*/ (Arithmetic/Logic Unit) is responsible for computing new data and addr
 
 * Memory Hierarchy
 
+[[file:../resources/memory-hierarchy.png]]
 
+- Storage at one level serves as a cache for the lower level.
+- From top to bottom, the devices become slower, larger, and less cost per byte.
+
+* OS Manages the Hardware
+
+- When the ~hello~ program was loaded, neither did it access our I/O devices or memory but it relied on the services provided by the OS.
+
+[[file:../resources/os-system.png]]
+
+- All attempts by the application to manipulate the hardware must go through the OS.
+- The OS protects the hardware from misuse by runaway applications and provide applications to manipulate complicated hardware devices.
+- The OS achieves its purpose via the fundamental abstractions, /processes/, /virtual memory/, and /files/.
+- Files are absstractions for I/O devices, virtual memory for main memory and disk, and processes for processor, main memory, and I/O devices.
+
+[[file:../resources/os-abstraction.png]]
+
+** Processes
+
+- A process gives the illusion that a program is the only one running in a system.
+- Multiple processes can run concurrently on a system by having a single CPU do /context switching/ (switching between programs).
+- When a processor does context switching, the OS saves the /context/ (state) of the current process and /switches/ to another process wherein the OS loads the state of that process.
+
+[[file:../resources/context-switching.png]]
+
+- 
