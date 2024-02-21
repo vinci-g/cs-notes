@@ -20,6 +20,9 @@
 - [[#aws-cloud-overview][AWS Cloud Overview]]
   - [[#aws-cloud-use-cases][AWS Cloud Use Cases]]
   - [[#aws-global-infrastructure][AWS Global Infrastructure]]
+- [[#shared-responsibility-model--aws-acceptance-policy][Shared Responsibility Model & AWS Acceptance Policy]]
+  - [[#shared-responsibility][Shared Responsibility]]
+  - [[#aws-acceptance-policy][AWS Acceptance Policy]]
 
 * Traditional IT Overview
 ** How websites work
@@ -196,5 +199,30 @@ The downsides:
 - They are separate from one another to be isolated if any disaster occurs.
 - Connected with high bandwidth, ultra-low latency networking
 
-*** AWS Data Centers
 *** AWS Edge Locations/Points of Presence
+
+- Amazon has 400+ Points of Presence (400+ Edge Locations & 10+ Regional Caches) across 90+ cities across 40+ regions.
+- Content is delivered to end users with the lowest latency possible
+
+* Shared Responsibility Model & AWS Acceptance Policy
+** Shared Responsibility
+*Customer* = Responsibility for security *IN* the cloud
+*AWS* = Responsibility for security *OF* the cloud
+
+| Customer                                                        | AWS                                    |
+|-----------------------------------------------------------------+----------------------------------------|
+| Customer Data                                                   | Software                               |
+| Platform, Applications, Identity & Access Management            | Compute, Storage, Database, Networking |
+| OS, Network & Firewall Configuration                            | Hardware/AWS Global Infrastructure     |
+| Client Sida Data Encryption & Data Integrity Authentication     | Regions                                |
+| Server-Side Encryption (File System and/or Data)                | Availability Zones                     |
+| Networking Traffic Protection (Encryption, Integrity, Identity) | Edge Locations                         |
+
+Reference: [[https://aws.amazon.com/compliance/shared-responsibility-model][Shared Responsibility Model]]
+
+** AWS Acceptance Policy
+
+- No illegal, harmful, or offensive use of content
+- No security violations
+- No network abuse
+- No e-mail or other message abuse    
