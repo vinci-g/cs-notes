@@ -1,0 +1,72 @@
+#+TITLE:Chapter 1. A Tour of Computer Systems
+#+AUTHOR: vinci_g
+#+DESCRIPTION: CS:APP Chapter 1
+#+OPTIONS: toc:nil
+
+* TABLE OF CONTENTS :toc:
+- [[#introduction-code---helloc][Introduction Code - hello.c]]
+- [[#11-information-is-bits--context][1.1 Information is Bits + Context]]
+- [[#12-programs-are-translated-by-other-programs-into-different-forms][1.2 Programs Are Translated by Other Programs into Different Forms]]
+- [[#13-it-pays-to-understand-how-compilation-systems-work][1.3 It Pays to Understand How Compilation Systems Work]]
+- [[#14-processor-read-and-interpret-instructions-stored-in-memory][1.4 Processor Read and Interpret Instructions Stored in Memory]]
+  - [[#hardware-organization-of-a-system][Hardware Organization of a System]]
+
+* Introduction Code - hello.c
+#+begin_src c
+  #include <stdio.h>
+
+  int main(void)
+  {
+    printf("hello, world\n");
+    return 0;
+  }
+#+end_src
+
+* 1.1 Information is Bits + Context
+
+- The ~hello~ program (source file) which a programmer creates is a sequence of bits organized in 8bit chunks called bytes.
+- Each character is represented with a unique byte size interger value using the ASCII standard.
+- Each character in a source file is represented with unique byte size interger values following the ASCII standard.
+- A source file which is consists of exclusively ASCII characters are called *text files* and all other kinds of files are known as *binary files*.
+  - *Text files*: only ASCII characters
+  - *Binary files*: all other files
+- All information in a system is represented by a bunch of bits.
+
+* 1.2 Programs Are Translated by Other Programs into Different Forms
+
+- To run ~hello.c~ (source file) in a system, it must be translated to *machine language* instructions and packaged as a *executable object program*.
+- A *compiler driver* (in this case ~GCC~ for ~C~ programs) is used to translate source file to object file and undergoes four phases called the *compilation system*.
+
+#+begin_src bash
+  linux> gcc -o hello hello.c
+#+end_src
+
+#+begin_quote
+~gcc~ is the compiler, -o is an argument/option to *output* the source code, ~hello~ is the name of the executable, and ~hello.c~ is our source file
+#+end_quote
+
+
+- *Preprocessor Phase* modifies the source code according to the directives (begins with ~#~) and outputs text file with ~.i~ suffix.
+- *Compilation Phase* translates ~.i~ file to ~.s~ which is a text file that contains *assembly language*.
+- *Assembly Phase* packages the assembly program (~.s~) to a form known as *relocatable object program* with ~.o~ suffix which is a binary file.
+- *Linking Phase* merges our ~hello.o~ object file and ~printf.o~ object file with the ~printf~ function to create an ~executable~ that we can run on our system.
+
+[[file:../resources/compilation-system.png]]
+
+* 1.3 It Pays to Understand How Compilation Systems Work
+
+- Programmers need to understand how the compilation system work so as to *optimize program performance* by writing more efficient code, *understanding link-time errors* by resolving hard errors related to the linker, and *avoiding security holes* by understanding how data and control information are stored on a program stack.
+
+* 1.4 Processor Read and Interpret Instructions Stored in Memory
+
+- The *shell* is a command-line interpreter that prints a prompt and executes commands typed by the user.
+
+** Hardware Organization of a System
+
+[[file:../resources/hardware-organization.png]]
+
+- *Buses* is a colletion of electrical conduits that runs through a system and is responsible for carrying fixed size chunks of bytes, known as /words/, back and forth between components.
+- *I/O Devices* are a systems connection to the external world and is connected to the I/O bus by either a /controller/, which are chips printed on the motherboard, or an /adapter/, which plugs into a motherboard.
+- *Main Memory*
+
+
