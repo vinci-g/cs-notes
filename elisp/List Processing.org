@@ -12,6 +12,24 @@
 - [[#symbol-names-and-function-definitions][Symbol Names and Function Definitions]]
 - [[#the-lisp-interpreter][The Lisp Interpreter]]
   - [[#complications][Complications]]
+- [[#byte-compiling][Byte Compiling]]
+- [[#evaluation][Evaluation]]
+  - [[#how-the-lisp-interpreter-acts][How the Lisp Interpreter Acts]]
+  - [[#evaluating-inner-lists][Evaluating Inner Lists]]
+- [[#variables][Variables]]
+  - [[#example-variable][Example Variable]]
+  - [[#error-message-for-symbol-without-a-function][Error Message for Symbol Without a Function]]
+  - [[#error-message-for-a-symbol-without-a-value][Error Message for a Symbol Without a Value]]
+- [[#arguments][Arguments]]
+  - [[#data-types][Data Types]]
+  - [[#an-argument-as-the-value-of-a-variable-or-list][An Argument as the Value of a Variable or List]]
+  - [[#variable-number-of-arguments][Variable Number of Arguments]]
+  - [[#using-the-wrong-type-object-as-an-argument][Using the Wrong Type Object as an Argument]]
+  - [[#the-message-function][The 'message' Function]]
+- [[#setting-the-value-of-a-variable][Setting the Value of a Variable]]
+  - [[#using-setq][Using 'setq']]
+  - [[#counting][Counting]]
+- [[#exercises][Exercises]]
 
 * Lisp Lists
 
@@ -103,6 +121,335 @@ A symbol can have only one function definition attached to it at a time.
 
 1. The interpreter can evaluate a symbol not surrounded by parentheses and will attempt to determine the symbol's value as a /variable/.
 2. Some functions are unusual and does not work in the usual manner, called /special forms/, used for special jobs like defining a function.
-3. If the function that the Lisp interpreter is looking at is not a special for and if it is part of a list, the interpreter looks to see whether the list has a list inside of it, and so on. The interpreter works on the innermost list first, otherwise the interpreter works left to right, from one expression to the next.   
+3. If the function that the Lisp interpreter is looking at is not a special for and if it is part of a list, the interpreter looks to see whether the list has a list inside of it, and so on. The interpreter works on the innermost list first, otherwise the interpreter works left to right, from one expression to the next.
 
 /Macros/ translates a Lisp expression into another expression that is evaluated in place of the original expression.
+
+* Byte Compiling
+
+The Lisp interpreter is able to interpret human readable code, and /byte compiled/ code which runs faster than human readable code.
+
+~byte-compile-file~ is a command used to compile human readable code to byte compiled code and stored in a file with ~.elc~ suffix.
+
+* Evaluation
+
+** How the Lisp Interpreter Acts
+
+After evaluating, the Lisp interpreter will either /return/ a value or produce an error message.
+
+At the same time the interpreter returns a value, it may also produce a side effect like moving the cursor or copy a file.
+
+** Evaluating Inner Lists
+
+When the interpreter evaluates a list with an inner list, as mentioned before, it evaluates the innermost first and uses the return value to be used for the outer list.
+
+#+begin_src emacs-lisp
+  (+ 2 (+ 3 3))
+#+end_src
+
+#+RESULTS:
+: 8
+
+The interpreter evaluates ~(+ 3 3)~ first then proceeds to do ~(+ 2 6)~.
+
+Placing the cursor right after a parenthesis evaluates that expression using that parenthesis. Placing it right after a number prints the number itself.
+
+* Variables
+
+A symbol that has a value, like a number or name, is called a /variable/.
+
+A symbol can have both a function definition and a value attached to it at the same time.
+
+** Example Variable
+
+Take for example ~fill-column~ which is a symbol with a value attached to it.
+
+#+begin_src emacs-lisp
+  fill-column
+#+end_src
+
+#+RESULTS:
+: 70
+
+We can also /bind/ the variable to a value such as number, string, or list. We can also bind a variable to a function definition.
+
+** Error Message for Symbol Without a Function
+
+We did not put ~fill-column~ inside as a parenthesis because we did not intend to use it as a function name. Like discussed before, when evaluating a list, the interpreter checks for the first symbol and treats it as a function.
+
+If we evaluate ~(fill-column)~, we'll get an error ~void-function fill-column~.
+
+** Error Message for a Symbol Without a Value
+
+Evaluating a symbol that does not have a value, like ~+~ will return an error, ~void-variable +~ since ~+~ does not have a value attached to it.
+
+* Arguments
+
+Arguments are the atoms or lists that follow a function. An example is ~(+ 2 2)~ where ~+~ is the function and ~2~ and ~2~ are arguments.
+
+** Data Types
+
+The type of data that should be passed on to a function depends on what kind of information it uses. ~+~ for example must have arguments that are numbers.
+
+~concat~ function uses string arguments as it links together two or more strings.
+
+#+begin_src emacs-lisp
+  (concat "abc" "def")
+#+end_src
+
+#+RESULTS:
+: abcdef
+
+~substring~ uses both string and numbers as arguments. Takes three arguments ~(substring STRING FROM TO)~ where ~STRING~ is a string of characters, ~FROM~ (inclusive) is the beginnering and ~TO~ (exclusive) is the end.
+
+#+begin_src emacs-lisp
+  (substring "the quick brown fox" 16 19)
+#+end_src
+
+#+RESULTS:
+: fox
+
+#+begin_comment
+The Emacs help system can help on knowing how a function works by ~M-x describe-function <RET> <function-name>~ which shows the documentation of the function specified.
+#+end_comment
+
+** An Argument as the Value of a Variable or List
+
+An argument can be a symbol that returns a value when it is evaluated. An example is ~fill-column~ which returns a number.
+
+#+begin_src emacs-lisp
+  (+ 2 fill-column)
+#+end_src
+
+#+RESULTS:
+: 72
+
+Any number value assigned to fill column will be added to ~2~ in this example.
+
+An argument can also be a list that returns a value when evaluated.
+
+#+begin_src emacs-lisp
+  (concat "The " (number-to-string (+ 2 fill-column)) " red foxes")
+#+end_src
+
+#+RESULTS:
+: The 72 red foxes
+
+** Variable Number of Arguments
+
+Functions such as ~concat~, ~+~, or ~*~, can take any number of arguments.
+
+#+begin_src emacs-lisp
+  (+ 3 4 5)
+#+end_src
+
+#+RESULTS:
+: 12
+
+#+begin_src emacs-lisp
+  (* 3 4 5)
+#+end_src
+
+#+RESULTS:
+: 60
+
+** Using the Wrong Type Object as an Argument
+
+Passing a wrong argument type produces an error.
+
+#+begin_src emacs-lisp
+  (+ 2 'hello)
+#+end_src
+
+~wrong-type-argument number-or-marker-p hello~
+
+~number-or-marker-p~ tells what kind of argument ~+~ expected. It is saying that the Lisp interpreter is trying to determine whether the argument presented is a number or a marker (a special object representing a buffer position).
+
+The ~p~ stands for /predicate/ which refers to a function to determine whether some property is true or false. Other functions like ~zerop~ test whether its argument has a value of zero, and ~listp~ that tests if an argument is a list.
+
+~number-or-marker-p~ basically tells us that this function is checking whether we have number or marker and returns true if yes otherwise false.
+
+The last part of the error message ~hello~ is the symbol causing the error.
+
+** The 'message' Function
+
+The ~message~ function takes a variable number of arguments and is used to send messages to the user.
+
+#+begin_src emacs-lisp
+  (message "This message appears in the echo area")
+#+end_src
+
+#+RESULTS:
+: This message appears in the echo area
+
+The whole string is a single argument. If there is a ~%s~ in the quoted string of characters, the ~message~ function does not print ~%s~ but looks to the argument that follows the string (much like ~printf~ in C).
+
+#+begin_src emacs-lisp
+  (message "The name of the buffer is: %s." (buffer-name))
+#+end_src
+
+#+RESULTS:
+: The name of the buffer is: List Processing.org.
+
+The function ~buffer-name~ returns the name of the buffer as a string which the ~message~ function inserts in place of ~%s~.
+
+~%d~ prints a value as an integer.
+
+If there is more than one ~%s~ in the quoted string, it is replaced by the arguments in that order.
+
+#+begin_src emacs-lisp
+  (message "There are %d %s in the office!"
+           (- fill-column 14) "pink elephants")
+#+end_src
+
+#+RESULTS:
+: There are 56 pink elephants in the office!
+
+The interpreter evaluates the inner function first then replaces ~%d~ and ~%s~ in the order of the arguments.
+
+#+begin_src emacs-lisp
+  (message "He saw %d %s"
+           (- fill-column 32)
+           (concat "red "
+                   (substring
+                    "The quick brown foxes jumped." 16 21)
+                   " leaping."))
+#+end_src
+
+#+RESULTS:
+: He saw 38 red foxes leaping.
+
+* Setting the Value of a Variable
+
+To bind a variable to a value we can use ~setq~ or ~let~.
+
+** Using 'setq'
+
+#+begin_src emacs-lisp
+  (setq flowers '(rose violet daisy buttercup))
+#+end_src
+
+#+RESULTS:
+| rose | violet | daisy | buttercup |
+
+#+begin_src emacs-lisp
+  flowers
+#+end_src
+
+#+RESULTS:
+| rose | violet | daisy | buttercup |
+
+We bound the symbol ~flowers~ to the list ~'(rose violet daisy buttercup)~ using setq and evaluating ~flowers~ returns us the list.
+
+Evaluating the variable with a quote will return the variable itself.
+
+#+begin_src emacs-lisp
+  'flowers
+#+end_src
+
+#+RESULTS:
+: flowers
+
+~setq~ also permits setting up several variables to different values all in one expression.
+
+#+begin_src emacs-lisp
+  (setq carnivores '(lion tiger jaguar)
+        trees '(pine fir oak maple)
+        herbivores '(gazelle antelope zebra))
+#+end_src
+
+#+begin_src emacs-lisp
+  carnivores
+#+end_src
+
+#+RESULTS:
+| lion | tiger | jaguar |
+
+#+begin_src emacs-lisp
+  trees
+#+end_src
+
+#+RESULTS:
+| pine | fir | oak | maple |
+
+#+begin_src emacs-lisp
+  herbivores
+#+end_src
+
+#+RESULTS:
+| gazelle | antelope | zebra |
+
+We can also say that ~setq~ makes the symbol *point* to the list.
+
+** Counting
+
+#+begin_src emacs-lisp
+  (setq counter 0)
+#+end_src
+
+#+RESULTS:
+: 0
+
+#+begin_src emacs-lisp
+  (setq counter (+ counter 1))
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src emacs-lisp
+  counter
+#+end_src
+
+#+RESULTS:
+: 1
+
+* Exercises
+
+1. Generate an error message by evaluating an appropriate symbol that is not within parentheses
+
+   #+begin_src emacs-lisp
+     +
+   #+end_src
+
+~+~ is not a variable so evaluating it as one would return an error ~void-variable +~
+
+2. Generate an error message by evaluating an appropriate symbol that is between parentheses.
+
+   #+begin_src emacs-lisp
+     (fill-column)
+   #+end_src
+
+   ~fill-column~ is a variable and not a function. When evaluating a list without a preceding quote, the interpreter takes the first symbol on the list and evaluates it as a function, therefore in this case, it returns an error ~void-function fill-column~.
+
+3. Create a counter that increments by two rather than one.
+
+   #+begin_src emacs-lisp
+     (setq counter 0)
+   #+end_src
+
+   #+RESULTS:
+   : 0
+
+   #+begin_src emacs-lisp
+     (setq counter (+ counter 2))
+   #+end_src
+
+   #+RESULTS:
+   : 2
+
+   #+begin_src emacs-lisp
+     counter
+   #+end_src
+
+   #+RESULTS:
+   : 2
+
+4. Write an expression that prints a message in the echo area when evaluated.
+
+   #+begin_src emacs-lisp
+     (message "hello world!")
+   #+end_src
+
+   #+RESULTS:
+   : hello world!
