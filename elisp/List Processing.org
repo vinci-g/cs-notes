@@ -1,0 +1,108 @@
+#+TITLE: List Processing
+#+AUTHOR: vinci_g
+#+DESCRIPTION: Intro to Elisp - Ch1. List Processing
+#+OPTIONS: toc:nil
+
+* Table of Contents :toc:
+- [[#lisp-lists][Lisp Lists]]
+  - [[#numbers-lists-inside-of-lists][Numbers, Lists inside of Lists]]
+  - [[#lisp-atoms][Lisp Atoms]]
+  - [[#whitespace-in-lists][Whitespace in Lists]]
+- [[#run-a-program][Run a program]]
+- [[#symbol-names-and-function-definitions][Symbol Names and Function Definitions]]
+- [[#the-lisp-interpreter][The Lisp Interpreter]]
+  - [[#complications][Complications]]
+
+* Lisp Lists
+
+Lists are the basis of Lisp and is defined by being bound by parentheses.
+
+A list looks like this:
+#+begin_src emacs-lisp
+  '(roses violet daisy buttercup)
+
+  '(roses
+    violet
+    daisy
+    buttercup)
+#+end_src
+
+** Numbers, Lists inside of Lists
+
+Lists can also have numbers in them.
+
+#+begin_src emacs-lisp
+  (+ 2 2)
+#+end_src
+
+In Lisp, both data and programs are represented the same way, they are both lists of words, numbers or other lists, separated by whitespace and surrounded parentheses.
+
+Example of another list with a list inside of it:
+#+begin_src emacs-lisp
+  '(this list has (a list inside of it))
+#+end_src
+
+** Lisp Atoms
+
+Atoms in lists are basically the /symbols/, /variables/, /words/, /numbers/, etc. that is surrounded by parentheses and separated from each other by whitespace.
+
+A list can have just one atom or none at all (which looks like this ~()~), called an "empty list" (which is considered both an atom and a list at the same time).
+
+Printed representation of both atoms and lists are called *symbolic expressions* or /s-expressions/.
+
+The atoms of a list are unsplittable.
+
+/Numbers/ such as 1, 26, 88, as well as /symbols/ such as ~+~, ~foo~, or ~forward-line~ are all atoms.
+
+Text between double quotation marks is also an atom which is called a /string/ and is used for messages that a compter can print for a human to read.
+
+#+begin_src emacs-lisp
+  '(this list includes "text between quotation marks.")
+#+end_src
+
+** Whitespace in Lists
+
+The amount of whitespace in a list does not matter and is designed just to make a list more readable.
+
+#+begin_src emacs-lisp
+  '(this is
+         a list)
+#+end_src
+
+Is the same as:
+
+#+begin_src emacs-lisp
+  '(this is a list)
+#+end_src
+
+* Run a program
+
+A single apostrophe ~'~ when preceding a list tells Lisp to do nothing with the list other than take it as it is written.
+
+If there is no quote preceding a list, the first item of the list is special as it is a command for the computer to obey (functions).
+
+#+begin_src emacs-lisp
+  (+ 2 2)
+#+end_src
+
+The list above does not have a beginning quote so Lisp understands that ~+~ is a function to do something with the rest of the list: that is to add the numbers that follow.
+
+To run/evaluate the last expression, ~C-x C-e~ runs ~eval-last-sexp~ (cursor should be placed immediately after the right hand parenthesis).
+
+* Symbol Names and Function Definitions
+
+A symbol can have only one function definition attached to it at a time.
+
+* The Lisp Interpreter
+
+1. Looks whether we have a quoted list
+2. If there is then the interpreter just gives us the list, if there is none, the interpreter looks at the first element and sees if it has a function definition
+3. If it does, the interpreter carries on with evaluating, otherwise the interpreter prints an error message.
+
+** Complications
+
+1. The interpreter can evaluate a symbol not surrounded by parentheses and will attempt to determine the symbol's value as a /variable/.
+2. Some functions are unusual and does not work in the usual manner, called /special forms/, used for special jobs like defining a function.
+3. If the function that the Lisp interpreter is looking at is not a special for and if it is part of a list, the interpreter looks to see whether the list has a list inside of it, and so on. The interpreter works on the innermost list first, otherwise the interpreter works left to right, from one expression to the next.   
+
+/Macros/ translates a Lisp expression into another expression that is evaluated in place of the original expression.
