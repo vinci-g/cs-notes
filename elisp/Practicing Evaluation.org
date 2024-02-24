@@ -1,0 +1,6 @@
+#+TITLE: Practicing Evaluation
+#+AUTHOR: vinci_g
+#+DESCRIPTION: Intro to Elisp - Ch2. Practicing Evaluation
+#+OPTIONS: toc:nil
+
+* Table of Contents :toc:

@@ -1,2 +1,49 @@
-# Representing and Manipulating Information
+#+TITLE:Chapter 2. Representation and Manipulating Information
+#+AUTHOR: vinci_g
+#+DESCRIPTION: CS:APP Chapter 2
+#+OPTIONS: toc:nil
 
+* TABLE OF CONTENTS :toc:
+- [[#information-storage][Information Storage]]
+  - [[#hexadecimal-notation][Hexadecimal Notation]]
+
+* Information Storage
+
+Computers use blocks of 8 bits, known as /bytes/ as the smallest unit of memory.
+
+A program views a large array of bytes as /virtual memory/.
+
+An /address/ is the unique number identifier for each byte.
+
+A set of all possible address is known as the /virtual address space/.
+
+/Program objects/ are program data, instructions, and control information.
+
+** Hexadecimal Notation
+
+Hexadecimal are bit patterns as base-16 and uses digits 0 through 9 along with characters A through F to represent 16 possible values, written with numeric constants starting with ~0x~ or ~0X~.
+
+Supposed you are given ~0x173A4C~. Converting to binary:
+
+| Hexadecimal |    1 |    7 |    3 |    A |    4 |    C |
+| Binary      | 0001 | 0111 | 0011 | 1010 | 0100 | 1100 |
+
+The binary representation is ~000101110011101001001100~
+
+On another note, for converting binary number to hexadecimal, you should split it into 4 bits each starting from the right as the /leftmost/ group should be the group with fewer than 4 bits, padding that group with leading zeroes.
+
+For binary number ~1111001010110110110011~
+
+| Binary      | 11 | 1100 | 1010 | 1101 | 1011 | 0011 |
+| Hexadecimal |  3 |    C |    A |    D |    B | 3    |
+
+*** Converting Decimal to Hexadecimal
+1. Divide the decimal number by 16
+2. The remainder to be multiplied by 16 (or we can just use modulus operator)
+3. The remainder will be converted to hexadecimal and is the least significant digit (to be put at the rightmost side)
+4. The quotient of the preceding division operation (integer) will be used to repeat the steps
+5. Repeat until the last decimal digit is less than 16
+6. Get the hex values and write it from right to left (reverse of our operation) since the last remainder will be the most significant digit and the first one is the least significant
+
+*** Converting Hexadecimal to Decimal
+1. Multiply each hexadecimal digit by the appropriate power of 16.
