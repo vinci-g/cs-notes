@@ -65,3 +65,64 @@ A. ~0x503c + 0x8~ = ~0x5044~
 B. ~0x503c - 0x40~ = ~0x4ffc~
 C. ~0x503c + 64~ = ~0x503c +  0x40~ = ~0x507c~
 D. ~0x50ea - 0x503c~ = ~0x00ae~ = ~0xae~
+
+* Practice Problem 2.5
+
+For ~int val = 0x87654321~
+
+|   | Little endian | Big endian |
+| A | 21            | 87         |
+| B | 21 43         | 87 65      |
+| C | 21 43 65      | 87 65 43   |
+
+Take note that little endian will list the bytes from least significant to most and big endian from most significant to least.
+
+* Practile Problem 2.6
+
+For integer ~3510593~, the hexadecimal representation is ~0x00359141~.
+For float ~3510593.0~, the hexadecimal representation is ~0x4A564504~.
+
+Writing the binary representations
+
+| Hexadecimal | Binary                                  |
+|  0x00359141 | 0000 0000 0011 0101 1001 0001 0100 0001 |
+|  0x4A564504 | 0100 1010 0101 0110 0100 0101 0000 0100 |
+
+Determining the matching bits:
+
+00000000001 *101011001000101000001*
+  010010100 *101011001000101000001* 00
+
+A total of 21 matching bits shown in bold charaters and the other ones does not match.
+
+* Practice Problem 2.7
+
+~61 62 63 64 65 66~
+
+* Practice Problem 2.8
+
+| Operation | Result     |
+| a         | [01101001] |
+| b         | [01010101] |
+| ~a        | [10010110] |
+| ~b        | [10101010] |
+| a & b     | [01000001] |
+| a \vert b     | [01111101] |
+| a ^ b     | [00111100] |
+
+* Practice Problem 2.9
+
+| R | G | B | Color   | Complement (in RGB) | Complementary Color |
+| 0 | 0 | 0 | Black   |                 111 | White               |
+| 0 | 0 | 1 | Blue    |                 110 | Yellow              |
+| 0 | 1 | 0 | Green   |                 101 | Magenta             |
+| 0 | 1 | 1 | Cyan    |                 100 | Red                 |
+| 1 | 0 | 0 | Red     |                 011 | Cyan                |
+| 1 | 0 | 1 | Magenta |                 010 | Green               |
+| 1 | 1 | 0 | Yellow  |                 001 | Blue                |
+| 1 | 1 | 1 | White   |                 000 | Black               |
+
+Blue | Green = Cyan (011)
+Yellow & Cyan = Green (010)
+Red ^ Magenta = Blue (001)
+

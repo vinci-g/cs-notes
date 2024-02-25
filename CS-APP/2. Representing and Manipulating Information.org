@@ -6,6 +6,11 @@
 * TABLE OF CONTENTS :toc:
 - [[#information-storage][Information Storage]]
   - [[#hexadecimal-notation][Hexadecimal Notation]]
+  - [[#data-sizes][Data Sizes]]
+  - [[#addressing-and-byte-ordering][Addressing and Byte Ordering]]
+  - [[#representing-strings][Representing Strings]]
+  - [[#representing-code][Representing Code]]
+  - [[#introduction-to-boolean][Introduction to Boolean]]
 
 * Information Storage
 
@@ -47,3 +52,154 @@ For binary number ~1111001010110110110011~
 
 *** Converting Hexadecimal to Decimal
 1. Multiply each hexadecimal digit by the appropriate power of 16.
+
+** Data Sizes
+
+The virtual address for a machine can range from 0 to 2^w bytes wherein /w/ is the word size.
+
+The shift from 32-bit machines with 32-bit word sizes to 64 bits increased the size limits of the virtual address space from 4 GB (4 x 10^9 bytes) to 16 /exabytes/ (around 1.84 x 10^19 bytes).
+
+64-bit machines can also run programs compiled for use on 32-bit machines.
+
+Running the gcc flag ~-m32~ can run on 64-bit machines but running ~-m64~ will not work on 32-bit machines. The flags are a way to specify to the compiler on how a program should run depending on the machine's architecture.
+
+#+begin_src
+  linux> $ gcc -m32 prog.c
+#+end_src
+
+#+begin_src
+  linux> $ gcc -m64 prog.c
+#+end_src
+
+The exact numbers of bytes for some data types depends on how the program is compiled.
+
+Integer data can either be /signed/ which can represent -, 0, and + values while /unsigned/ only represents + values.
+
+| Signed        | Unsigned       | 32-bit | 64-bit |
+| [signed] char | unsigned char  |      1 |      1 |
+| short         | unsigned short |      2 |      2 |
+| int           | unsigned       |      4 |      4 |
+| long          | unsigned long  |      4 |      8 |
+| char *        |                |      4 |      8 |
+| float         |                |      4 |      4 |
+| double        |                |      8 |      8 |
+
+To avoid having different data type sizes for different compiler settings, ISO C99 introduced data types whose sizes are fixed regardless of compiler and machine settings like ~int32_t~ and ~int64_t~
+
+** Addressing and Byte Ordering
+
+Multi-byte objects are stored as a *contiguous* sequence of bytes with the address of the object being the smallest address of the bytes used.
+
+Example: Variable ~x~ of type ~int~ (assuming 32-bit representation) has address ~0x100~ with the 4 bytes of ~x~ stored in ~0x100, 0x101, 0x102, and 0x103~
+
+The convention for machines that store objects in memory ordered from the least significant byte to the most is referred to as /little endian/ while vice versa is referred to as /big endian/.
+
+Example:
+Variable ~x~ of type ~int~ at address ~0x100~ with hexadecimal value of ~0x01234567~
+
+Big endian
+|     | 0x100 | 0x101 | 0x102 | 0x103 |     |
+| ... |    01 |    23 |    45 |    67 | ... |
+
+Little endian
+|     | 0x100 | 0x101 | 0x102 | 0x103 |     |
+| ... |    67 |    45 |    23 |    01 | ... |
+
+Byte ordering for machines becomes fixed once a particular OS is chosen.
+
+Byte ordering for programmers are totally invisible and compiled programs give identical results however, it becomes an issue when binary data are communicated over a network between different machines that have different conventions.
+
+To avoid these problems, code for networking follow an establised convention to make sure the sending machine converts its representation to the network standard, then the receiving machine converts that to its internal representation.
+
+Another case where byte ordering is important is looking at the bytes sequence representing integer data which often happens when inspecting machine-level programs.
+
+The following code block occurs in a file that gives a text representation of the machine-level code for an *Intel x86-64 processor*. Do take note that /most/ intel processors operate in /little endian/ mode.
+
+#+begin_src
+  4004d3: 01 05 43 0b 20 00       add
+  %eax,0x200b43(%rip)
+#+end_src
+
+The code states that the hexadecimal byte sequence ~01 05 43 0b 20 00~ is a byte level representation of an instruction that adds the word data to the value stored at an address computed by adding ~0x200b43~ to the current value of the program counter.
+
+Taking the last 4 bytes of the sequence ~43 0b 20 00~ and writing it in reverse order, we get ~0x200b43~ (dropping the leading zeroes in the process) which is the numeric value written.
+
+#+begin_quote
+Not thinking about how the code runs but about memory addressing an byte ordering, using /little endian/ convention, and how bytes are stored in interpreted.
+#+end_quote
+
+A third case where byte ordering becomes visible are when programs are written circumvent the normal type system (to allow an object to be referenced to a different data type from which it was created).
+
+#+begin_src c
+  #include <stdio.h>
+
+  typedef unsigned char *byte_pointer;
+
+  void show_bytes(byte_pointer start, size_t len) {
+    int i;
+    for (i = 0; i < len; i++)
+      printf("%.2x", start[i]);
+    printf("\n");
+  }
+
+  void show_int(int x) {
+    // show_bytes((byte_pointer) &;x, sizeof(int)); (shown in the book, ChatGPT tells that &;x is wrong)
+    show_bytes((byte_pointer) &x, sizeof(int));
+
+  }
+
+  void show_float(float x) {
+    show_bytes((byte_pointer) &x, sizeof(float));
+  }
+
+  void show_pointer(void *x) {
+    show_bytes((byte_pointer) &x, sizeof(void *));
+  }
+
+  // book code for show_float and show_pointer just uses & and not &x which raises an error
+  // < operator in loop also raises an error for different type comparison where i is an int and len is an unsigned long
+#+end_src
+
+The code above uses casting to circumvent the type system.
+
+Running the code on different machines shows that we get identical results for all machines except for the byte ordering. Pointer values on the other hand have completely different byte representations depending the byte address used (4-byte or 8-byte).
+
+For the numeric value ~12,345~, we get different byte patterns for integers (~0x00003039~) and floating point (~0x4640E400~) as the two formats have different encoding schemes. 
+
+** Representing Strings
+
+A string is an array of characters terminated by the null character (value of 0).
+
+For ~"12345"~ and ~len = 6~ to include the terminating character, the result would be ~31 32 33 34 35 00~. Observe that for decimal digit ~x~ ASCII code is ~0x3x~ and the terminating byte is represented as ~0x00~.
+
+** Representing Code
+
+#+begin_src c
+  int sum(int x, int y) {
+    return x + y;
+  }
+#+end_src
+
+When the code above is compiled on different machines, we get different byte representation for each as different machine types use different and incompatible instruction encodings showing that binary code is seldom (or not) portable across different combinations of machine and OS.
+
+** Introduction to Boolean
+
+*** Algebra
+1 and 0 have encoded values as ~TRUE~ and ~FALSE~.
+
+**** Bitwise Operators
+
+| Operator | Description                                                       |
+| ~ (NOT)  | Inverts bit values                                                |
+| & (AND)  | Takes two operands, the result is 1 if both bits are 1            |
+| \vert (OR)   | Takes two operands, the result is 1 if any of the two bits is 1   |
+| ^ (XOR)  | Takes two operands, the result is 1 if the two bits are different |
+
+We can extend the operators to also operate on /bit vectors/ (strings of zeroes and ones of fixed length).
+
+Example:
+For ~w (length) = 4~ and arguments ~a=[0110] and b=[1100]~. Using the four operations a&b, a|b, a^ b, ~b yield
+
+~0110&11000100‾0110|11001110‾0110^ 11001010‾~11000011~
+
+Dividing it for readability: ~0110&1100 0100 0110|1100 1110 0110^ 1100 1010 ~1100 0011~
