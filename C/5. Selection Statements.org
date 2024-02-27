@@ -68,3 +68,43 @@ To make our conditional statements more cleaner, it is advised to use curly brac
 #+end_src
 
 *** Conditional Expressions
+
+#+begin_src c
+  expr1 ? expr2 : expr3
+#+end_src
+
+The conditional operator is just like ternary operators in JavaScript, indicating that /if expr1, then expr2, else expr3/.
+
+Boolean type is not present in *C89* and to work around this, we declare a variable as ~int~ and declare either 0 or 1.
+
+We can also define macros such as ~TRUE~ or ~FALSE~.
+
+#+begin_src c
+  #define TRUE 1
+  #define FALSE 0
+
+  ...
+  int flag;
+
+  flag = 0;
+  ...
+  flag = 1;
+
+  // in testing if true or false
+  if (flag == TRUE)
+  ...
+  if (flag)
+
+  if (flag == FALSE)
+  ...
+  if (!flag)
+#+end_src
+
+For *C99*, we are introduced the type ~_Bool~ (an unsigned interger type) and can only be assigned 0 or 1. Storing a non-zero variable value will cause the variable to be assigned 1.
+
+#+begin_src c
+  _Bool flag;
+#+end_src
+
+We can also use a new header ~<stdbool.h>~
+
