@@ -1,16 +1,18 @@
-# Selection Statments
+#+TITLE: Chapter 5. Selection Statements
+#+AUTHOR: vinci_g
+#+DESCRIPTION: C Programming - A Modern Approach Chapter 5
 
-## Logical Expressions
+* Logical Expressions
 
 Relational operators like <, >, <=, and >= produces 0 (false) or 1 (true).
 
 Equality operators, which tests for equality between two values (==(equal to) and !=(not equal to)) and have lower precedence over relational operators
 
-Logical operators !(unary, inverts the value), &&(produces 1 if both values are non zero), and ||(binary, produces one if either value is non zero)
+Logical operators !(unary, inverts the value), &&(produces 1 if both values are non zero), and \vert\vert(binary, produces one if either value is non zero)
 
-## The `if` Statement
+* The ~if~ Statement
 
-``` c
+#+begin_src c
   if (n < 0) {
     printf("n is less than 0\n");
    }
@@ -30,43 +32,39 @@ Logical operators !(unary, inverts the value), &&(produces 1 if both values are 
 
    else 
      printf("n is greater than 0\n");
-```
+#+end_src
 
-Example Program: [broker.c](./sample-program/broker.c)
+Example Program: [[file:sample-program/broker.c][broker.c]]
 
-When `if` statements are nested, we have to watch out for a dangling `else`.
+When ~if~ statements are nested, we have to watch out for a dangling ~else~.
 
-``` c
+#+begin_src c
   if (y != 0)
     if (x != 0)
       result = x/y;
     else
       printf("Error: y is equal to 0\n")
-```
+#+end_src
 
-The code above suggests through indentation that the `else` statement belongs to the inner `if` but that is simply not true. C follows a rule that an `else` statement belongs to the nearest `if` statement, so the code above looks like this
+The code above suggests through indentation that the ~else~ statement belongs to the inner ~if~ but that is simply not true. C follows a rule that an ~else~ statement belongs to the nearest ~if~ statement, so the code above looks like this
 
-``` c
+#+begin_src c
   if (y != 0)
     if (x != 0)
       result = x/y;
-    else
-      printf("Error: y is equal to 0\n")
-```
+  else
+    printf("Error: y is equal to 0\n")
+#+end_src
 
 To make our conditional statements more cleaner, it is advised to use curly braces.
 
-``` c
+#+begin_src c
   if (y != 0) {
     if (x != 0)
       result = x/y;    
    }
    else
      printf("Error: y is equal to 0\n")
-```
+#+end_src
 
-### Conditional Expressions
-
-```c
-  expr1 ? expr2 : expr3
-```
+*** Conditional Expressions
