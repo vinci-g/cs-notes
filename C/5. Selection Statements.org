@@ -1,6 +1,12 @@
 #+TITLE: Chapter 5. Selection Statements
 #+AUTHOR: vinci_g
 #+DESCRIPTION: C Programming - A Modern Approach Chapter 5
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#logical-expressions][Logical Expressions]]
+- [[#the-if-statement][The ~if~ Statement]]
+- [[#the-switch-statement][The ~switch~ Statement]]
 
 * Logical Expressions
 
@@ -52,8 +58,8 @@ The code above suggests through indentation that the ~else~ statement belongs to
   if (y != 0)
     if (x != 0)
       result = x/y;
-  else
-    printf("Error: y is equal to 0\n")
+    else
+      printf("Error: y is equal to 0\n")
 #+end_src
 
 To make our conditional statements more cleaner, it is advised to use curly braces.
@@ -92,12 +98,12 @@ We can also define macros such as ~TRUE~ or ~FALSE~.
 
   // in testing if true or false
   if (flag == TRUE)
-  ...
-  if (flag)
+    ...
+    if (flag)
 
-  if (flag == FALSE)
-  ...
-  if (!flag)
+    if (flag == FALSE)
+      ...
+      if (!flag)
 #+end_src
 
 For *C99*, we are introduced the type ~_Bool~ (an unsigned interger type) and can only be assigned 0 or 1. Storing a non-zero variable value will cause the variable to be assigned 1.
@@ -106,5 +112,56 @@ For *C99*, we are introduced the type ~_Bool~ (an unsigned interger type) and ca
   _Bool flag;
 #+end_src
 
-We can also use a new header ~<stdbool.h>~
+We can also use a new header ~<stdbool.h>~ which provides ~bool~ macro, ~true~ and ~false~.
+
+#+begin_src c
+  #include <stdbool.h>
+
+  ...
+
+  bool flag;
+  flag = false;
+  flag = true;
+#+end_src
+
+* The ~switch~ Statement
+
+The ~switch~ statement is an alternative to ~if~ statments.
+
+#+begin_src c
+  if (grade == 4)
+    printf("Excellent");
+   else if (grade == 3)
+     printf("Good");
+   else if (grade == 2)
+     printf("Average");
+   else if (grade == 1)
+     prinf("Poor");
+   else if (grade == 0)
+     printf("Failing");
+   else
+     printf("Illegal grade");
+#+end_src
+
+#+begin_src c
+  switch (grade) { // grade must be an integer
+    // case constant expression - must not be/contain variable of function calls and must be an integer
+   case 4: print("Excellent");
+     break;
+   case 3: print("Good");
+     break;
+   case 2: print("Average");
+     break;
+   case 1: print("Poor");
+     break;
+   case 0: print("Failing");
+     break;
+   default: printf("Illegal grade");
+     break;
+   }
+#+end_src
+
+A ~switch~ statement is often faster than ~if~ statements especially for more cases.
+
+The ~break~ statement is used to 'break' out of the ~switch~ statement.
 
