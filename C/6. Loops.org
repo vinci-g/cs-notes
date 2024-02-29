@@ -3,4 +3,39 @@
 #+DESCRIPTION: C Programming - A Modern Approach Chapter 6
 #+OPTIONS: toc
 
+* Table of Contents :toc:
+- [[#the-while-statment][The ~while~ Statment]]
+  - [[#examples][Examples]]
+- [[#the-do-statement][The ~do~ Statement]]
+  - [[#examples-1][Examples]]
+- [[#the-for-statement][The ~for~ Statement]]
+
 * The ~while~ Statment
+#+begin_src c
+  while (expression) statement;
+#+end_src
+
+A ~while~ statement won't terminate if the controlling expression always has a non-zero value.
+
+** Examples
+[[file:sample-program/square.c][Using while loop to print a table of squares given an input number - square.c]]
+[[file:sample-program/sum.c][Adding a series of input integers - sum.c]]
+
+* The ~do~ Statement
+#+begin_src c
+  do statement while (expression);
+#+end_src
+
+~do while~ statements are the opposite of ~while~ statements, wherein the statement is executed first then the controlling expression is evaluated.
+
+Although ~while~ statements are more common, ~do~ statements are handy when we want to have a loop that must execute at least once.
+
+** Examples
+[[file:sample-program/numdigits.c][Counting the number of digits from an input integer - numdigits.c]]
+
+* The ~for~ Statement
+#+begin_src c
+  for (expr1 ; expr2 ; expr3) statement;
+#+end_src
+
+~expr1~ is the initialization step, ~expr2~ controls loop termination, ~expr3~ is an operation performed at the end of each loop iteration.
