@@ -1,0 +1,6 @@
+#+TITLE: Chapter 6. Loops
+#+AUTHOR: vinci_g
+#+DESCRIPTION: C Programming - A Modern Approach Chapter 6
+#+OPTIONS: toc
+
+* The ~while~ Statment
