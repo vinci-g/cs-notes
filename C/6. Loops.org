@@ -9,8 +9,11 @@
 - [[#the-do-statement][The ~do~ Statement]]
   - [[#examples-1][Examples]]
 - [[#the-for-statement][The ~for~ Statement]]
+  - [[#omitting-expressions-in-a-for-statement][Omitting Expressions in a ~for~ Statement]]
+- [[#the-comma-operator][The Comma Operator]]
 
 * The ~while~ Statment
+
 #+begin_src c
   while (expression) statement;
 #+end_src
@@ -22,6 +25,7 @@ A ~while~ statement won't terminate if the controlling expression always has a n
 [[file:sample-program/sum.c][Adding a series of input integers - sum.c]]
 
 * The ~do~ Statement
+
 #+begin_src c
   do statement while (expression);
 #+end_src
@@ -34,8 +38,33 @@ Although ~while~ statements are more common, ~do~ statements are handy when we w
 [[file:sample-program/numdigits.c][Counting the number of digits from an input integer - numdigits.c]]
 
 * The ~for~ Statement
+
 #+begin_src c
   for (expr1 ; expr2 ; expr3) statement;
 #+end_src
 
 ~expr1~ is the initialization step, ~expr2~ controls loop termination, ~expr3~ is an operation performed at the end of each loop iteration.
+
+** Omitting Expressions in a ~for~ Statement
+C allows us to omit any or all expressions.
+
+If these expressions are omitted:
+- ~first~ expression: no initialization is performed before the loop is executed.
+- ~second~ expression: defaults to ~true~ so the loop doesn't terminate (infinite loop).
+- ~third~ expression: the loop body is responsible for changing the value of the ~second~ expression to become ~false~.
+
+If the ~first~ & ~third~ expressions are omitted, then the loop behaves just like a ~while~ loop.
+
+* The Comma Operator
+
+Used in for loops.
+
+#+begin_src c
+  expr1 , expr2
+#+end_src
+
+Evaluation:
+1. ~expr1~ is evaluated and its value is discarded
+2. ~expr2~ is evaluated and its value is the entire expression
+
+~expr1~ should always have a side effect.   
