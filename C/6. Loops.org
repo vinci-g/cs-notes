@@ -15,6 +15,8 @@
   - [[#the-break-statement][The ~break~ Statement]]
   - [[#the-continue-statement][The ~continue~ Statement]]
   - [[#the-goto-statement][The ~goto~ Statement]]
+- [[#the-null-statement][The Null Statement]]
+  - [[#example][Example]]
 
 * The ~while~ Statment
 
@@ -128,3 +130,24 @@ When used, ~continue~ skips the rest of loop body but remains inside the loop.
   else
     printf("%d is prime\n", n);
 #+end_src
+
+* The Null Statement
+
+A statement can be *null*--devoid of symbols except for the semicolon at the end.
+
+** Example
+
+#+begin_src C
+  for (d = 2; d < n && n % d != 0; d++)
+    /* empty loop body */ ;
+
+  // notice how we put the null statement on a line by itself
+#+end_src
+
+Take note that we should be mindful not to accidentally put a semicolon after the parenthesis of a controlling expression.
+
+- For ~if~: the statement is performed regardless of the controlling expression.
+- For ~while~: causes an infinite loop or the loop is only executed once.
+- For ~for~: the loop body is only executed once.
+
+  
