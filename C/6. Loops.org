@@ -10,7 +10,11 @@
   - [[#examples-1][Examples]]
 - [[#the-for-statement][The ~for~ Statement]]
   - [[#omitting-expressions-in-a-for-statement][Omitting Expressions in a ~for~ Statement]]
-- [[#the-comma-operator][The Comma Operator]]
+  - [[#the-comma-operator][The Comma Operator]]
+- [[#exiting-from-a-loop][Exiting from a Loop]]
+  - [[#the-break-statement][The ~break~ Statement]]
+  - [[#the-continue-statement][The ~continue~ Statement]]
+  - [[#the-goto-statement][The ~goto~ Statement]]
 
 * The ~while~ Statment
 
@@ -55,7 +59,7 @@ If these expressions are omitted:
 
 If the ~first~ & ~third~ expressions are omitted, then the loop behaves just like a ~while~ loop.
 
-* The Comma Operator
+** The Comma Operator
 
 Used in for loops.
 
@@ -67,4 +71,60 @@ Evaluation:
 1. ~expr1~ is evaluated and its value is discarded
 2. ~expr2~ is evaluated and its value is the entire expression
 
-~expr1~ should always have a side effect.   
+~expr1~ should always have a side effect.
+
+* Exiting from a Loop
+
+** The ~break~ Statement
+
+The ~break~ statement can also be used to jump out of a ~while~, ~do~, or ~for~ loop and is useful for writing loops in which the exit point is in the middle of the body.
+
+It can escape only one level of nesting.
+
+** The ~continue~ Statement
+
+~continue~ doesn't actually end/exit a loop and instead, control remains inside the loop. It also is limited to be used inside a loop and cannot be used inside a ~switch~ statement.
+
+When used, ~continue~ skips the rest of loop body but remains inside the loop.
+
+
+#+begin_src C
+  n = 0;
+  sum = 0;
+
+  while (n < 10) {
+    scanf("%d", &i);
+    if (i == 0)
+      continue;
+    sum += i;
+    n++;
+    // continue jumps to here
+  }
+#+end_src
+
+** The ~goto~ Statement
+
+~goto~ is capable of jumping to any statement in a function provided that the statement has a /label/.
+
+*C99* placed an additional restriction that it can't be used to bypass the declaration of a variable-length array.
+
+/Label/ is an identifier placed at the beginning of a statement: ~identifier : statement~
+
+~goto~ statement form:
+#+begin_src C
+  goto identifier ;
+#+end_src
+
+*** Example
+
+#+begin_src C
+  for (d = 2; d < n; d++)
+    if (n % d == 0)
+      goto done;
+
+  done:
+  if (d < n)
+    printf("%d is divisible by %d\n", n, d);
+  else
+    printf("%d is prime\n", n);
+#+end_src
