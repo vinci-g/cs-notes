@@ -9,6 +9,12 @@
   - [[#integer-constants][Integer Constants]]
   - [[#integer-overflow][Integer Overflow]]
   - [[#reading-and-writing-integers][Reading and Writing Integers]]
+- [[#floating-types][Floating Types]]
+  - [[#floating-constants][Floating Constants]]
+  - [[#reading-and-writing-floating-point-numbers][Reading and Writing Floating-Point Numbers]]
+- [[#character-types][Character Types]]
+  - [[#operations-on-characters][Operations on Characters]]
+  - [[#signed-and-unsigned-characters][Signed and Unsigned Characters]]
 
 * Integer Types
 
@@ -41,3 +47,70 @@ Overflow happens when we perform arithmetic operations on integers and the resul
 Overflow on /signed/ integers are /undefined/ while defined on /unsigned/ integers.
 
 ** Reading and Writing Integers
+
+| Conversion Specification | Read/Written As |
+|--------------------------+-----------------|
+| %u                       | unsigned int    |
+| %o                       | octal           |
+| %x                       | hexadecimal     |
+| %h<type>                 | short type      |
+| %l<type>                 | long type       |
+| %ll<type>                | long long type  |
+
+
+* Floating Types
+
+C provides three floating point types:
+
+| Type        | Description                       | Smallest Positive Value | Largest Value | Precision |
+|-------------+-----------------------------------+-------------------------+---------------+-----------|
+| float       | single-precision floating point   |           1.17549x10^-38 |  3.40282x10^38 | 6 digits  |
+| double      | double-precision floating point   |          2.22507x10^-308 | 1.79769x10^308 | 15 digits |
+| long double | extended-precision floating point |                         |               |           |
+
+In *C99*, floating types are divided into two categories, the types discussed above are *real floating types* and *complex types*.
+
+** Floating Constants
+
+Floating constants must contain a decimal point and/or an exponent (preceded by the letter "e").
+
+Floating constants are by default set to a ~double~ type which is not a problem as ~doubles~ are converted to ~float~ when necessary.
+
+** Reading and Writing Floating-Point Numbers
+
+| %f | fixed-point notation              |
+| %e | exponential notation              |
+| %g | either fixed point or exponential |
+
+~%l<type>~ for double, ~%L<type>~ for long double.
+
+* Character Types
+
+~char~ is used for character types and can be assigned to any single character.
+
+#+begin_src C
+  char ch;
+
+  ch = 'a';
+  ch = 'A';
+  ch = '0';
+  ch = ' ';
+#+end_src
+
+Notice that character constants are enclosed in single quotes, which identifies it as a single character, for example ~'a'~. Using double quotes identifies it as a string literal which contains the character and a null character (making it a 2 char array).
+
+** Operations on Characters
+
+Characters are in a way, similar to integers wherein we can also do the arithmetic operations that we use for integers on characters. This is because each character has an ASCII value and it uses that to perform arithmetic operations on characters.
+
+#+begin_src C
+  char ch;
+
+  ch = 65; /* evaluates to 'A' */
+  ch += 1 /* evaluates to 'B' */
+#+end_src
+
+** Signed and Unsigned Characters
+
+
+
