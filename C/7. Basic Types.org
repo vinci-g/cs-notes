@@ -1,0 +1,43 @@
+#+TITLE: Chapter 7. Loops
+#+AUTHOR: vinci_g
+#+DESCRIPTION: C Programming - A Modern Approach Chapter 7
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#integer-types][Integer Types]]
+  - [[#signed--unsigned-integers][Signed & Unsigned Integers]]
+  - [[#integer-constants][Integer Constants]]
+  - [[#integer-overflow][Integer Overflow]]
+  - [[#reading-and-writing-integers][Reading and Writing Integers]]
+
+* Integer Types
+
+** Signed & Unsigned Integers
+
+The leftmost bit of a *signed* integer is 0 if the integer is positive or 0, and 1 if negative, while an *unsigned* integer have the leftmost bit to considered to be part of the number's magnitude.
+
+Integer values in C are by default to be signed. Unsigned numbers are primarily used for systems programming.
+
+The order of specifiers for data types doesn't matter; ~unsigned short int~ == ~short unsigned int~.
+
+We can also omit the word ~int~. ~long int~ can just be ~long~, etc.
+
+*** Integer Types in C99
+
+C99 added ~long long int~ and ~unsigned long long int~ which is -2^63 to 2^63 - 1 and 0 to 2^64 - 1 respectively. This is to support 64-bit architecture and the need for very large integers.
+
+** Integer Constants
+
+Can be written as decimal, octal (starts with 0), or hexidecimal (starts with 0x) where octal and hex are the most convenient way to write low-level programs.
+
+The compiler will infer the right type and specifier for a given constant but we can also force it to the constant for a specific type.
+
+Add ~L~ for long, ~U~ for unsigned and ~UL~ or ~LU~ for unsigned long.
+
+** Integer Overflow
+
+Overflow happens when we perform arithmetic operations on integers and the result would be too large to represent.
+
+Overflow on /signed/ integers are /undefined/ while defined on /unsigned/ integers.
+
+** Reading and Writing Integers
