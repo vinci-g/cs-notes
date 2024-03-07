@@ -14,7 +14,10 @@
   - [[#reading-and-writing-floating-point-numbers][Reading and Writing Floating-Point Numbers]]
 - [[#character-types][Character Types]]
   - [[#operations-on-characters][Operations on Characters]]
-  - [[#signed-and-unsigned-characters][Signed and Unsigned Characters]]
+  - [[#arithmetic-types][Arithmetic Types]]
+  - [[#escape-sequences][Escape Sequences]]
+  - [[#reading-and-writing-characters-using-scanf-and-printf][Reading and Writing Characters using ~scanf~ and ~printf~]]
+  - [[#reading-and-writing-characters-using-getchar-and-putchar][Reading and Writing Characters using ~getchar~ and ~putchar~]]
 
 * Integer Types
 
@@ -110,7 +113,44 @@ Characters are in a way, similar to integers wherein we can also do the arithmet
   ch += 1 /* evaluates to 'B' */
 #+end_src
 
-** Signed and Unsigned Characters
+** Arithmetic Types
 
+Collection of integer and floating types.
+
+- Integral Types
+  - char
+  - Signed integer types
+  - Unsigned integer types both standard and extended
+  - Enumerated Types
+- Floating types
+  - Real floating types
+  - Complex types
+
+** Escape Sequences
+
+There are two types of escape sequences: *character* and *numeric escapes*.
+
+| Name            | Escape Sequence |
+| Alert (bell)    | \a              |
+| Backspace       | \b              |
+| Form feed       | \f              |
+| New line        | \n              |
+| Carriage return | \r              |
+| Horizontal tab  | \t              |
+| Vertical tab    | \v              |
+| Backslash       | \\              |
+| Question mark   | \?              |
+| Single quote    | \'              |
+| Double quote    | \"              |
+
+/Character escapes/ does not include all nonprinting ASCII characters, which brings us to /numeric escapes/ that can represent /any/ character.
+
+/Numeric escapes/ are written in octal (doesn't have to begin with 0) or hexadecimal value (must begin with \x (small x)) and are enclosed in single quotes.
+
+** Reading and Writing Characters using ~scanf~ and ~printf~
+
+The ~%c~ conversion specification is used to read and write single characters. Take note that ~scanf~ doesn't skip whitespace characters so doing ~scanf("%c", &ch)~ will include the preceding whitespace character.
+
+** Reading and Writing Characters using ~getchar~ and ~putchar~
 
 
