@@ -18,6 +18,8 @@
   - [[#escape-sequences][Escape Sequences]]
   - [[#reading-and-writing-characters-using-scanf-and-printf][Reading and Writing Characters using ~scanf~ and ~printf~]]
   - [[#reading-and-writing-characters-using-getchar-and-putchar][Reading and Writing Characters using ~getchar~ and ~putchar~]]
+- [[#type-conversion][Type Conversion]]
+  - [[#usual-arithmetic-conversions][Usual Arithmetic Conversions]]
 
 * Integer Types
 
@@ -153,4 +155,33 @@ The ~%c~ conversion specification is used to read and write single characters. T
 
 ** Reading and Writing Characters using ~getchar~ and ~putchar~
 
+~putchar~ writes a single character while ~getchar~ reads one character and returns it.
+
+Using ~putchar~ and ~getchar~ rather than ~printf~ and ~scanf~ saves more time as it is more faster.
+
+*** Warning
+
+Be careful when mixing up ~scanf~ and ~getchar~ as ~scanf~ leaves behind characters that it has peeked at.
+
+Considering the code:
+#+begin_src c
+  printf("Enter an integer: ");
+  scanf("%d", &i);
+  printf("Enter a command: ");
+  command = getchar();
+#+end_src
+
+~scanf~ will leave behind characters that weren't consumed and ~getchar~ will fetch the first leftover character.
+
+* Type Conversion
+
+C allows arithmetic operations on different basic types and can handle it automatically which is called /implicit conversions/, or can involve a programmer using a /cast operator/ called /explicit conversions/.
+
+Implicit conversions are performed in the following situations:
+- Operands in an arithmetic or logical expression don't have the same type. (*Usual arithmetic conversion*)
+- Type of expression on the right side of an assignment does not match the variable type.
+- Argument type in a function call doesn't match the parameter type.
+- Return type doesn't match the function type.
+
+** Usual Arithmetic Conversions
 
