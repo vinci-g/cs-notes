@@ -20,6 +20,12 @@
   - [[#reading-and-writing-characters-using-getchar-and-putchar][Reading and Writing Characters using ~getchar~ and ~putchar~]]
 - [[#type-conversion][Type Conversion]]
   - [[#usual-arithmetic-conversions][Usual Arithmetic Conversions]]
+  - [[#conversion-during-assignment][Conversion During Assignment]]
+  - [[#casting][Casting]]
+- [[#type-definitions][Type Definitions]]
+  - [[#type-definitions-and-portability][Type Definitions and Portability]]
+- [[#the-sizeof-operator][The ~sizeof~ Operator]]
+  - [[#usage][Usage]]
 
 * Integer Types
 
@@ -185,3 +191,54 @@ Implicit conversions are performed in the following situations:
 
 ** Usual Arithmetic Conversions
 
+The strategy behind the usual arithmetic conversion is to convert the narrower operand (the operand that requires fewer bytes to store) to the type of the other operand, known as *promotion*.
+
+The most common promotion are *integral promotions* which convert a ~char~ or ~short int~ to ~int~.
+
+Two cases on performing usual arithmetic conversions:
+1. The type of either operand is a floating type. /float \rArr double \rArr long double/
+2. Neither operand type is a floating type. /int \rArr unsigned int \rArr long int \rArr unsigned long int/
+
+** Conversion During Assignment
+
+The right side of the expression is converted to the type of the variable on the left side if the variable's type is atleast as wide as the expression's.
+
+** Casting
+
+Casting allows us to specify and control type conversions.
+
+#+begin_src C
+  (type name) expression
+#+end_src
+
+Take note that after casting, if the two operands don't have the same type then usual arithmetic conversion is performed before the operation.
+
+Casting is also necessary to avoid overflow. For example, multiplying two large ~ints~ that would resort to a ~long~ would first result in an ~int~ causing overflow even if the variable to store it into is type long. So casting it to ~long~ would avoid causing an overflow.
+
+* Type Definitions
+
+Besides using ~#define~ to create a macro specifying a type, a better way is to use ~typedef~.
+
+#+begin_src C
+  #define BOOL int
+
+  typedef int Bool
+  // capitalizing the first letter is not required but good practice
+#+end_src
+
+Advantages of type definitions are it can make a program more readable and can make it easy to modify.
+
+** Type Definitions and Portability
+
+Type definitions are essential for portability since not all machines are the same and type specification can be different from different machines.
+
+The C library uses ~typedef~ to create names for types that can vary from different C implementations, which usually end with _t.
+
+* The ~sizeof~ Operator
+
+The ~sizeof~ operator (unary) allows a program to determine how much memory is required to store values of particular type.
+
+** Usage
+
+1. Find out the number of elements on an array.
+2. Allocate memory dynamically.
