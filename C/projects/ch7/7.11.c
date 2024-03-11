@@ -5,4 +5,19 @@ int main(void) {
 
     printf("Enter a first name and last name: ");
     scanf(" %c", &initial);
+
+    while ((c = getchar()) != ' ') {
+        ;
+    }
+
+    while ((c = getchar()) == ' ') {
+        ;
+    }
+
+    do {
+        putchar(c);
+    } while (((c = getchar()) != '\n') && (c != ' '));
+
+    printf(", %c.\n", initial);
+    return 0;
 }

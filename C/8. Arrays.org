@@ -1,0 +1,4 @@
+#+TITLE: Chapter 8. Arrays
+#+AUTHOR: vinci_g
+#+DESCRIPTION: C Programming - A Modern Approach Chapter 8
+#+OPTIONS: toc
