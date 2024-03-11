@@ -8,6 +8,10 @@
   - [[#array-subscripting][Array Subscripting]]
   - [[#array-initialization][Array Initialization]]
   - [[#using-the-sizeof-operator-with-arrays][Using the ~sizeof~ Operator with Arrays]]
+- [[#multidimensional-arrays][Multidimensional Arrays]]
+  - [[#initializing-a-multidimensional-array][Initializing a Multidimensional Array]]
+  - [[#constant-arrays][Constant Arrays]]
+- [[#variable-length-arrays-c99][Variable Length Arrays (C99)]]
 
 * One Dimensional Arrays
 An array is a data strucure containing values (called /elements) of the same type.
@@ -64,4 +68,48 @@ Take note that C doesn't check if the subscript is out of bounds and can cause u
 #+end_src
 
 ** Using the ~sizeof~ Operator with Arrays
-~sizeof~ can determine the size of an array in bytes the size of an element.
+~sizeof~ can determine the size of an array in bytes or the size of an element.
+
+#+begin_src C
+  // We can use sizeof to also determine the length of an array, in this case to be used in a loop
+  // This code clears an array
+  for (i = 0; i < sizeof(a) / sizeof(a[0]); i++)
+    a[i] = 0;
+
+  // Using casting so that we compare values of the same type since i = signed int and sizeof = unsigned int
+  for (i = 0; i < (int) (sizeof(a) / sizeof(a[0])); i++)
+    a[i] = 0;
+
+  // And we can also define it in a macro
+  #define SIZE ((int) (sizeof(a) / sizeof(a[0])))
+#+end_src
+
+* Multidimensional Arrays
+#+begin_src C
+  int m[5][9];
+#+end_src
+
+The code above declares a two dimensional array (/matrix/) with 5 rows and 9 columns.
+
+Although we visualize the array as a table, it is actually stored in our machines in *row-major order* (basically one dimensional) where row 0 comes first then row 1, and so on.
+
+Multidimensional arrays play a lesser role in C since C provides a more flexible way to store multidimensional data: *array of pointers*.
+
+** Initializing a Multidimensional Array
+- Nesting one-dimensional initializers.
+  - If the initializer isn't large enough to fill the array, the remaining elements are 0.
+  - If the initializer isn't long enough to fill a row, the remaining elements are 0.
+  - We can omit inner braces. The compiler will fill the next row once it has seen enough values to fill one row.
+
+** Constant Arrays
+We can declare an array to be constant with the word ~const~, saying that it should not be modified. It is useful in array declarations since arrays might contain reference information that won't change during program execution.
+
+* Variable Length Arrays (C99)
+[[file:sample-program/reverse2.c][Variable-Length Array Implementation of reverse.c]]
+
+The benefits of VLA is that the program itself can calculate exactly how many elements are needed.
+
+VLA length can also be specified with an expression and can be multidimensional.
+
+The restrictions of VLA is that they cannot have static storage duration and may not have an initializer. It is often seen in functions other than ~main~.
+
