@@ -2,3 +2,66 @@
 #+AUTHOR: vinci_g
 #+DESCRIPTION: C Programming - A Modern Approach Chapter 8
 #+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#one-dimensional-arrays][One Dimensional Arrays]]
+  - [[#array-subscripting][Array Subscripting]]
+  - [[#array-initialization][Array Initialization]]
+  - [[#using-the-sizeof-operator-with-arrays][Using the ~sizeof~ Operator with Arrays]]
+
+* One Dimensional Arrays
+An array is a data strucure containing values (called /elements) of the same type.
+
+To declare an array, we need to specify the type of the elements and the number of elements.
+#+begin_src C
+  // here we declare an array 'a' with 10 elements of type int
+  int a[10]
+#+end_src
+
+A good practice is to use a macro to define an array length as array lengths may need to be adjusted.
+
+#+begin_src C
+  #define N 10
+  ...
+  int a[N];
+#+end_src
+
+** Array Subscripting
+Each element in an array can be read by subscripting or indexing (~a[1]~) and behaves just like any variable.
+
+Take note that C doesn't check if the subscript is out of bounds and can cause undefined behavior if we go out of range.
+
+** Array Initialization
+#+begin_src C
+  // ways to initalize an array
+  // 1. list of constant expressions enclosed in braces and separated by commas
+  int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  // 2. if the list is longer than the length then remaining values are 0
+  int a[10] = {1, 2, 3, 4, 5, 6};
+  // {1, 2, 3, 4, 5, 6, 0, 0, 0, 0}
+
+  // 3. initialize all to 0
+  int a[10] = {0};
+  // {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+  // 4. initializer cannot be empty and should be <= to the length of the array
+
+  // 5. we can omit the length if the initializer is present
+  // the compiler will use the length of the initializer
+  int a[] = {1, 2, 3, 4, 5, 6, 7, 8};
+  // a will be of 8 length
+#+end_src
+
+*** C99 Designated Initializers
+#+begin_src C
+  int a[15] = {[2] = 29, [9] = 7, [14] = 48};
+  // all other elements in the array would be 0
+
+  int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
+  // we can omit an array length, the compiler will then set the length of the array based on the largest designator
+  // in this case 23 so b will have a length of 24
+#+end_src
+
+** Using the ~sizeof~ Operator with Arrays
+~sizeof~ can determine the size of an array in bytes the size of an element.
