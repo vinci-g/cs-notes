@@ -112,4 +112,3 @@ The benefits of VLA is that the program itself can calculate exactly how many el
 VLA length can also be specified with an expression and can be multidimensional.
 
 The restrictions of VLA is that they cannot have static storage duration and may not have an initializer. It is often seen in functions other than ~main~.
-
