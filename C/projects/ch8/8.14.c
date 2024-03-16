@@ -1,28 +1,36 @@
 #include <stdio.h>
 
+#define MAX_VALUE 100
+
 int main(void) {
-    char sentence[100];
-    char c;
-    int i = 0, j = 0, n = 0;
+
+    int i = 0,
+        j;
+    char c, 
+         terminating_char,
+         words[MAX_VALUE] = {0};
 
     printf("Enter a sentence: ");
-    while ((c = getchar()) != '\n') {
-        if (c == '.' || c == '?' || c == '!') {
+    for (i = 0; (c = getchar()) != '\n' && i < MAX_VALUE; i++) {
+        if (c == '.' || c == '!' || c == '?') {
+            terminating_char = c;
             break;
         }
-        sentence[i++] = c;
-        n++;
+        words[i] = c;
     }
 
-    for (i = n - 1; i >= 0; i--) {
-        if (sentence[i] == ' ') {
-            for (j = i + 1; j <= n - 1; j++) {
-                printf("%c", sentence[j]);
-            }
-            printf(" ");
-            n = i + 1;
-        }
+    printf("Reversal of sentence: ");
+    while (i >= 0) {
+        while (words[--i] != ' ' && i != 0)
+            ;
+        j = i == 0 ? 0 : i + 1;
+        while (words[j] != ' ' && words[j] != '\0')
+            putchar(words[j++]);
+        if (i >= 0)
+            putchar(' ');
     }
-    printf("\n");
+
+    printf("\b%c\n", terminating_char);
+
     return 0;
 }
