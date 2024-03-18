@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-- [Shell Types](##shell-types)
-- [Basic Commands](##basic-commands)
-- [Directories](##directories)
-- [Files](##files)
-- [User Accounts](##user-accounts)
-- [Downloading Files](##downloading-files)
-- [Check OS Version](##check-os-version)
-- [Package Management](##package-management)
-- [Services](##services)
+- [Shell Types](#shell-types)
+- [Basic Commands](#basic-commands)
+- [Directories](#directories)
+- [Files](#files)
+- [User Accounts](#user-accounts)
+- [Downloading Files](#downloading-files)
+- [Check OS Version](#check-os-version)
+- [Package Management](#package-management)
+- [Services](#services)
 
 ## Shell Types
 
@@ -29,8 +29,7 @@ To determine which shell you are on:
 echo $SHELL
 ```
 
-`echo` prints on the screen. `$` (dollar command) specify an environment
-variable
+`echo` prints on the screen. `$` (dollar command) specify an environment variable
 
 ## Basic Commands
 
@@ -95,8 +94,7 @@ cd new_directory; mkdir www; pwd
 
 Package managers help install various software on the Linux system.
 
-*In these examples we will use RPM (Red Hat Package Manager), check
-which package manager your distribution use.*
+*In these examples we will use RPM (Red Hat Package Manager), check which package manager your distribution use.*
 
 | Command                | Function          |
 |------------------------|-------------------|
@@ -104,8 +102,7 @@ which package manager your distribution use.*
 | rpm -e \<package.rpm\> | Uninstall package |
 | rpm -q \<package.rpm\> | Query package     |
 
-`rpm` does not care about dependencies. Package managers like `yum`
-install the packages along with it\'s dependencies.
+`rpm` does not care about dependencies. Package managers like `yum` install the packages along with it\'s dependencies.
 
 | Command                               | Function                                                |
   |---------------------------------------|---------------------------------------------------------|
@@ -117,9 +114,7 @@ install the packages along with it\'s dependencies.
 
 ## Services
 
-Services in Linux allow the user to configure software to run in the
-background all the time and automatically when servers are rebooted,
-while maintaining the right order of start up.
+Services in Linux allow the user to configure software to run in the background all the time and automatically when servers are rebooted, while maintaining the right order of start up.
 
 | Command                             | Function                              |
   |-------------------------------------|---------------------------------------|
@@ -130,11 +125,9 @@ while maintaining the right order of start up.
 | systemctl enable \<service~name~\>  | Configure service to start at startup |
 | systemctl disable \<service~name~\> | Disable a service at startup          |
 
-To use a program as a service, we must configure it by creating a
-`systemd` unit file (may be located at `/etc/systemd/system`).
+To use a program as a service, we must configure it by creating a `systemd` unit file (may be located at `/etc/systemd/system`).
 
-1. Create a `systemd` unit file named as `<name>.service` with the
-   following contents:
+1. Create a `systemd` unit file named as `<name>.service` with the following contents:
 
 ``` 
 # myapp.service
@@ -145,12 +138,9 @@ ExecStart=/usr/bin/python3 /opt/code/my_app.py
 # ExecStart is the command to run the application
 ```
 
-2. Run `systemctl daemon-reload` to let systemd know that there is a
-   new service configured.
+2. Run `systemctl daemon-reload` to let systemd know that there is a new service configured.
 
-3. `systemctl start my_app` to start the service. a.
-   `systemctl status my_app` to check if the service is running and
-   active.
+3. `systemctl start my_app` to start the service. `systemctl status my_app` to check if the service is running and active.
 
 4. `systemctl stop my_app` to stop the active service.
 
@@ -181,5 +171,4 @@ WantedBy=multi-user.target
 # In this case, my_app would run after multi-user target
 ```
 
-a. Then run `systemctl enable my_app` to enable the service to run
-at bootup.
+a. Then run `systemctl enable my_app` to enable the service to run at bootup.
