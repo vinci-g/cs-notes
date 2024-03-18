@@ -6,6 +6,18 @@
     -   [Java Installation](#java-installation)
     -   [Java Development Kit (JDK)](#java-development-kit-jdk)
     -   [Building and Packaging](#building-and-packaging)
+        -   [Compilation](#compilation)
+        -   [Package](#package)
+        -   [Documentation](#documentation)
+    -   [Build Tools](#build-tools)
+-   [NodeJS](#nodejs)
+    -   [Installation](#installation)
+    -   [NPM](#npm)
+-   [Python](#python)
+    -   [Pip](#pip)
+        -   [Requirements](#requirements)
+        -   [Upgrading/Uninstalling a Package](#upgrading/uninstalling-a-package)
+    -   [Other Package Managers](#other-package-managers)
 
 ## Java
 
@@ -106,3 +118,40 @@ Another option to install NodeJS is through NodeSource.
 NodeJS has two types of modules, **built-in modules** which are included when you install NodeJS runtime, and **external modules** which we need to install using NPM.
 
 Application dependencies and scripts are located in `package.json`.
+
+## Python
+
+### Pip
+
+Pip is the Python Package Manager
+
+To install a package, use `pip install <package_name>`
+
+The directory structure of Python packages consist of directories for 32 bit and 64 bit which is important since it can break an application when used in a machine with a different CPU architecture.
+
+To determine where a package is installed, run `pip show <package_name>`
+
+#### Requirements
+
+Instead of installing packages one-by-one, we can move all the packages inside `requirements.txt` and run `pip install -r requirements.txt` to install all the specified packages.
+
+```
+# reqirements.txt
+
+Flask==0.10.1
+Jinja==2.7.3
+requests=2.3.0
+```
+
+#### Upgrading/Uninstall a Package
+
+```shell
+pip install <package_name> --upgrade
+
+pip uninstall <package_name>
+```
+
+### Other Package Managers
+
+1. easy-install: search, find, and install `.egg` Python packages
+2. wheels: install `.whl` packages (must be unpacked first before installing)
