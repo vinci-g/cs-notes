@@ -7,6 +7,8 @@
 - [Web Frameworks](#web-frameworks)
 - [Web Servers](#web-servers)
 	- [Apache Web Server](#apache-web-server)
+	- [Python Flask](#python-flask)
+	- [ExpressJS](#expressjs)
 
 ## Introduction
 
@@ -135,9 +137,55 @@ tar xvf <tomcat_package>
 ./<apache_tomcat>/bin/startup.sh
 ```
 
+Directory structure:
+
+- `bin` - contains scripts needede to operate the web server
+- `conf` - contains config files
+	- `server.xml` file contains the `connector` where requests are received, port 8080 by default
+- 
+
 Steps to host web apps in Apache Tomcat:
 
 1. Package the application to a `.war` file (web archive) using `jar`, maven, or gradle.
+	i. `jar -cvf app.war *`
+		a. `jar` is the Java Archive Tool command.
+		b. `-c` "create a new archive"
+		c. `-v` "verbose (detailed output)"
+		d. `-f app.war` specify the name of the archive
+		e. `*` match all files and dir in the current directory
 2. Move the packaged file inside `webapps` directory inside Apache Tomcat directory.
-3. We can check the logs if the app is hosted.
+3. We can check the logs if the app is hosted (in `catalina.out`).
 4. View the app in the browser at `localhost:<PORT>/<app_name>`
+
+### Python Flask
+
+Some tools used to deploy Flask applications in production are:
+
+1. Gunicorn
+	i. `gunicon main:app -w 2`
+		a. `main`: file name
+		b. `app`: flask instance
+		c. `-w 2`: use 2 workers
+2. uWSGI
+3. Gevent
+4. Twisted Web
+
+### ExpressJS
+
+Some tools used to deploy an ExpressJS app in production are:
+
+1. supervisord
+2. forever
+3. pm2
+
+## IP and Ports
+
+IP addresses are assigned when a machine is connected to a network via ethernet cable, WiFi, etc.
+
+The command `ip addr show` shows the interface and its IP address.
+
+Each of these network interface are divided into multiple logical components known as *ports* that are a communication endpoint where programs can listen to for requests.
+
+Specifying the `host` as `0.0.0.0` on an application listens to all interfaces on the specified port.
+
+Not specifying the `host` defaults to `127.0.0.1` which is the address for the loopback interface, which is also known as `localhost`. Note that all host has a built in loopback interface.
