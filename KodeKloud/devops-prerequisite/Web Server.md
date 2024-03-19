@@ -4,6 +4,9 @@
 
 -	[Introduction](#introduction)
 	-	[Servers](#servers)
+- [Web Frameworks](#web-frameworks)
+- [Web Servers](#web-servers)
+	- [Apache Web Server](#apache-web-server)
 
 ## Introduction
 
@@ -42,3 +45,99 @@ Some popular web frameworks are:
 3. Django (Python)
 4. Flask (Python)
 
+Web frameworks basically provides an easy way to develop web applications where web servers can listen requests, perform an operation, and send back data.
+
+## Web Server
+
+While a web framework helps in developing the application, a web server hosts the application.
+
+**Web Servers** (can be referred to as *static web servers*) are servers that host static websites.
+
+**Application Servers** are servers that host dynamic websites.
+
+### Apache Web Server
+
+1. Open source
+2. Web server
+
+To install and start Apache Web Server:
+
+```shell
+yum install httpd
+
+# to run
+service httpd start
+
+# to view the status
+service httpd status
+```
+
+Logs can be seen at:
+
+- `/var/log/httpd/access_log`
+- `/var/log/httpd/error_log`
+
+Every server also has a configuration file where we can govern how the server operates, stored at `/etc/httpd/conf/httpd.conf`
+
+A single Apache server can host multiple websites and for that work, the files and config of each website is configured as a *virtual host* within the Apache config file which we can configure to each have its own server name and document root.
+
+Even if the server can host multiple websites, all of these are in a single IP and port. The Apache server is just intelligent enough to determine the name and redirect the user request to the particular directory or path.
+
+Every change in the config needs a restart: `service httpd restart`
+
+Multiple configuration structure:
+
+- `/etc/httpd/conf/httpd.conf`
+- `/etc/httpd/conf/houses.conf`
+- `/etc/httpd/conf/oranges.conf`
+
+*@httpd.conf*
+```
+Listen 80
+
+DocumentRoot "var/www/html"
+
+ServerName www.houses.com:80
+
+Include conf/houses.conf
+Include conf/oranges.conf
+```
+
+*@houses.conf*
+```
+<VirtualHost *:80>
+	ServerName www.oranges.com
+	DocumentRoot var/www/oranges
+</VirtualHost>
+```
+
+*@oranges.conf*
+```
+<VirtualHost *:80>
+	ServerName www.houses.com
+	DocumentRoot var/www/houses
+</VirtualHost>
+```
+
+### Apache Tomcat
+
+Basic installation setup for Apache Tomcat:
+
+```shell
+yum install <java_jdk>
+
+wget <tomcat_download_url>
+
+# extract the tar package
+tar xvf <tomcat_package>
+
+# run installation script
+./<apache_tomcat>/bin/startup.sh
+```
+
+Steps to host web apps in Apache Tomcat:
+
+1. Package the application to a `.war` file (web archive) using `jar`, maven, or gradle.
+2. Move the packaged file inside `webapps` directory inside Apache Tomcat directory.
+3. We can check the logs if the app is hosted.
+4. View the app in the browser at `localhost:<PORT>/<app_name>`
