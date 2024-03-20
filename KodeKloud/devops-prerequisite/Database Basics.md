@@ -63,3 +63,22 @@ GRANT ALL PRIVILEGES ON *.* TO 'john'@'%';
 
 SHOW GRANTS FOR 'john'@'localhost';
 ```
+
+## MongoDB
+
+MongoDB is a NoSQL database that stores data as a **document**. Multiple documents form a **collection**. Multiple collections form a **database**. Multiple databases can be hosted a single MongoDB server.
+
+MongoDB config files can be seen and modified inside `/etc/mongod.conf`
+
+Mongo shell commands:
+
+|Command                                 |Function                                             |
+|----------------------------------------|-----------------------------------------------------|
+|mongo                                   |Create Mongo shell instance                          |
+|show dbs                                |Show list of databases                               |
+|use <db_name>                           |Create/Switch databases                              |
+|db                                      |Determine current database                           |
+|db.createCollection("<collection_name>")|Create a collection inside the current database      |
+|show collections                        |List collections                                     |
+|db.collection.insert({<data>})          |Insert a document in a collection                    |
+|db.collection.find({<data?>})           |Retrieves a document or all documents in a collection|
