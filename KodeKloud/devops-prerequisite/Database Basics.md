@@ -3,6 +3,9 @@
 ## Table of Contents
 
 - [MySQL](#mysql)
+	-[Privileges](#privileges)
+- [MongoDB](#mongodb)
+
 
 ## MySQL 
 
@@ -34,13 +37,13 @@ CREATE USER 'john'@'localhost' IDENTIFIED BY 'MyNewPass4!';
 
 `localhost` here in the query specifies in which system the user can connect. We can put a specific address in place of `localhost` or we can allow the user to connect to all systems by using the `%` symbol.
 
-### Priviliges
+### Privileges
 
-We use the `GRANT` command to grant priviliges to a certain user.
+We use the `GRANT` command to grant privileges to a certain user.
 
-|PERMISSION    |PRIVILIGES             |
+|PERMISSION    |PRIVILEGES             |
 |--------------|-----------------------|
-|ALL PRIVILIGES|Grants all access      |
+|ALL PRIVILEGES|Grants all access      |
 |CREATE        |Create databases       |
 |DROP          |Delete databases       |
 |DELETE        |Delete rows from tables|
