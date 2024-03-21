@@ -1,9 +1,5 @@
 # Security
 
-## Table of Contents
-
-## TLS Certficates
-
 Ensure communication between the user and the server is encrypted and trusted.
 
 **Symmetric encryption** is a type of encryption that uses the same key to encrypt and decrypt a data and is passed between the sender and the reciever.
@@ -23,8 +19,14 @@ For OpenSSL that is used for SSL/TLS protocols:
 openssl genrsa -out my-bank.key 1024
 ```
 
-The command generates a 1024 bit RSA key and writes it to a file called `private.key`.
+The command above generates a 1024 bit RSA key and writes it to a file called `my-bank.key`.
 
 ```shell
-openssl rsa -in private.key -pubout > p
+openssl rsa -in my-bank.key -pubout > my-bank.pem
 ```
+
+The command above generates a public key at `my-bank.pem`.
+
+To ensure that certificates are secure, it should be approved and validated by a *Certficate Authority*.
+
+Public keys normally have the `.crt` or `.pem` extension and private keys usually have `.key` or `*-key.pem` extensionprivate.
