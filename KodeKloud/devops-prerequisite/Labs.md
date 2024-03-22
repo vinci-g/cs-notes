@@ -1,4 +1,4 @@
-# Lab Setup
+# Labs
 
 Setting a local lab can help with practicing own custom solutions.
 
