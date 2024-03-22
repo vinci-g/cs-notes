@@ -2,6 +2,9 @@
 
 ## Table of Contents
 
+- [YAML](#yaml)
+- [JSON](#json)
+
 ## YAML
 
 Key-Value pair syntax:
@@ -41,4 +44,25 @@ Grapes:
 	Carbs: 3 g
 ```
 
-## JSON and JSON Path
+# JSON
+
+JSON is just like JavaScript syntax.
+
+Additional notes:
+
+- A dollar symbol denotes the root.
+- Results are encapsulated in an array.
+
+For specifying a criteria in an array:
+
+```json
+$[?(@>40)]
+```
+
+The code above queries the list and check if (`?`) each (`@`) item in the array is greater than 40 (`>40`).
+
+For criteria in dictionaries:
+
+```json
+$.car.wheels[?(@.location == "rear-right")].model
+```
