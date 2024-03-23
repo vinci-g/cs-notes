@@ -6,16 +6,28 @@
     - Explicitly declare and isolate dependencies.
     - Different programming languages implement their own way to isolate dependencies. For example, Python uses virtual environments. But for cases that dependencies are supposed to be present in the system and not for the codebase, another way is to use Docker for creating containers that generates a self hosted environment isolated from the host system.
 3. Config
+    - Store config in environment variables.
 4. Backing Services
-    - 
+    - Backing services should be treated as attached resources.
 5. Build, Release, Run
+    - Use strict separation of build, release, and run stages.
+
 6. Processes
     - Tweleve factor processes are stateless and share nothing.
     - Sticky sessions are a violation of the methodology.
 7. Port Binding
+    - App should be self contained and does not rely on a specific web server to run.
 8. Concurrency
     - Processes are a first class citizen. Applications should scale out horizontally and not vertically by running multiple instances of the application concurrently.
 9. Disposability
+    - Process should be disposable and can be started/stopped at a moments notice.
+    - Process should shut down *gracefully* when recieving a SIGTERM signal from a process manager.
 10. Dev/Prod Parity
+    - The app is designed for continuous development by keeping the gap between dev and prod small.
+    - Developers should resist the urge to use different backing operations between different environments.
 11. Logs
+    - The app should not concern itself with routing or storage of its output stream.
+    - Store logs in a centralized location in a structured format.
+    - fluentd, ELK stack, and Splunk are some examples of logging solutions.
 12. Admin Processes
+    - Admin task should be separate from the application processes and that it should be run on an identical setup.
