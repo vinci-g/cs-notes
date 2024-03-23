@@ -7,8 +7,11 @@
     - Different programming languages implement their own way to isolate dependencies. For example, Python uses virtual environments. But for cases that dependencies are supposed to be present in the system and not for the codebase, another way is to use Docker for creating containers that generates a self hosted environment isolated from the host system.
 3. Config
 4. Backing Services
+    - 
 5. Build, Release, Run
 6. Processes
+    - Tweleve factor processes are stateless and share nothing.
+    - Sticky sessions are a violation of the methodology.
 7. Port Binding
 8. Concurrency
     - Processes are a first class citizen. Applications should scale out horizontally and not vertically by running multiple instances of the application concurrently.
