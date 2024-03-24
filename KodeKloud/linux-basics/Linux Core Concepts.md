@@ -1,14 +1,14 @@
-# Linux Kernel
+# Linux Core Concepts
 
 ## Table of Contents
 
-- [Linux Kernel Introduction](#linux-kernel-introduction)
+- [Linux Kernel](#linux-kernel)
 - [Working with Hardware](#working-with-hardware)
 - [Linux Boot Sequence](#linux-boot-sequence)
 - [Runlevels](#runlevels)
 - [File Types](#file-types)
 
-## Linux Kernel Introduction
+## Linux Kernel
 
 A *kernel* is the interface between the hardware and the computers processes and is responsible for four major tasks:
 
