@@ -1,0 +1,34 @@
+#+TITLE: Functions
+#+AUTHOR: vinci_g
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#defining-and-calling-functions][Defining and Calling Functions]]
+  - [[#function-definitions][Function Definitions]]
+  - [[#function-calls][Function Calls]]
+  - [[#function-declarations][Function Declarations]]
+
+* Defining and Calling Functions
+A function that returns a value: [[file:sample-program/average.c][average.c]].
+A function that does not return a value: [[file:sample-program/countdown.c][countdown.c]].
+A function that does not return a value and does not need arguments: [[file:sample-program/pun2.c][pun2.c]].
+
+** Function Definitions
+General form of a function definition:
+#+begin_src
+  return-type function-name ( parameters )
+  {
+    declarations
+    statements
+  }
+#+end_src
+
+*C99* requires a return type while *C89* assumes a return type of ~int~ if none is specified.
+
+** Function Calls
+Calling a non-void functions produces a value and can be assigned to a variable.
+
+Example: [[file:sample-program/prime.c][prime.c]]
+
+** Function Declarations
+

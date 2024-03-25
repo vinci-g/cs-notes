@@ -11,6 +11,7 @@
   - [[#representing-strings][Representing Strings]]
   - [[#representing-code][Representing Code]]
   - [[#introduction-to-boolean][Introduction to Boolean]]
+  - [[#bit-level-operations-in-c][Bit-Level Operations in C]]
 
 * Information Storage
 
@@ -203,3 +204,17 @@ For ~w (length) = 4~ and arguments ~a=[0110] and b=[1100]~. Using the four opera
 ~0110&11000100‾0110|11001110‾0110^ 11001010‾~11000011~
 
 Dividing it for readability: ~0110&1100 0100 0110|1100 1110 0110^ 1100 1010 ~1100 0011~
+
+** Bit-Level Operations in C
+A feature in C is that we can also use bitwise Boolean operators and can be applied to any "integral" data type.
+
+| C Expression    | Binary Expression             | Binary Result | Hexadecimal Result |
+|-----------------+-------------------------------+---------------+--------------------|
+| ~0x41           | ~[0100 0001]                  | [1011 1110]   |               0xBE |
+| ~0x00           | ~[0000 0000]                  | [0000 0000]   |               0xFF |
+| 0x69 & 0x55     | [0110 1001] & [0101 0101]     | [0100 0001]   |               0x41 |
+| 0x69 \vert 0x55 | [0110 1001] \vert [0101 0101] | [0111 1101]   |               0x7D |
+
+The best way to determine the effect of a bit-level expression is to convert the hexadecimal representation to binary, perform the operation, and convert back to hexadecimal representation.
+
+
