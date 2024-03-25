@@ -7,6 +7,9 @@
   - [[#function-definitions][Function Definitions]]
   - [[#function-calls][Function Calls]]
   - [[#function-declarations][Function Declarations]]
+- [[#arguments][Arguments]]
+  - [[#argument-conversions][Argument Conversions]]
+  - [[#array-arguments][Array Arguments]]
 
 * Defining and Calling Functions
 A function that returns a value: [[file:sample-program/average.c][average.c]].
@@ -31,4 +34,64 @@ Calling a non-void functions produces a value and can be assigned to a variable.
 Example: [[file:sample-program/prime.c][prime.c]]
 
 ** Function Declarations
+When we call a function before it is defined, the compiler makes implicit decisions on the return type, arguments, etc. When it is defined, the compiler then throws an error as it does not have the proper attributes when it was /implicitly declared/.
 
+We can avoid this by defining all the functions before it is called. In a large program however this is hard so C introduces *function declaration* which gives the compiler a brief glimpse at a function whose full definition will appear later.
+
+Syntax: ~return-type function-name ( parameters ) ;~
+
+Sample program:
+#+begin_src C
+  #include <stdio.h>
+  double average(double a, double b); /* DECLARATION */
+
+  int main(void)
+  {
+    double x, y, z;
+
+    printf("Enter three numbers: ");
+    scanf("%lf%lf%lf", &x, &y, &z);
+    printf("Average of %g and &g: %g\n", x, y, average(x, y));
+    printf("Average of %g and &g: %g\n", y, z, average(y, z));
+    printf("Average of %g and &g: %g\n", x, z, average(x, z));
+
+    return 0;
+  }
+
+  double average(double a, double b) /* DEFINITION */
+  {
+    return (a + b) / 2;
+  }
+#+end_src
+
+* Arguments
+/Parameters/ are the dummy names appearing in function definitions. /Arguments/ are expressions that appear in function calls.
+
+** Argument Conversions
+C allows function calls wherein the types of the arguments doesn't match the parameter types.
+
+Rules on how arguments are converted:
+1. *The compiler has encountered a prototype prior to the call.* The value of each argument is implicitly converted to the type of the corresponding parameter as if by assignment.
+2. *The compiler has not encountered a prototype prior to the call.* The compiler performs /default argument promotions/:
+   - ~float~ arguments are converted to ~double~
+   - Integral promotions are performed; ~char~ and ~short~ are converted to ~int~.
+
+** Array Arguments
+When a function parameter, the array length is usually left unspecified. The function however won't know how long the array is, so we supply another parameter that specifies the array length.
+
+#+begin_src C
+  int sum_array(int a[], int n) {
+    int i, sum = 0;
+    for (i = 0; i < n; i++) {
+      sum += a[i];
+    }
+  }
+#+end_src
+
+When passing an array name into a function when it is already initialized, we omit ~[]~.
+
+An important note to remember is that the function has no way to check if we passed the correct array length and we can leverage this by having the option to tell the function that the array is smaller than it really is. Just be careful not to pass a larger number than the array length.
+
+When using arrays as arguments, the function is allowed to change the elements of the array parameter.
+
+When using multidimensional arrays, only the length of the first dimension can be omitted when the parameter is declared.
