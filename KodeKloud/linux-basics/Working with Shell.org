@@ -185,3 +185,19 @@ If we want the command to execute and not print errors on the screen then we can
 #+end_src
 
 ** Command Line Pipes
+Command line pipes are allow the linking of multiple commands. Pipes allow the ~stdout~ from the first command to be used as the ~stdin~ of a next command. It is used with the ~|~ character.
+
+#+begin_src shell
+  grep Hello sample.txt | less 
+#+end_src
+
+In the code above, the output of the ~grep~ command becomes the input for ~less~.
+
+We can also use the ~tee~ command with the pipe operator. Take this code for example.
+
+#+begin_src shell
+  echo $SHELL | tee shell.txt
+#+end_src
+
+In this code, the ~tee~ command takes the output of ~echo~ and redirects it to ~shell.txt~. With ~tee~ however, the output is still printed out. We can add the ~-a~ flag to append instead of overwrite to the file.
+
