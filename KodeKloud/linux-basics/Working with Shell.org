@@ -10,6 +10,10 @@
 - [[#bash-shell][Bash Shell]]
 - [[#file-compression-and-archival][File Compression and Archival]]
 - [[#searching-for-files-and-patterns][Searching for Files and Patterns]]
+- [[#io-redirection][IO Redirection]]
+  - [[#redirecting-stdout][Redirecting ~stdout~]]
+  - [[#redirecting-stderr][Redirecting ~stderr~]]
+  - [[#command-line-pipes][Command Line Pipes]]
 
 * Introduction to Shell
 When opening the shell, it is usually opened at ~/home/$USER~. ~/home/~ is a system created directory that contains the home directory for almost all the users in the Linux system. It is usually denoted by the ~~~ in the terminal.
@@ -110,3 +114,74 @@ The space of the compressed file created by these commands depends on the type o
 Take note that a compressed file need not to be uncompressed everytime, there are tools that allow usage of compressed files such as ~zcat, bzcat, and xzcat~ allow the compressed file to be read without uncompressing them.
 
 * Searching for Files and Patterns
+~locate <file>~ will list out the path with the <file> name. This command however might not yield useful results when the OS was just installed or when a file was just recently created since it relies on a database called ~mlocate.db~ and it is possible that the db is not yet updated.
+
+To update the db, run ~updatedb~ then run locate again.
+
+We can also search for a file using the ~find~ command as ~find <directory_you_want_to_search_in> -name <file>~.
+
+To search within a file, we can use ~grep~.
+
+Usage:
+
+| Command                              | Output                                                                                |
+|--------------------------------------+---------------------------------------------------------------------------------------|
+| grep <pattern> <file>                | Search for the <pattern> in <file> (case-sensitive)                                   |
+| grep -i <pattern> <file>             | Search for the <pattern> in <file>. The ~-i~ flag makes the search case-insensitive   |
+| grep -r "<pattern>" <directory_path> | ~-r~ searches for the <pattern> recursively in the specified directory                |
+| grep -v <pattern> <file>             | Prints out all the lines *NOT* containing <pattern> in the file                       |
+| grep -w <pattern> <file>             | Search the exact pattern in <file>                                                    |
+| grep -vw <pattern> <file>            | Search in <file> that contains <pattern> but does not match the whole exact <pattern> |
+| grep -A<#> <pattern> <file>          | Search for the <pattern> in <file> and show ~#~ lines after the searched pattern      |
+| grep -B<#> <pattern> <file>          | Search for the <pattern> in <file> and show ~#~ lines before the searched pattern     |
+
+* IO Redirection
+Standard streams in Linux:
+1. Standard Input
+   - ~stdin~
+   - accepts text as an input
+2. Standard Output
+   - ~stdout~
+   - outputs the command passed to ~stdin~
+3. Standard Error
+   - ~stderr~
+   - outputs error messages from the command
+
+The concept of *IO redirection* is that the ~stdin~, ~stdout~, and ~stderr~ can be redirected to text files.
+
+** Redirecting ~stdout~
+We redirect ~stdout~ by using ~>~ which will overwrite whatever is inside the file we are redirecting to.
+
+#+begin_src shell
+  echo $SHELL > shell.txt
+#+end_src
+
+We can use ~>>~ to append to the file instead of overwriting it.
+
+#+begin_src shell
+  echo "This is the Bash shell" >> shell.txt
+#+end_src
+
+** Redirecting ~stderr~
+
+We redirect ~stderr~ to a file using ~2>~ which will overwrite the contents of the file we are redirecting to.
+
+#+begin_src shell
+  cat missing_file 2> error.txt
+#+end_src
+
+Assuming that ~missing_file~ does not exist then it will show an error in the terminal but since we are redirecting it to ~error.txt~, the error will be written to the file.
+
+We can also use ~2>>~ to append to the file instead of overwriting.
+
+#+begin_src shell
+  cat missing_file 2>> shell.txt
+#+end_src
+
+If we want the command to execute and not print errors on the screen then we can redirect to ~/dev/null~ which is the place where we can dump anything we don't need.
+
+#+begin_src shell
+  cat missing_file 2> /dev/null
+#+end_src
+
+** Command Line Pipes
