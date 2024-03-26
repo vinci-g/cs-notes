@@ -1,0 +1,100 @@
+#+TITLE: Package Management
+#+AUTHOR: vinci_g
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#introduction][Introduction]]
+- [[#rpm-and-yum][RPM and YUM]]
+  - [[#rpm][RPM]]
+  - [[#yum][YUM]]
+- [[#dpkg-and-apt][DPKG and APT]]
+  - [[#dpkg][DPKG]]
+  - [[#apt--apt-get][APT / APT-GET]]
+
+* Introduction
+Different Linux distributions use different package managers.
+
+A package is a compressed archive that contains all the files that are required by a particular software to run.
+
+A package manager is a software in a Linux system that provides automated management of packages in an operating system like installing, configuring, and removing.
+
+Types of package managers:
+
+| Package Manager            | Distribution         |
+|----------------------------+----------------------|
+| DPKG (base)                | Debian based         |
+| APT (FE for base)          | Debian based (newer) |
+| APT-GET                    | Debian based         |
+| RPM (base)                 | Red Hat based        |
+| YUM (FE for base)          | Red Hat based        |
+| DNF (more feature rich FE) | Red Hat based        |
+
+* RPM and YUM
+
+** RPM
+*Red Hat Package Manager*
+
+Used in Red Hat based distributions. The file extension for RPM packages is ~.rpm~.
+
+The RPM database stores all information about all RPM packages installed in the system and is stored in ~/war/lib/rpm~ directory.
+
+*** Usage
+- Installation: ~rpm -ivh telnet.rpm~
+  - ~-i~: install
+  - ~-v~: verbose; show the detailed output of the command
+- Uninstallation: ~rpm -e telnet.rpm~
+- Upgrade: ~rpm -Uvh telnet.rpm~
+- Query: ~rpm -q telnet.rpm~
+- Verifying: ~rpm -Vh telnet.rpm~
+
+** YUM
+Works with software repositories. The repo information is stored in ~/etc/yum.repos.d/~ and the repository files have a ~.repo~ extension.
+
+YUM handles automatic dependency resolution.
+
+Software repositories can be accessed through local or remote.
+
+Inside ~/yum.repos.d~ is a repository bundled with the OS. We can also specify the repository we want to use instead of using the official repository as sometimes, the official repository does not have the newer version of the software we want to install or it is not there at all.
+
+*** Usage
+
+| Command                | Function                                                      |
+|------------------------+---------------------------------------------------------------|
+| yum repolist           | show all repos added into the system                          |
+| yum install            | installs a package                                            |
+| yum provides <command> | check which package should be installed for <command> to work |
+| yum remove <package>   | remove a package                                              |
+| yum update <package>   | updates a package                                             |
+| yum update             | updates all the packages                                      |
+
+* DPKG and APT
+
+** DPKG
+*Debian Package Manager*
+
+Same with RPM and ends with the ~.deb~ file extension
+
+| Function     | Command           |
+|--------------+-------------------|
+| Installation | dpkg -i <package> |
+| Uninstalling | dpkg -r <package> |
+| List         | dpkg -l <package> |
+| Status       | dpkg -s <package> |
+| Verifying    | dpkg -p <package> |
+
+** APT / APT-GET
+Same function as ~YUM~. ~apt~ is a newer and better version of ~apt-get~.
+
+The software repositories defined for APT is inside the ~/etc/apt/sources.list~.
+
+| Command                       | Function                                                                 |
+|-------------------------------+--------------------------------------------------------------------------|
+| apt update                    | Refresh the repository                                                   |
+| apt upgrade                   | Install package upgrades                                                 |
+| apt edit-sources              | Open ~sources.list~ allowing the user to configure software repositories |
+| apt install                   | Install package                                                          |
+| apt remove                    | Remove a package                                                         |
+| apt search                    | Look for a package in a repository                                       |
+| apt list \vert grep <package> | List for packages                                                        |
+
+APT is a more user friendly than APT-GET as it does not provide the output in a user friendly format.
