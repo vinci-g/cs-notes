@@ -9,6 +9,7 @@
   - [[#command-line-help][Command Line Help]]
 - [[#bash-shell][Bash Shell]]
 - [[#file-compression-and-archival][File Compression and Archival]]
+- [[#searching-for-files-and-patterns][Searching for Files and Patterns]]
 
 * Introduction to Shell
 When opening the shell, it is usually opened at ~/home/$USER~. ~/home/~ is a system created directory that contains the home directory for almost all the users in the Linux system. It is usually denoted by the ~~~ in the terminal.
@@ -76,3 +77,36 @@ To make environment variables persistent, we add it to our ~~/.profile~ or ~~/.p
 *Path variable* is the variable for all the locations of all possible external executable commands. To add to ~PATH~, we use ~export PATH~$PATH:<path_of_command>~.
 
 * File Compression and Archival
+We can view a file size of a file multiple ways:
+| Command     | Output                                                           |
+|-------------+------------------------------------------------------------------|
+| du -sk file | Displays file size in kb                                         |
+| du -sh file | Displays a prettier output of the file size in Mb                |
+| ls -lh file | Shows a list of files and with the ~-h~ flag shows the file size |
+
+~tar~ is a utility command that is used to group multiple files/directories in a single file. Basically for archiving data.
+
+~tar~ stands for /Tape Archive/.
+
+Files created with ~tar~ are typically called /tarballs/
+
+~tar~ command usage:
+| Flag                              | Usage                                                                                               |
+|-----------------------------------+-----------------------------------------------------------------------------------------------------|
+| tar -cf test.tar file1 file2 ...  | The ~-c~ is used to create an archive and the ~-f~ specifies the name of the tar file to be created |
+| tar -tf test.tar                  | Used to see the contents of the tarball                                                             |
+| tar -xf test.tar                  | Used to extract the contents from the tarball                                                       |
+| tar -zcf test.tar file1 file2 ... | The ~-z~ is used to compress the tarball and reduce its size                                        |
+
+There are multiple ways to compress and uncompress a file
+| Compress | Uncompress |
+|----------+------------|
+| bzip2    | bunzip2    |
+| gzip     | gunzip     |
+| xz       | unxz       |
+
+The space of the compressed file created by these commands depends on the type of file, the compression algorithm used by these commands, and the compression level used.
+
+Take note that a compressed file need not to be uncompressed everytime, there are tools that allow usage of compressed files such as ~zcat, bzcat, and xzcat~ allow the compressed file to be read without uncompressing them.
+
+* Searching for Files and Patterns
