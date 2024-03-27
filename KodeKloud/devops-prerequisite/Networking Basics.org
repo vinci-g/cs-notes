@@ -42,7 +42,7 @@ In is assigned two IPs since it is connected to two separate networks.
 * Gateway
 It is basically a "gateway" where systems can "pass-through" to reach another system in another network via a router.
 
-~route~ is used to see the existing routing configuration on the system.
+~route~ is used to see the existing routing configuration on the system. It displays the kernel's routing table.
 
 We use the command ~ip route add <destination_ip>/24 via <gateway_ip>~ to configure a gateway from the system to reach a destination network.
 

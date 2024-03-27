@@ -4,6 +4,8 @@
 
 * Table of Contents :toc:
 - [[#dns][DNS]]
+- [[#troubleshooting][Troubleshooting]]
+- [[#additional-notes][Additional Notes]]
 
 * DNS
 Assuming there are two computers connected to the same network ~192.168.1.0~ with /computer1/ having the IP ~192.168.1.10~ and /computer2/ with the IP ~192.168.1.11~. We can ping the other computer with its IP.
@@ -22,4 +24,39 @@ Now running ~ping db~ will ping ~192.168.1.11~.
 
 What we did when we translated host name to IP address is known as *name resolution*.
 
+The DNS server is where all we manage all the hosts and where all systems look up to to resolve a host instead of looking at ~/etc/hosts~ file.
 
+Every host has a DNS resolution configuration file at ~/etc/resolv.conf~.
+
+Both ~hosts~ and the DNS server are looked up by our machine. Suppose we have ~test~ as the host name on both places but with different IP addresses, the local file which is the ~hosts~ is given priority before looking using the address specified in the DNS server.
+
+The order of priority can be defined in ~/etc/nsswitch.conf~
+
+* Troubleshooting
+
+- Check Interfaces: Checking host IP connectivity
+  - ~ip link~ to check the local interface if it is up
+- Check DNS Resolution: Checking if we can resolve the host name to an IP address
+  - ~nslookup <host_name>~ and check if it is resolving to a valid IP
+  - The ~nslookup~ command reaches out to the DNS server and requests the IP address of the host name
+-Check Connectivity: Ping the remote server
+  - ~ping <host>~
+- Check Route
+  - ~traceroute <ip>~ will show us the number of hops or devices between the source
+  - It will also show problems between the source and the destination
+- Check services
+  - ~netstat -an | grep 80 | grep -i LISTEN~
+  - The ~netstat~ command is used to print information of network connections, routing tables, and other network statistics
+  - ~-a~ shows active TCP connections and the TCP and UDP ports on which the computer is listening
+  - ~-n~ shows active TCP connections, with addresses and port numbers expressed numerically
+  - ~grep 80~ looks for connections on port 80
+  - ~grep -i LISTEN~ filters connections to see if port 80 is listening on the server
+    
+* Additional Notes
+Additional notes: [[file:~/Documents/cvdcg/notes/KodeKloud/devops-prerequisite/Networking Basics.org][Networking Basics]]
+- Switching
+- Routing
+- Gateway
+- Forwarding Packets
+- Domain Names
+- Record Types
