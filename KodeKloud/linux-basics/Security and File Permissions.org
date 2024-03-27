@@ -1,0 +1,89 @@
+#+TITLE: Security and File Permissions
+#+AUTHOR: vinci_g
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#linux-accounts][Linux Accounts]]
+  - [[#account-types][Account Types]]
+  - [[#commands][Commands]]
+  - [[#sudo][SUDO]]
+
+* Linux Accounts
+Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
+
+Information on a user file is stored in ~/etc/passwd~.
+
+User attributes:
+
+*User*
+- username
+- UID
+- GID (GID is the same as UID if no group is specified for the user)
+- Home Directory
+
+#+begin_src shell
+  id <user>
+#+end_src
+
+This command shows displays the ~UID~, ~username~, ~GID~, and ~groups~ of the user.
+
+#+begin_src shell
+  grep -i <user> /etc/passwd
+#+end_src
+
+This command displays the home directory path and the default share assigned to the user.
+
+A *Linux group* is a collection of users and is used to organize users based on common attributes such as role or function. Each group like users has a unique identifier called GID.
+
+Information about groups is stored in ~/etc/group~
+
+** Account Types
+1. User Account
+   - individual people who needs access to Linux
+2. Superuser Account
+   - root with ~UID~ of 0 and has *unrestricted access and control* over the system
+3. System Accounts
+   - created during OS installation and for use by software or services that will not run as the super user. ~UID~ is usually < 100 or between 500 - 1000
+   - usually don't have a dedicated home directory
+   - if there is a dedicated home directory, the home directory is not created under ~/home~
+4. Service Accounts
+   - similar to system accounts
+   - created when services are installed in Linux
+
+** Commands
+| Command | Usage                                                                             |
+|---------+-----------------------------------------------------------------------------------|
+| id      | Display information about a user (UID, GID, groups)                               |
+| who     | Display users currently logged into the system                                    |
+| last    | Display record of all logged in users and the date & time the system was rebooted |
+
+** SUDO
+The default configuration for sudo is defined under ~/etc/sudoers~ file which defines the policies applied by the sudo command.
+
+Only users listed in the ~/etc/sudoers~ file can make use of the sudo command for privilege escalation.
+
+Sample ~sudoers~ file:
+#+begin_src
+  User privilege specification
+  root ALL=(ALL:ALL) ALL
+  # Members of the admin group may gain root privileges
+  %admin ALL=(ALL) ALL
+  # Allow members of the group sudo to execute any command
+  %sudo ALL=(ALL:ALL) ALL
+  # Allow Bob to run any command
+  bob ALL=(ALL:ALL) ALL
+  # Allow Sarah to reboot the system
+  sarah localhost=/usr/bin/shutdown -r now
+  # See sudoers(5) for more information on "#include" directives:
+  #includedir /etc/sudoers.d
+#+end_src
+
+Syntax:
+| Description   | Example                    |
+|---------------+----------------------------|
+| User or Group | bob, %sudo(group)          |
+| Hosts         | localhost, ALL(default)    |
+| User          | ALL(default)               |
+| Command       | /bin/ls, ALL(unrestricted) |
+
+
