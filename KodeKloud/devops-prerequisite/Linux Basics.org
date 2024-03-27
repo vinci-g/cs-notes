@@ -68,7 +68,7 @@ cd new_directory; mkdir www; pwd
 | whoami                              | Determine user                                 |
 | id                                  | Gives more information about the user          |
 | su <username>                       | Switch user                                    |
-| ssh <username>[cite/t:@192.168.1.2] | Login to another system using a different user |
+| ssh <username>@192.168.1.2          | Login to another system using a different user |
 | sudo (prefix)                       | Grant root privilege to current user           |
 
 * Downloading Files
