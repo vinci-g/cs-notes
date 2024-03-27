@@ -6,3 +6,20 @@
 - [[#dns][DNS]]
 
 * DNS
+Assuming there are two computers connected to the same network ~192.168.1.0~ with /computer1/ having the IP ~192.168.1.10~ and /computer2/ with the IP ~192.168.1.11~. We can ping the other computer with its IP.
+
+Say we are using /computer1/, we can check connectivity on /computer2/ by running ~ping 192.168.1.11~.
+
+Assume that we are using /computer2/ as a db, we can ping ~db~ by adding an entry to ~/etc/hosts~.
+
+#+begin_src shell
+  cat >> /etc/hosts
+
+  192.168.1.11     db
+#+end_src
+
+Now running ~ping db~ will ping ~192.168.1.11~.
+
+What we did when we translated host name to IP address is known as *name resolution*.
+
+

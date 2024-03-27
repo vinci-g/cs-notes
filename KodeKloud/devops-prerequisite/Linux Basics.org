@@ -119,15 +119,14 @@ Services in Linux allow the user to configure software to run in the background 
 To use a program as a service, we must configure it by creating a ~systemd~ unit file (may be located at ~/etc/systemd/system~).
 
 1. Create a ~systemd~ unit file named as ~<name>.service~ with the following contents:
+   #+begin_example
+   # myapp.service
 
-#+begin_example
-# myapp.service
+   [Service]
+   ExecStart=/usr/bin/python3 /opt/code/my_app.py
 
-[Service]
-ExecStart=/usr/bin/python3 /opt/code/my_app.py
-
-# ExecStart is the command to run the application
-#+end_example
+   # ExecStart is the command to run the application
+   #+end_example
 
 2. Run ~systemctl daemon-reload~ to let systemd know that there is a new service configured.
 
