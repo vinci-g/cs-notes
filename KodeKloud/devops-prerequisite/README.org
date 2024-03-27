@@ -1,0 +1,13 @@
+* Devops Prerequisites
+The notes here are only at a high level overview of the topics mentioned
+just to have a base undestanding.
+
+- [[file:Linux%20Basics.md][Linux Basics]]
+- [[file:Networking%20Basics.md][Networking Basics]]
+- [[file:Application%20Basics.md][Application Basics]]
+- [[file:Source%20Control%20Management.md][Source Control Management]]
+- [[file:Web%20Server.md][Web Server]]
+- [[file:Database%20Basics.md][Database Basics]]
+- [[file:Security.md][Security]]
+- [[file:YAML%20and%20JSON.md][YAML and JSON]]
+- [[file:Labs.md][Labs]]

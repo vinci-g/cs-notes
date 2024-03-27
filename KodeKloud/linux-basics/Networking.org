@@ -1,0 +1,8 @@
+#+TITLE: Networking
+#+AUTHOR: vinci_g
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#dns][DNS]]
+
+* DNS

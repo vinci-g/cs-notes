@@ -1,0 +1,67 @@
+#+TITLE: YAML and JSON
+#+AUTHOR: vinci_g
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#yaml][YAML]]
+- [[#json][JSON]]
+
+* YAML
+Key-Value pair syntax:
+
+#+begin_src yaml
+Fruit: Apple
+Vegetable: Carrot
+Liquid: Water
+Meat: Chicken
+#+end_src
+
+Array/List syntax:
+
+#+begin_src yaml
+Fruits:
+    - Orange
+    - Apple
+    - Banana
+
+Vegetables:
+    - Carrot
+    - Cauliflower
+    - Brocolli
+#+end_src
+
+Dictionary/Map syntax:
+
+#+begin_src yaml
+Banana:
+    Calories: 1
+    Fat: 2 g
+    Carbs: 27 g
+
+Grapes:
+    Calories: 1
+    Fat: 2 g
+    Carbs: 3 g
+#+end_src
+
+* JSON
+JSON is just like JavaScript syntax.
+
+Additional notes:
+
+- A dollar symbol denotes the root.
+- Results are encapsulated in an array.
+
+For specifying a criteria in an array:
+
+#+begin_src json
+$[?(@>40)]
+#+end_src
+
+The code above queries the list and check if (~?~) each (~@~) item in the array is greater than 40 (~>40~).
+
+For criteria in dictionaries:
+
+#+begin_src json
+$.car.wheels[?(@.location == "rear-right")].model
+#+end_src
