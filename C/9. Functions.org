@@ -10,6 +10,7 @@
 - [[#arguments][Arguments]]
   - [[#argument-conversions][Argument Conversions]]
   - [[#array-arguments][Array Arguments]]
+  - [[#variable-length-array-parameters][Variable-Length Array Parameters]]
 
 * Defining and Calling Functions
 A function that returns a value: [[file:sample-program/average.c][average.c]].
@@ -95,3 +96,22 @@ An important note to remember is that the function has no way to check if we pas
 When using arrays as arguments, the function is allowed to change the elements of the array parameter.
 
 When using multidimensional arrays, only the length of the first dimension can be omitted when the parameter is declared.
+
+#+begin_src C
+  #define LEN 10
+
+  int sum_two_dimensional_array(int a[][LEN], int n)
+  {
+    int i, j, sum = 0;
+
+    for (i = 0; i < n; i++)
+      for (j = 0; j < LEN; j++)
+        sum += a[i][j];
+
+    return sum;
+  }
+#+end_src
+
+We can utilize the use of arrays of pointers to work around not being able to pass an arbitraty number of columns in multidimensional arrays.
+
+** Variable-Length Array Parameters
