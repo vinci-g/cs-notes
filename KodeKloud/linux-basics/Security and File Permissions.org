@@ -1,6 +1,7 @@
 #+TITLE: Security and File Permissions
 #+AUTHOR: vinci_g
 #+OPTIONS: toc
+#+OPTIONS: ^:nil
 
 * Table of Contents :toc:
 - [[#linux-accounts][Linux Accounts]]
@@ -12,6 +13,9 @@
 - [[#linux-file-permissions][Linux File Permissions]]
   - [[#modifying-file-permissions][Modifying File Permissions]]
   - [[#modifying-ownership][Modifying Ownership]]
+- [[#ssh-and-scp][SSH and SCP]]
+  - [[#ssh][SSH]]
+  - [[#scp][SCP]]
 
 * Linux Accounts
 Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
@@ -245,5 +249,39 @@ We can also just change the group for a file using:
   chgrp group file
 #+end_src
 
+* SSH and SCP
 
+** SSH
+#+begin_src shell
+  ssh <hostname OR IP Address>
 
+  ssh <user>@<hostname OR IP Address>
+
+  ssh -l <user> <hostname OR IP Address>
+#+end_src
+
+Take note that before running SSH, the remote server must have SSH running, and a valid username and password created on the remote system or an SSH key to be used to login to the remote server.
+
+To generate an SSH key pair:
+#+begin_src shell
+  ssh-keygen -t rsa
+#+end_src
+
+Public key: ~/home/<user>/.ssh/id_rsa.pub~
+Private key: ~/home/<user>/.ssh/id_rsa~
+
+After creating a key pair, we need to copy the public key to the remote server using
+#+begin_src shell
+  ssh-copy-id <user>@<hostname OR IP Address>
+#+end_src
+
+Copying the public key stores it in ~/home/<user>/.ssh/authorized_keys~ in the remote server.
+
+** SCP
+~SCP~ allows the user to copy data over SSH
+
+#+begin_src shell
+  scp <file or directory on local> <hostname:<path to copy the file into>>
+#+end_src
+
+To copy directories instead of files then use the ~-r~ flag with ~scp~. And to preserve the ownership and permission of the source file, we use the ~-p~ flag.
