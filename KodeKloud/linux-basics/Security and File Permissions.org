@@ -10,6 +10,8 @@
 - [[#access-control-files][Access Control Files]]
 - [[#user-management][User Management]]
 - [[#linux-file-permissions][Linux File Permissions]]
+  - [[#modifying-file-permissions][Modifying File Permissions]]
+  - [[#modifying-ownership][Modifying Ownership]]
 
 * Linux Accounts
 Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
@@ -150,3 +152,98 @@ Example:
 #+end_src
 
 * Linux File Permissions
+When running ~ls -l~ on a directory, all files in that directory are displayed along with their details. We can also see file permissions on the output of the command. Let's break it down.
+
+#+begin_src
+  - r w x r w x r - x ...<other_file_details>
+#+end_src
+
+The code block above shows the file permissions of the file.
+
+1. The first 3 characters ~r w x~ after the file identifier (~-~) are the permissions for the owner of the file.
+2. The second 3 characters ~r w x~ are the permissions for the group owning the file.
+3. The last 3 characters ~r - x~ are the permissions for all other users.
+
+| Bit | Purpose        | Octal Value |
+|-----+----------------+-------------|
+| r   | Read           |           4 |
+| w   | Write          |           2 |
+| x   | Execute        |           1 |
+| -   | No Permissions |           0 |
+
+Assuming a file permission of ~d--xrwxrwx~, we can see that it is a directory where the owner only has ~execute~ access. The owner cannot read or write to the directory but can ~cd~ into it. If the owner is part of the group that owns the directory, then why can't he ~read~ or ~write~ to the directory?
+
+This is because in Linux, the system identifies the user and checks permissions *sequentially*. Meaning that if the system detects that the owner of the file is accessing the file, permissions on groups and other users are ignored.
+
+Octal value for permissions:
+- ~rwx~ = 7
+- ~rw-~ = 6
+- ~r-x~ = 5
+- ~-wx~ = 3
+
+** Modifying File Permissions
+#+begin_src shell
+  chmod <permissions> file
+#+end_src
+
+There are two ways to modify permissions, symbolic mode and numeric mode.
+
+-----
+
+In symbolic mode:
+
+| u | Owner  |
+| g | Group  |
+| o | Others |
+
+Providing full access to the owner:
+#+begin_src shell
+  chmod u+rwx test-file
+#+end_src
+
+Provide read access to the owner, group, and others, remove execute access
+#+begin_src shell
+  chmod ugo+r-x test-file
+#+end_src
+
+Remove all access for others:
+#+begin_src shell
+  chmod o-rwx test-file
+#+end_src
+
+Full access for owner, add read, remove execute for group, and no access for others:
+#+begin_src shell
+  chmod u+rwx, g+r-x, o-rwx test-file
+#+end_src
+
+-----
+
+In numeric mode:
+
+We rely on the octal value of each bit.
+
+Provides full access to Owners, group and others:
+#+begin_src shell
+  chmod 777 test-file
+#+end_src
+
+Provides read and execute permissions to owners, group, and others:
+#+begin_src shell
+  chmod 555 test-file
+#+end_src
+
+** Modifying Ownership
+#+begin_src shell
+  chown owner:group file
+#+end_src
+
+If group is not provided then only the ownership is changed.
+
+We can also just change the group for a file using:
+
+#+begin_src shell
+  chgrp group file
+#+end_src
+
+
+
