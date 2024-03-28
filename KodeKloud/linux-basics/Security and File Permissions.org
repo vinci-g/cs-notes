@@ -7,6 +7,8 @@
   - [[#account-types][Account Types]]
   - [[#commands][Commands]]
   - [[#sudo][SUDO]]
+- [[#access-control-files][Access Control Files]]
+- [[#user-management][User Management]]
 
 * Linux Accounts
 Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
@@ -86,4 +88,48 @@ Syntax:
 | User          | ALL(default)               |
 | Command       | /bin/ls, ALL(unrestricted) |
 
+* Access Control Files
+Most of the access control files are stored inside the ~/etc/~ directory and any user can read the contents of it by default. Write access however is only allowed for the root user.
 
+Access control files should not be modified using a text editor but instead use the shell built in commands to add or modify access as needed.
+
+~/etc/passwd~ contains basic user information like username, UID, GID, etc. but does not store passwords.
+#+begin_src
+  bob:x:1001:1001::/home/bob:/bin/bash
+
+  USERNAME:PASSWORD:UID:GID:GECOS:HOMEDIR:SHELL
+#+end_src
+
+~PASSWORD~ is set to ~x~ as it is set inside ~/etc/shadow~.
+
+~GECOS~ is a CSV format or a comma-separated list of user information such as full name, location, phone number, etc. This field is optional while the *other remaining fields are mandatory*.
+
+~/etc/shadow~ contains passwords which are hashed.
+#+begin_src
+  bob:<password-hash>:18188:0:99999:7:::
+
+  USERNAME:PASSWORD:LASTCHANGE:MINAGE:MAXAGE:WARN:INACTIVE:EXPDATE
+#+end_src
+
+~PASSWORD~ contains the encrypted password. An asterisk or empty field implies that the password is not set by the user.
+
+~LASTCHANGE~ and ~EXPDATE~ value is in /epoch/ which is the days after /Jan 1, 1970/.
+
+~/etc/group~ contains information about all user groups in the system such as the group name, GID, and members.
+
+#+begin_src
+  developer:x:1001:bob,sara
+
+  NAME:PASSWORD:GID:MEMBERS
+#+end_src
+
+* User Management
+| Command         | Function                              |
+|-----------------+---------------------------------------|
+| useradd <user>> | Create a new local user in the system |
+| passwd <user>   | Set the password for a user           |
+
+~useradd~ options:
+| Flag | Function |
+|------+----------|
+| -d   |          |
