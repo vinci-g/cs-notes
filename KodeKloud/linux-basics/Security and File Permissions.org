@@ -9,6 +9,7 @@
   - [[#sudo][SUDO]]
 - [[#access-control-files][Access Control Files]]
 - [[#user-management][User Management]]
+- [[#linux-file-permissions][Linux File Permissions]]
 
 * Linux Accounts
 Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
@@ -124,12 +125,28 @@ Access control files should not be modified using a text editor but instead use 
 #+end_src
 
 * User Management
-| Command         | Function                              |
-|-----------------+---------------------------------------|
-| useradd <user>> | Create a new local user in the system |
-| passwd <user>   | Set the password for a user           |
+| Command                        | Function                              |
+|--------------------------------+---------------------------------------|
+| useradd <user>                 | Create a new local user in the system |
+| passwd <user>                  | Set the password for a user           |
+| userdel <user>                 | Deletes a user                        |
+| groupadd -g <GID> <group_name> | Creates a group with custom GID       |
+| groupdel <group_name>          | Delete group                          |
 
 ~useradd~ options:
-| Flag | Function |
-|------+----------|
-| -d   |          |
+| Flag | Function                                   |
+|------+--------------------------------------------|
+| -c   | Custom comments                            |
+| -d   | Custom home directory                      |
+| -e   | Expiry date                                |
+| -g   | Specific GID                               |
+| -G   | Create user with multiple secondary groups |
+| -s   | Specify login shells                       |
+| -u   | Specify UID                                |
+
+Example:
+#+begin_src shell
+  useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c "Mercury Project member" bob
+#+end_src
+
+* Linux File Permissions
