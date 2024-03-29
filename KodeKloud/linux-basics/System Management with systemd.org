@@ -14,14 +14,14 @@ Example list of processes need to run:
 To run a command in the background, we must define it first as a service. To do this we need to create a /service unit file/ inside ~/etc/systemd/system~ directory.
 
 ~@/etc/systemd/system/project-mercury.service~
-#+begin_src 
+#+begin_src
   [Service]
   ExecStart= /bin/bash /usr/bin/project-mercury.sh
 #+end_src
 
 To allow the service to be enabled during boot:
 ~@/etc/systemd/system/project-mercury.service~
-#+begin_src 
+#+begin_src
   [Service]
   ExecStart= /bin/bash /usr/bin/project-mercury.sh
 
@@ -33,7 +33,7 @@ The ~WantedBy~ directive whose value should be the ~systemd~ target you want it 
 
 To add the service account to be used instead of root and restart parameters:
 ~@/etc/systemd/system/project-mercury.service~
-#+begin_src 
+#+begin_src
   [Service]
   ExecStart= /bin/bash /usr/bin/project-mercury.sh
   User=project-mercury
@@ -48,7 +48,7 @@ The service events are automatically logged with ~systemd~.
 
 Since we want the service to run after the Postgres DB is ready:
 ~@/etc/systemd/system/project-mercury.service~
-#+begin_src 
+#+begin_src
   [Unit]
   Description=Python Django for Project Mercury
   Documentation=http://wiki.caleston-dev.ca/mercury
@@ -75,3 +75,44 @@ If we are already running the service, we can reload it when we change/edit the 
 #+end_src
 
 * systemd Tools
+1. ~systemctl~
+   - manage system state
+   - start/stop/restart/reload
+   - enable/disable
+   - list and manage units
+   - list and update targets
+2. ~journalctl~
+   - query ~systemd~ journal
+
+** ~systemctl~
+| Command                              | Description                                                                                   |
+|--------------------------------------+-----------------------------------------------------------------------------------------------|
+| systemctl start <service>            | Start a service                                                                               |
+| systemctl stop <service>             | Stop a service                                                                                |
+| systemctl restart <service>          | Restart a service                                                                             |
+| systemctl reload <service>           | Reload a service without interrupting normal functionality                                    |
+| systemctl enable <service>           | Enable a service and make it persistent across reboot                                         |
+| systemctl disable <service>          | Disable a service on boot                                                                     |
+| systemctl status <service>           | Provide information about the state of a service                                              |
+| systemctl daemon-reload              | Reloads the service and is useful after changing a service unit file to detect changes        |
+| systemctl edit <service_file> --full | Open the service config file with a text editor and applies the service immediately           |
+| systemctl get-default                | See the current runlevel or the target                                                        |
+| systemctl set-default <target>       | Change to a different target                                                                  |
+| systemctl list-units --all           | Prints out all active, inactive, or failed units. Removing --all prints just the active units |
+
+
+*Service States:*
+| State    | Meaning               |
+|----------+-----------------------|
+| Active   | Service running       |
+| Inactive | Service stopped       |
+| Failed   | Crashed/Error/Timeout |
+
+** ~journalctl~
+The ~journalctl~ is used to troubleshoot issues with ~systemctl~ as it checks the "journal" or log entries from all parts of the system.
+
+| Command              | Description                                                    |
+|----------------------+----------------------------------------------------------------|
+| journalctl           | Prints all the log entries from the oldest entry to the newest |
+| journalctl           | Prints logs from the current boot                              |
+| journalctl -u <unit> | Prints logs for a specific unit                                |
