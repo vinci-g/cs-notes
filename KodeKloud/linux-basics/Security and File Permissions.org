@@ -17,6 +17,7 @@
   - [[#ssh][SSH]]
   - [[#scp][SCP]]
 - [[#iptables][IPTables]]
+- [[#cron-jobs][Cron Jobs]]
 
 * Linux Accounts
 Every user in Linux has an associated account and maintains info such as the username and password used to log in the system. Every user also contains a UID which is unique for every user in the system.
@@ -307,3 +308,76 @@ Each chain can have multiple rules in it. Each rule performs a check and /accept
 
 We can configure the condition to consider the destination where the traffic is headed to, the port at which the traffic is coming to, as well as the protocol.
 
+Adding an input rule on the remote server to allow SSH connection from the client laptop:
+#+begin_src shell
+  iptables -A INPUT -p tcp -s <client_IP> --dport 22 -j ACCEPT
+#+end_src
+
+| Option  | Description                            |
+|---------+----------------------------------------|
+| -A      | Add/Append rule                        |
+| -p      | Protocol                               |
+| -s      | Source                                 |
+| --dport | Destination port                       |
+| -j      | Action to take                         |
+| -I      | Inserts a rule to the top of the chain |
+| -d      | Destination                            |
+| -D      | Delete a rule                          |
+
+By default, the INPUT policy accepts all INPUT connections.
+
+To allow only a specific client to be able to SSH to a remote server:
+#+begin_src shell
+  iptables -A INPUT -p tcp --dport -j DROP
+#+end_src
+
+Take note that IPTable rules are implemented from top to bottom. So in a case that multiple rules matching a source/destination in a port, the rule the appear first in the list is applied. Other rules below are ignored.
+
+To delete a rule:
+#+begin_src shell
+  iptables -D OUTPUT <rule_number_in_the_list>
+#+end_src
+
+Take note that the /ephemeral port range/ is from ~32768 - 60999~.
+
+* Cron Jobs
+
+With a cron job, a user can specify any date, time, or frequency to schedule a task and is enabled by the ~crond service~ that runs in the background.
+
+To schedule a job, run the following command on the user you want to run this task:
+#+begin_src shell
+  crontab -e
+#+end_src
+
+This will open the crontab in the vi editor. Edit the file and write at the bottom of the file the job we want to run at the given date/time.
+
+The first 5 fields specify when we want to run the job. The next field is the command we want to run.
+
+Take note that we shouldn't use the ~sudo~ command with the ~crontab~ command since the job will be scheduled for the root user.
+
+Assuming we want to run a job at *8:10am February 19 Monday*, the first 5 fields should look like this:
+#+begin_src
+  10 8 19 2 1 <command>
+#+end_src
+
+If the field is a ~*~ then it indicates /any value/. For example if we want to run the command at *8:10am everyday every month every Tuesday*:
+#+begin_src
+  10 8 * * 2 <command>>
+#+end_src
+
+~*/#~ means that it is a step value. Assuming we want to run the command every 2 minutes:
+#+begin_src
+  */2 * * * * <command>
+#+end_src
+
+To list all the jobs scheduled in cron:
+#+begin_src shell
+  crontab -l
+#+end_src
+
+Another method to check is to run:
+#+begin_src shell
+  tail /var/log/syslog
+#+end_src
+
+This command shows the logs of the commands the system has run.
