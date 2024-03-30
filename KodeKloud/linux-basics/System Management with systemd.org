@@ -1,5 +1,12 @@
 #+TITLE: System Management with systemd
 #+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#introduction][Introduction]]
+- [[#systemd-tools][systemd Tools]]
+  - [[#systemctl][~systemctl~]]
+  - [[#journalctl][~journalctl~]]
 
 * Introduction
 Example list of processes need to run:

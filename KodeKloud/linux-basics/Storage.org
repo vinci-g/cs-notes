@@ -1,0 +1,92 @@
+#+TITLE: Storage
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#storage-basics][Storage Basics]]
+- [[#disk-partitions][Disk Partitions]]
+  - [[#partition-types][Partition Types]]
+  - [[#creating-partitions][Creating Partitions]]
+
+* Storage Basics
+A block device is a type of file that can be found under the ~/dev/~ directory and represents a piece of hardware that can store data such as a hard disk, or SSD. It is called /block storage/ because data is read or stored in it as blocks or chunks of space.
+
+The command ~lsblk~ is used to print out the list of all block devices in the system.
+
+Another option is to run the ~ls -l~ inside the ~/dev/~ directory and look at the files with ~b~ as the first character (file identifier).
+#+begin_src shell
+  ls -l /dev/ | grep "^b"
+#+end_src
+
+Looking at the output of ~lsblk~ we can see the following:
+1. ~sda~
+   - This is the entire disk and has type ~disk~.
+2. ~sda1~, ~sda2~, ...
+   - This represents the /partitions/ in the disk and is of type ~part~.
+3. ~MAJ:MIN~ property
+   - This represents the major and minor number.
+   - The ~major~ number identifies the device type.
+   - The ~minor~ number is used to distinguish individual physical or logical devices.
+
+| Major Number | Device Type         |
+|--------------+---------------------|
+|            1 | RAM                 |
+|            3 | Hard Disk or CD ROM |
+|            6 | Parallel Printers   |
+|            8 | SSCI Disk           |
+
+* Disk Partitions
+The concept of partitions is that it allows us to segment a specific space for a specific use case.
+
+Take note that it is not mandatory to partition a disk and can be used as is. It is however recommended to partition a disk whenever possible as it offers greater flexibility.
+
+The information about partitions is saved in a /partition table/ and can be read in many ways. The ~lsblk~ command is one such way.
+
+The ~fdisk~ command is another way to read the partition table, as well as create and delete partitions.
+
+The command below prints out the partition table:
+#+begin_src shell
+  fdisk -l /dev/sda
+#+end_src
+
+** Partition Types
+1. Primary Partition
+   - A type of partition to boot an OS.
+   - Traditionally, disks are limited to not more than 4 primary partitions.
+2. Extended Partition
+   - A type of partition that cannot be used on its own.
+   - Can host *logical partitions*.
+   - Essentially like another disk drive and has its own partition table that points to the logical partitions.
+3. Logical Partiton
+   - Created within extended partitions.
+
+How a disk is partitioned is defined by a /partitioning scheme/ (also known as a partition table).
+
+*Partitioning Schemes*
+1. MBR
+   - /Master Boot Record/
+   - Can only have at most 4 primary partitions.
+   - Maximum size per disk is 2TB.
+2. GPT
+   - /GUID Partition Table/
+   - A more recent partitionint scheme to address the limitations of MBR.
+   - Can have an unlimited number of primary partitions and is limited by the restrictions imposed by the OS.
+   - Does not have a restricted disk size.
+
+** Creating Partitions
+View the partition table:
+#+begin_src shell
+  lsblk
+#+end_src
+
+Run the command below to create a partition on ~sdb~:
+#+begin_src shell
+  gdisk /dev/sdb
+#+end_src
+
+~gdisk~ is an improved command over ~fdisk~ and directs the user to a menu based interface. This is where we create the partition.
+
+Checking the status of the new partition:
+#+begin_src shell
+  fdisk -l /dev/sdb
+#+end_src
