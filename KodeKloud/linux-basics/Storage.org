@@ -11,6 +11,11 @@
   - [[#working-with-ext4][Working with ~EXT4~]]
   - [[#fstab][fstab]]
 - [[#das-nas-and-san][DAS, NAS, and SAN]]
+  - [[#das][DAS]]
+  - [[#nas][NAS]]
+  - [[#san][SAN]]
+- [[#nfs][NFS]]
+- [[#lvm][LVM]]
 
 * Storage Basics
 A block device is a type of file that can be found under the ~/dev/~ directory and represents a piece of hardware that can store data such as a hard disk, or SSD. It is called /block storage/ because data is read or stored in it as blocks or chunks of space.
@@ -123,7 +128,7 @@ A file system is defined by how data is stored in a disk.
 - Backwards compatible
 - Most common general purpose file system used today
 
-To check the type of file system of a disk, run ~blkid <disk_name>~.  
+To check the type of file system of a disk, run ~blkid <disk_name>~.
 
 ** Working with ~EXT4~
 Create an ~EXT4~ file system:
@@ -166,3 +171,144 @@ To make the mount available after system reboot, we need to add an entry to the 
 | Pass        | 0 = Ignore, 1 or 2 = FSCK file system check enforced | 0            |
 
 * DAS, NAS, and SAN
+For enterprise grade usage, onboard storage or connecting an external hard disk is not enough. Storage for enterprise level applications such as a database server needs high capacity and high availability storage. There are 3 types of storage for these applications:
+
+1. *DAS* (Direct Attached Storage)
+2. *NAS* (Network Attached Storage)
+3. *SAN* (Storage Area Network)
+
+** DAS
+- External storage is attached directly to the host system.
+- The host sees the DAS as a block device.
+- Fast and reliable
+- Affordable
+- Dedicated to a single host
+- Ideal for small businesses
+
+** NAS
+- NFS/CIFS
+- Reasonably fast and reliable
+- File based storage
+- Shared storage
+- Not suitable for OS install
+- Ideal for centralized shared storage that needs to be accessed simultaneously by different hosts
+- Used for backend storage for web servers/application servers
+
+** SAN
+- Used for high throughput and low latency
+- Storage is allocated to host in form of a LUN (Logical Unit Number)
+- Makes use of a fiber channel protocol
+- Block storage
+- Fast, secure, and reliable
+- High availability
+- Expensive
+
+* NFS
+NFS (Network File System) does not store data in blocks but saves data in the form of files.
+
+To give an example, say an directory exists in an NFS server. This directory can be shared over the network over NFS to the host systems. Once mounted, it can be used as any other file system.
+
+The term for directory sharing in NFS is called *export*.
+
+The NFS server maintains an exports config file at ~/etc/exports~ that define the clients that can have access the directories on the server.
+
+Configuration:
+
+#+begin_src
+  /software/repos 10.61.35.201 10.61.35.202 10.65.35.203
+#+end_src
+
+Once the the configuration file is updated on the server, the directory can be shared using the ~exportfs~ command.
+
+Exports all the mounts defined in the ~/etc/exports~ file:
+#+begin_src shell
+  exportfs -a
+#+end_src
+
+Manually export a directory:
+#+begin_src shell
+  exportfs -o 10.61.35.201:/software/repos
+#+end_src
+
+Once exported, we can mount it in a local directory on the client side:
+#+begin_src shell
+  mount <ip/host_name of the NFS server>:/software/repos /mnt/software/repos
+#+end_src
+
+* LVM
+LVM (Logical Volume Manager) allows grouping of multiple physical volumes (hard disks/partitions) in a volume group and can carve out logical volumes.
+
+LVM allows the logical volumes to be resized dynamically.
+
+Installation:
+#+begin_src shell
+  apt install lvm2
+#+end_src
+
+We also need to identify free disks or partitions and create physical volume objects (also known as PV).
+
+Assuming ~/dev/sdb~ is a free disk, we can create a physical volume by running:
+#+begin_src shell
+  pvcreate /dev/sdb
+#+end_src
+
+Creating a volume group:
+#+begin_src shell
+  vgcreate <group name> /dev/sdb
+#+end_src
+
+Display details of the physical volume:
+#+begin_src shell
+  pvdisplay
+#+end_src
+
+Display details of the volume group:
+#+begin_src shell
+  vgdisplay
+#+end_src
+
+Creating logical volumes:
+#+begin_src shell
+  lvcreate -L 1G -n <lv_name> <vg_name>
+#+end_src
+
+The ~-L~ flag stand for /linear volume/ and enables us to make use of multiple physical volumes if available in the VG to create a singular LV.
+
+Display details of logical volumes:
+#+begin_src shell
+  lvdisplay
+#+end_src
+
+To list the volumes:
+#+begin_src shell
+  lvs
+#+end_src
+
+Once a volume is created, we can create a file system on it:
+#+begin_src shell
+  mkfs.ext4 /dev/<vg>/<lv>
+#+end_src
+
+Mounting:
+#+begin_src shell
+  mount -t ext4 /dev/<vg>/<lv> /mnt/<lv>
+#+end_src
+
+Assuming we mounted on ~/mnt/vol1~ we can resize the file system.
+
+Checking space of the VG
+#+begin_src shell
+  vgs
+#+end_src
+
+Resizing the volume:
+#+begin_src shell
+  lvresize -L +1G -n /dev/<vg>/<lv>
+#+end_src
+
+Checking the size using ~df~ we can see that the capacity did not change as only the volume increased but not the file system.
+
+To resize the file system with the volume size:
+#+begin_src shell
+  resize2fs /dev/<vg>/<lv>
+#+end_src
