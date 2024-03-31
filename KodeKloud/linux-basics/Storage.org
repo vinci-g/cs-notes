@@ -7,6 +7,10 @@
 - [[#disk-partitions][Disk Partitions]]
   - [[#partition-types][Partition Types]]
   - [[#creating-partitions][Creating Partitions]]
+- [[#linux-file-systems][Linux File Systems]]
+  - [[#working-with-ext4][Working with ~EXT4~]]
+  - [[#fstab][fstab]]
+- [[#das-nas-and-san][DAS, NAS, and SAN]]
 
 * Storage Basics
 A block device is a type of file that can be found under the ~/dev/~ directory and represents a piece of hardware that can store data such as a hard disk, or SSD. It is called /block storage/ because data is read or stored in it as blocks or chunks of space.
@@ -90,3 +94,75 @@ Checking the status of the new partition:
 #+begin_src shell
   fdisk -l /dev/sdb
 #+end_src
+
+* Linux File Systems
+Partitioning alone does not make a disk usable in the OS. It is seen as a raw disk by the Linux kernel and to make it usable, we need to create a file system and mount it to a directory.
+
+A file system is defined by how data is stored in a disk.
+
+*Commonly Used File Systems*
+~EXT2~:
+- 2TB file size
+- 4TB volume size
+- Supports compression
+- Supports Linux permissions
+- Long crash recovery
+
+~EXT3~:
+- 2TB file size
+- 4TB volume size
+- Uses Journal
+- Backwards compatible
+- Allow quicker startup on ungraceful shutdown
+
+~EXT4~:
+- 16TB file size
+- 1 Exabyte
+- Uses Journal
+- Uses chksum for Journal
+- Backwards compatible
+- Most common general purpose file system used today
+
+To check the type of file system of a disk, run ~blkid <disk_name>~.  
+
+** Working with ~EXT4~
+Create an ~EXT4~ file system:
+#+begin_src shell
+  mkfs.ext4 /dev/sdb1
+#+end_src
+
+Mount the file system on the system:
+#+begin_src shell
+  mkdir /mnt/ext4
+
+  mount /dev/sdb1 /mnt/ext4
+#+end_src
+
+Check if the file system is mounted:
+#+begin_src shell
+  mount | grep /dev/sdb1
+#+end_src
+
+or
+
+#+begin_src shell
+  df -hP | grep /dev/sdb1
+#+end_src
+
+** fstab
+To make the mount available after system reboot, we need to add an entry to the ~/etc/fstab~ file.
+
+#+begin_src
+  /dev/sdb1 /mnt/ext4 ext4 rw 0 0
+#+end_src
+
+| Field       | Purpose                                              | From Example |
+|-------------+------------------------------------------------------+--------------|
+| File system | Such as /dev/sdb1 to be mounted                      | /dev/sdb1    |
+| Mount point | Directory to be mounted on                           | /mnt/ext4    |
+| Type        | Example ext2, ext3, ext4                             | ext4         |
+| Options     | Such as RW = read-write, RO=read only                | rw           |
+| Dump        | 0 = Ignore, 1 = Take Backup                          | 0            |
+| Pass        | 0 = Ignore, 1 or 2 = FSCK file system check enforced | 0            |
+
+* DAS, NAS, and SAN
