@@ -1,0 +1,17 @@
+#+TITLE: Docker Images
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#creating-own-image][Creating Own Image]]
+
+* Creating Own Image
+High level steps required to creating an image for a /simple/ flask web application:
+1. OS - Ubuntu
+2. Update apt repo
+3. Install dependencies using apt
+4. Install Python dependencies using pip
+5. Copy source code to /opt folder
+6. Run the web server using ~flask~ command
+
+After defining the steps, we create a docker file   

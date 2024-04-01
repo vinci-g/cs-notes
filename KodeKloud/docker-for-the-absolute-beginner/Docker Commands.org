@@ -4,6 +4,13 @@
 
 * Table of Contents :toc:
 - [[#basic-docker-commands][Basic Docker Commands]]
+- [[#docker-run][Docker Run]]
+  - [[#tags][Tags]]
+  - [[#stdin][stdin]]
+  - [[#port-mapping][Port Mapping]]
+  - [[#volume-mapping][Volume Mapping]]
+- [[#docker-inspect][Docker Inspect]]
+- [[#container-logs][Container Logs]]
 
 * Basic Docker Commands
 
@@ -31,4 +38,52 @@ Executing a command on a *running container*:
   docker exec distracted_mcclintock cat /etc/hosts
 #+end_src
 
+* Docker Run
 
+** Tags
+Using a colon (~:~) with the image when executing ~docker run~ adds a tag and it can specify the version of the image. Not specifying a tag will default to /latest/.
+
+Example use case:
+#+begin_src shell
+  docker run redis:4.014
+#+end_src
+
+** stdin
+Docker run can also accept ~stdin~ but by default, it does not.
+
+Assuming we dockerized an application that displays a prompt and accepts a ~stdin~. When we run the container as is, it would only show the output. This is because it runs in non-interactive mode. For the container to accept ~stdin~, we need to be able to run it in /interactive mode/ using the ~-i~ flag.
+
+We also need to add a ~-t~ flag to show the prompt, which stands for /sudo terminal/.
+
+Example use case:
+#+begin_src shell
+  docker run -it kodekloud/simple-prompt-docker
+#+end_src
+
+** Port Mapping
+*Port mapping* is basically mapping the port from a container to a free port on the host so that users can use the application.
+
+Usage:
+#+begin_src shell
+  docker run -p 80:5000 kodekloud/webapp
+#+end_src
+
+Where ~80~ is the port of the host and ~5000~ is the port on the container.
+
+** Volume Mapping
+If data is stored in a container and we destroy the container, all of that data will be lost.
+
+In order to persist data, we need to map a directory outside the container on docker host, to a directory outside the container.
+
+Usage:
+#+begin_src shell
+  docker run -v /opt/datadir:/var/lib/mysql mysql
+#+end_src
+
+Where ~/opt/datadir~ is the directory on the host and ~/var/lib/mysql~ is the directory on the container.
+
+* Docker Inspect
+~docker inspect <container_name/id>~ displays additional details on a container. It shows more details that ~docker ps~.
+
+* Container Logs
+~docker logs <container_name/id>~ shows the logs of a container we run in the background.
