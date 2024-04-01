@@ -1,0 +1,21 @@
+#+TITLE: Docker Overview
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#overview][Overview]]
+  - [[#containers-vs-images][Containers vs Images]]
+- [[#installation][Installation]]
+
+* Overview
+/Containers/ are completely isolated environments that have their own processes, network interfaces, and own mounts, just like a VM, but shares the same OS kernel.
+
+The main purpose of Docker is to package and containerize applications, and to ship and run them anywhere, anytime, as many times as you want.
+
+** Containers vs Images
+A /docker image/ is a package/template and is used to create one or more containers.
+
+/Containers/ run instances of images that are isolated and have their own environments and set of processes.
+
+* Installation
+Reference: [[https://docs.docker.com/][Docker Documentation]]

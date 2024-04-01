@@ -1,0 +1,34 @@
+#+TITLE: Docker Commands
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#basic-docker-commands][Basic Docker Commands]]
+
+* Basic Docker Commands
+
+| Command                                   | Usage                                                                                   |
+|-------------------------------------------+-----------------------------------------------------------------------------------------|
+| docker run <image>                        | Run an instance of the image on the host if it exists, or pull an image from docker hub |
+| docker ps                                 | List all running containers. ~-a~ flag lists all containers both running and not        |
+| docker stop <container_id/container_name> | Stops a running container                                                               |
+| docker rm <container_id/container_name>   | Remove a stopped or exited container permanently                                        |
+| docker images                             | List all available images                                                               |
+| docker rmi <image>                        | Remove an image                                                                         |
+| docker pull <image>                       | Pull an image from docker hub but does not run it                                       |
+
+Appending a command (example using Ubuntu image):
+#+begin_src shell
+  docker run ubuntu sleep 5
+#+end_src
+
+The code above executes a command when we run a container.
+
+Executing a command on a *running container*:
+#+begin_src shell
+  docker exec <container_name/container_id> <command>
+
+  docker exec distracted_mcclintock cat /etc/hosts
+#+end_src
+
+
