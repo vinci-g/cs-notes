@@ -4,6 +4,7 @@
 
 * Table of Contents :toc:
 - [[#creating-own-image][Creating Own Image]]
+- [[#dockerfile][Dockerfile]]
 
 * Creating Own Image
 High level steps required to creating an image for a /simple/ flask web application:
@@ -14,7 +15,7 @@ High level steps required to creating an image for a /simple/ flask web applicat
 5. Copy source code to /opt folder
 6. Run the web server using ~flask~ command
 
-After defining the steps, we create a docker file:
+After defining the steps, we create a ~Dockerfile~ to write down the instructions for setting up our application:
 #+begin_src dockerfile
   FROM Ubuntu
 
@@ -28,3 +29,24 @@ After defining the steps, we create a docker file:
 
   ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
 #+end_src
+
+Then run ~docker build~ to build an image:
+#+begin_src shell
+  docker build Dockerfile -t vinci/my-custom-app
+#+end_src
+
+Where
+- ~Dockerfile~ is the name/path of the ~Dockerfile~ that contains the instructions to build the image
+- ~-t vinci/my-custom-app~ optional flag to tag the image to be used to refer to this specific build of the image
+
+To make it available on the public Docker Hub registry:
+#+begin_src shell
+  docker push vinci/my-custom-app
+#+end_src
+
+* Dockerfile
+The ~Dockerfile~ is a text file that is written in a specific format that Docker can understand, in an instruction and arguments format.
+
+From the example, ~FROM, RUN, COPY, and ENTRYPOINT~ are the instructions that instruct Docker to perform a specific action while creating the image. Everything on the left of the instructions are the arguments to those instructions.
+
+All ~Dockerfiles~ must start with a ~FROM~ instruction from a base OS or another Docker image.
