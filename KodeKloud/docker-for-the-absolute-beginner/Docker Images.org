@@ -14,4 +14,17 @@ High level steps required to creating an image for a /simple/ flask web applicat
 5. Copy source code to /opt folder
 6. Run the web server using ~flask~ command
 
-After defining the steps, we create a docker file   
+After defining the steps, we create a docker file:
+#+begin_src dockerfile
+  FROM Ubuntu
+
+  RUN apt-get update
+  RUN apt-get install python
+
+  RUN pip install flask
+  RUN pip install flask-mysql
+
+  COPY . /opt/source-code
+
+  ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+#+end_src
