@@ -1,0 +1,125 @@
+#+TITLE: Docker Compose
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#docker-compose][Docker Compose]]
+- [[#docker-compose-versions][Docker Compose Versions]]
+- [[#setting-up-custom-networks][Setting Up Custom Networks]]
+- [[#references][References]]
+
+* Docker Compose
+Using ~docker-compose~, we can run multiple services by creating a configuration file called ~docker-compose.yml~ and specify the services we need.
+
+Running ~docker-compose up~ brings up the entire application stack.
+
+Using ~docker run~ to run an entire application stack will not work out of the box since the applications are dependent on one another and is needed to be linked together.
+
+We can use:
+#+begin_src shell
+  docker run --link <app_name>:<container_name>
+#+end_src
+
+Although ~--link~ is now a legacy feature of Docker.
+
+Using a docker compose file:
+#+begin_src yml
+  redis:
+    image: redis
+  db:
+    image: postgres:9.4
+  vote:
+    image: voting-app
+    ports:
+      - 5000:80
+    links:
+      - redis
+  result:
+    image: result-app
+    ports:
+      - 5001:80
+    links:
+      - db
+  worker:
+    image: worker
+    links:
+      - redis
+      - db
+#+end_src
+
+We can then run ~docker-compose~ to bring up the entire application stack:
+#+begin_src shell
+  docker-compose up
+#+end_src
+
+We ran ~docker-compose up~ assuming that all images are already built. If we want to instruct ~docker-compose~ to build an image instead of running a ~docker pull~ on an image:
+#+begin_src yml
+  redis:
+    image: redis
+  db:
+    image: postgres:9.4
+  vote:
+    build: ./vote
+    ports:
+      - 5000:80
+    links:
+      - redis
+  result:
+    build: ./result
+    ports:
+      - 5001:80
+    links:
+      - db
+  worker:
+    image: ./worker
+    links:
+      - redis
+      - db
+#+end_src
+
+We specify the directory path of our respective application file on where to build our image.
+
+* Docker Compose Versions
+*V1*
+- docker-compose attached all containers to the default bridged network and use links to enable communication
+- uses links
+
+*V2*
+- docker-compose automatically creates a dedicated bridged network and attaches all containers to the new network
+- no need to use links
+- can specify a startup order using ~depends-on~
+
+*V3*
+- has support for Docker Swarm
+
+* Setting Up Custom Networks
+#+begin_src yml
+  version: 2
+  services:
+    redis:
+      image: redis
+      networks:
+        - back-end
+    db:
+      image: postgres:9.4
+      networks:
+        - back-end
+    vote:
+      image: voting-app
+      networks:
+        - front-end
+        - back-end
+    result:
+      image: result
+      networks:
+        - front-end
+        - back-end
+  networks:
+    front-end:
+    back-end:
+#+end_src
+
+* References
+Docker will no doubt be updated over time so all the syntax indicated here might be wrong in the future.
+
+For reference, see: [[https://docs.docker.com/][Docker Documentation]]

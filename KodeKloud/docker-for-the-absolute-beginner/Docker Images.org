@@ -5,6 +5,8 @@
 * Table of Contents :toc:
 - [[#creating-own-image][Creating Own Image]]
 - [[#dockerfile][Dockerfile]]
+- [[#environment-variables][Environment Variables]]
+- [[#commands-vs-entrypoint][Commands vs Entrypoint]]
 
 * Creating Own Image
 High level steps required to creating an image for a /simple/ flask web application:
@@ -50,3 +52,59 @@ The ~Dockerfile~ is a text file that is written in a specific format that Docker
 From the example, ~FROM, RUN, COPY, and ENTRYPOINT~ are the instructions that instruct Docker to perform a specific action while creating the image. Everything on the left of the instructions are the arguments to those instructions.
 
 All ~Dockerfiles~ must start with a ~FROM~ instruction from a base OS or another Docker image.
+
+* Environment Variables
+To set a environment variable within a container:
+#+begin_src shell
+  docker run -e VARIABLE=value simple-webapp
+#+end_src
+
+~-e~ sets an environment variable when the container is run.
+
+Inspecting an environment variable:
+#+begin_src shell
+  docker inspect <container_name>
+#+end_src
+
+* Commands vs Entrypoint
+Commands is self explanatory are commands that run when a docker container is run. It can be written like a bash command in the Dockerfile or as JSON format.
+#+begin_src dockerfile
+  FROM Ubuntu
+
+  CMD sleep 5
+#+end_src
+
+Or
+#+begin_src dockerfile
+  FROM Ubuntu
+
+  CMD ["sleep", "5"]
+#+end_src
+
+Entrypoints on another hand can work like a command but it can also work by just having the executable command. We then put the parameter when we run the container.
+#+begin_src dockerfile
+  FROM Ubuntu
+
+  ENTRYPOINT ["sleep"]
+#+end_src
+
+#+begin_src shell
+  docker run ubuntu 10
+#+end_src
+
+The command above will run the sleep command for 10 seconds.
+
+We can also specify a ~CMD~ with the ~ENTRYPOINT~ on the dockerfile to set a default parameter.
+
+#+begin_src dockerfile
+  FROM Ubuntu
+
+  ENTRYPOINT ["sleep"]
+
+  CMD ["10"]
+#+end_src
+
+We can also override the entrypoint by specifying it when running the container:
+#+begin_src shell
+  docker run --entrypoint sleep2.0 ubuntu 10
+#+end_src

@@ -1,0 +1,60 @@
+#+TITLE: Docker Engine and Storage
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#docker-engine][Docker Engine]]
+- [[#docker-storage][Docker Storage]]
+  - [[#storage-drivers][Storage Drivers]]
+
+* Docker Engine
+Installing Docker Engine actually installs 3 components.
+1. Docker CLI
+2. REST API
+3. Docker Daemon
+
+Take note that it is not mandatory for the Docker CLI to be in the same host. We can connect to a remote docker engine using the ~-H~ flag.
+#+begin_src shell
+  docker -H=<remote-docker-ip>:2375 run <image>
+#+end_src
+
+We can limit the resources a container can utilize as by default, a container can utilize all of the host resources.
+
+#+begin_src shell
+  docker run --cpus=.5 --memory=100M ubuntu
+#+end_src
+
+The command above limits the container to not use more than half of the host CPU and 100Mb of memory.
+
+* Docker Storage
+We can preserve the data created by the container by ~volume mapping~ or we can add a persistent volume to the container by running:
+#+begin_src shell
+  docker volume create data_volume
+#+end_src
+
+This command creates a volume called ~data_volume~ inside ~/var/lib/docker/volumes~
+
+Then we can mount this volume inside the containers read-write layer:
+#+begin_src shell
+  docker run -v data_volume:/var/lib/mysql mysql
+#+end_src
+
+If we did not create a volume beforhand, docker will automatically create the volume for us.
+
+Take note that using the ~-v~ flag is an old style for mounting. The preferred way is using ~--mount~ as it is more verbose.
+#+begin_src shell
+  docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+#+end_src
+
+Where:
+- ~source~: is the location on the host
+- ~target~: is the location on the container
+
+** Storage Drivers
+Storage drivers are responsible for all operations on storage. They enable layered architecture. The selection of storage driver is dependent on the underlying OS.
+- AUFS
+- ZFS
+- BTRFS
+- Device Mapper
+- Overlay
+- Overlay2
