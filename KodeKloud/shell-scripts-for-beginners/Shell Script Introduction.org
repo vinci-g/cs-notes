@@ -1,0 +1,8 @@
+#+TITLE: Shell Script Introduction
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#your-first-shell-script][Your First Shell Script]]
+
+* Your First Shell Script
