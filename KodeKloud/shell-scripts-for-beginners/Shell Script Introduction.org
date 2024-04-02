@@ -6,6 +6,7 @@
 - [[#variables][Variables]]
 - [[#command-line-arguments][Command Line Arguments]]
 - [[#read-inputs][Read Inputs]]
+- [[#arithmetic][Arithmetic]]
 
 * Variables
 #+begin_src shell
@@ -45,3 +46,34 @@ To add a prompt we add the ~-p~ flag:
 #+begin_src shell
   read -p "Enter variable:" variable_name
 #+end_src
+
+* Arithmetic
+There are multiple ways to implement arithmetic operations in the shell.
+
+*** expr
+#+begin_src shell
+  expr 1 + 1
+#+end_src
+
+The ~expr~ command should separate the operands and operators with a space.
+
+When performing multiplication, we must use ~\*~ instead of ~*~ as the star symbol is a reserved character for regex in the shell.
+
+*** Double Parentheses
+#+begin_src shell
+  echo $((A + B))
+#+end_src
+
+Using double paretheses should be used with echo or assign it to a variable.
+
+For multiplication, we can just use ~*~.
+
+*** bc
+For floating point numbers we utilize the ~bc~ command.
+
+Usage:
+#+begin_src shell
+  echo $A / $B | bc -l
+#+end_src
+
+The ~-l~ flag is needed to generate floating point results as it loads the math library to enable advanced math functions usage.
