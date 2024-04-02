@@ -1,0 +1,39 @@
+#+TITLE: Container Orchestration
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#overview][Overview]]
+- [[#docker-swarm][Docker Swarm]]
+- [[#kubernetes-introduction][Kubernetes Introduction]]
+  - [[#kubernetes-architecture][Kubernetes Architecture]]
+  - [[#kubectl][kubectl]]
+
+* Overview
+Container orchestration is a solution that consists of a set of tools/scripts that help host containers in a production environment.
+
+Typically consist of multiple Docker hosts that can host containers so that if one fails, the application is still accessible through the others.
+
+* Docker Swarm
+With Docker Swarm, we can combine multiple Docker machines into a single cluster. Docker Swarm will take care of distributing the services/application instances into separate hosts for *high availability* and *load balancing*.
+
+We basically have a manager node and worker nodes, and the commands to orchestrate the containers should be run on the manager.
+
+* Kubernetes Introduction
+Kubernetes uses Docker hosts to host applications in the form of Docker containers.
+
+** Kubernetes Architecture
+A Kubernetes cluster consist of a set of /nodes/, which is a machine (physical or virtual) on which Kubernetes is installed. This is where containers will be launched by Kubernetes.
+
+The /master/ is a node where Kubernetes controls are installed and watches over the nodes in the cluster and is responsible for the orchestration of containers on the worker nodes.
+
+** kubectl
+Kubernetes Command-line Tool
+
+~kubectl~ is used to deploy and manage applications on a Kubernetes cluster, get cluster info, etc.
+
+| Command              | Usage                                          |
+|----------------------+------------------------------------------------|
+| kubectl run          | Deploy an application to the cluster           |
+| kubectl cluster-info | View information about the cluster             |
+| kubectl get nodes    | List all the nodes that is part of the cluster |

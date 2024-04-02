@@ -1,0 +1,53 @@
+#+TITLE: Docker Networking
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#overview][Overview]]
+- [[#bridge][Bridge]]
+- [[#host][host]]
+- [[#none][none]]
+- [[#user-defined-networks][User-defined Networks]]
+- [[#embedded-dns][Embedded DNS]]
+
+* Overview
+When installing Docker, it creates 3 networks automatically.
+1. Bridge - default network a container is attached to
+2. none
+3. host
+
+If we want to associate a container with any other network, we specify it the ~--network~ flag:
+#+begin_src shell
+  docker run --network=none Ubuntu
+#+end_src
+
+* Bridge
+The bridge network is a private internal network created by Docker on the host and all containers are attached to this network on default. The containers are given an internal IP address usually in the ~172.17~ series.
+
+We can access the containers externally by mapping the ports of the container to the host ports.
+
+* host
+We can also access the containers externally by associating the container to the host network and takes out any network isolation between the docker host and containers.
+
+* none
+The containers are not attached to any network with the ~none~ network and does not access to the external network or any other containers.
+
+* User-defined Networks
+By default, docker only creates one internal bridge network but we can create our own internal network using ~docker network create~.
+#+begin_src shell
+  docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network
+#+end_src
+
+We can then check list all the networks by running:
+#+begin_src shell
+  docker network ls
+#+end_src
+
+* Embedded DNS
+Assuming we have a web server container and a database container, and that the web server needs to access the database.
+
+One way of doing that is indicating the internal IP of the database container. This is however not advisable as we are not guaranteed to get the same IP when the system reboots.
+
+The correct way is to just put the name of the container as all containers in a docker host can resolve each other with the name of the container.
+
+Docker has an internal built in DNS server that allows the containers to resolve each other. (Take note that the built in DNS server is always at address 127.0.0.11)
