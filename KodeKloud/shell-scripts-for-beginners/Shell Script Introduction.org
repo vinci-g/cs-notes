@@ -3,6 +3,45 @@
 #+OPTIONS: toc
 
 * Table of Contents :toc:
-- [[#your-first-shell-script][Your First Shell Script]]
+- [[#variables][Variables]]
+- [[#command-line-arguments][Command Line Arguments]]
+- [[#read-inputs][Read Inputs]]
 
-* Your First Shell Script
+* Variables
+#+begin_src shell
+  variable_name=variable-value
+
+  mkdir $variable_name
+#+end_src
+
+Initializing variables doesn't need ~$~. We just use the ~$~ symbol on usage.
+
+Take note as well that variable names can only contain *alphanumeric or underscores*.
+
+We can also store the output of a command and put it in a variable.
+#+begin_src shell
+  var=$(echo "Hello World!")
+
+  echo "Var value: $var"
+#+end_src
+
+* Command Line Arguments
+To have the variable name be taken from the argument, we can just specify:
+#+begin_src shell
+  variable_name=$1
+
+  mkdir $variable_name
+#+end_src
+
+Then running ~<command> test~ will execute ~mkdir test~.
+
+* Read Inputs
+To read an input when executing the shell script we use the ~read~ statement:
+#+begin_src shell
+  read variable_name
+#+end_src
+
+To add a prompt we add the ~-p~ flag:
+#+begin_src shell
+  read -p "Enter variable:" variable_name
+#+end_src
