@@ -10,32 +10,25 @@ I am also learning about DevOps technologies and concepts from [[https://kodeklo
 * Programming Languages
 
 ** C
-
 Reading material: C Programming: A Modern Approach
-
 Notes: [[file:C/][C]]
 
+** Emacs Lisp
+Notes: [[file:elisp/][Emacs Lisp]]
+
 * Computer Architecture
-
 Reading material: Computer Systems: A Programmer's Perspective
-
 Notes: [[file:CS-APP/][CS: APP]]
 
 * Containers
-
 Notes:
-
 [[file:KodeKloud/docker-for-the-absolute-beginner/][Docker for the Absolute Beginner]]
 
 * Devops
-
 Notes: 
-
 - [[file:KodeKloud/devops-prerequisite/][Devops Prerequisite]]
 - [[file:KodeKloud/12-factor-app/Twelve-Factor App Methodology.md][Twelve Factor Methodology]]
 
 * Linux
-
 Notes:
-
 - [[file:KodeKloud/linux-basics/][Linux Basics]]
