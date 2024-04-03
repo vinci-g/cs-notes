@@ -1,0 +1,62 @@
+#+TITLE: Flow Control
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#conditional-logic][Conditional Logic]]
+  - [[#if-statement][if Statement]]
+  - [[#else-if-statement][else if Statement]]
+  - [[#else-statement][else Statement]]
+- [[#conditional-operators][Conditional Operators]]
+
+* Conditional Logic
+
+** if Statement
+#+begin_src shell
+  if [ condition ]
+     then
+         <statements>
+  fi
+#+end_src
+
+- The condition in an ~if~ block is encapsulated by a pair of square brackets.
+
+** else if Statement
+#+begin_src shell
+  if [ condition ]
+     then
+         <statement>
+  elif [ condition ]
+       then
+           <statement>
+  fi
+#+end_src
+
+** else Statement
+#+begin_src shell
+  if [ condition ]
+     then
+         <statement>
+  elif [ condition ]
+       then
+           <statement>
+  else
+      <statement>
+  fi
+#+end_src
+
+* Conditional Operators
+Comparison statements should be encapsulated within square brackets.
+
+#+begin_src shell
+  [ STRING1 = STRING2 ]
+#+end_src
+
+The statements should be separated by a space from the brackets and the operator.
+
+*Other Operators*
+| Operator | Description                        |
+|----------+------------------------------------|
+| =        | Check if *strings* are equal       |
+| !=       | Check if *strings* are *not* equal |
+| -eq      | Check *number*                     |
