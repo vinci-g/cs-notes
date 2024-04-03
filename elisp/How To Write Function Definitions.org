@@ -1,0 +1,39 @@
+#+TITLE: How To Write Function Definitions
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#the-defun-macro][The 'defun' Macro]]
+- [[#install-a-function-definition][Install a Function Definition]]
+  - [[#change-a-function-definition][Change a Function Definition]]
+
+* The 'defun' Macro
+/Function definition/ is basicaly the code attached to a symbol and is created by evaluating a Lisp expression that starts with the symbol ~defun~ (define function).
+
+Five parts of a function definition following the word ~defun~:
+1. The name of the symbol to which the function definition should be attached.
+2. A list of arguments that will be passed to the function. It can be an empty list ~()~.
+3. Documentation describing the function. (Optional but *RECOMMENDED*)
+4. An expression to make it interactive. (Optional)
+5. Code: "body" of the function definition
+
+#+begin_src emacs-lisp
+  (defun FUNCTION-NAME (ARGUMENTS...)
+    "OPTIONAL DOCUMENTATION..."
+    (interactive ARGUMENT-PASSING-INFO) ; optional
+    BODY...)
+#+end_src
+
+Example function that multiplies a number by 7 (not interactive):
+#+begin_src emacs-lisp
+  (defun multiply-by-seven (number)
+    "Multiply NUMBER by seven."
+    (* 7 number))
+#+end_src
+
+* Install a Function Definition
+Take note that defining a function and then using it will not work. We need to evaluate the function definition first, which installs the function definition until we quit Emacs, then we can use it. The installed function using this way is not permanent.
+
+** Change a Function Definition
+Changing a function definition is just rewriting it and evaluating it again.
+

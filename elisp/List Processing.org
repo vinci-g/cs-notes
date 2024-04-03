@@ -1,7 +1,7 @@
 #+TITLE: List Processing
-#+AUTHOR: vinci_g
+#+AUTHOR: vinci
 #+DESCRIPTION: Intro to Elisp - Ch1. List Processing
-#+OPTIONS: toc:nil
+#+OPTIONS: toc
 
 * Table of Contents :toc:
 - [[#lisp-lists][Lisp Lists]]
@@ -407,12 +407,11 @@ We can also say that ~setq~ makes the symbol *point* to the list.
 * Exercises
 
 1. Generate an error message by evaluating an appropriate symbol that is not within parentheses
-
    #+begin_src emacs-lisp
      +
    #+end_src
 
-~+~ is not a variable so evaluating it as one would return an error ~void-variable +~
+   ~+~ is not a variable so evaluating it as one would return an error ~void-variable +~
 
 2. Generate an error message by evaluating an appropriate symbol that is between parentheses.
 

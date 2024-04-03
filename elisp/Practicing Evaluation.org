@@ -1,6 +1,24 @@
 #+TITLE: Practicing Evaluation
-#+AUTHOR: vinci_g
+#+AUTHOR: vinci
 #+DESCRIPTION: Intro to Elisp - Ch2. Practicing Evaluation
-#+OPTIONS: toc:nil
+#+OPTIONS: toc
 
 * Table of Contents :toc:
+- [[#buffer-names][Buffer Names]]
+- [[#getting-buffers][Getting Buffers]]
+- [[#buffer-size-and-the-location-of-point][Buffer Size and the Location of Point]]
+
+* Buffer Names
+- ~(buffer-name)~ returns the current buffer name
+- ~(buffer-file-name)~ returns the absolute path of the current buffer
+
+* Getting Buffers
+The /buffer name/ is not the buffer itself but only the representation of what the buffer is called. To get the actual buffer, we can use the function ~(current-buffer)~.
+
+This will return ~#<buffer *scratch*>~.
+
+Another function is ~(other-buffer)~ and returns the last visited buffer.
+
+* Buffer Size and the Location of Point
+- ~(buffer-size)~ tells the size of the current buffer in the count of the number of characters
+- ~(point)~ returns a number on where the cursor is as a count of number of characters from the beginning of the buffer up to the point
