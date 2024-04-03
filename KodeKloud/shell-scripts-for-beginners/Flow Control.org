@@ -59,4 +59,22 @@ The statements should be separated by a space from the brackets and the operator
 |----------+------------------------------------|
 | =        | Check if *strings* are equal       |
 | !=       | Check if *strings* are *not* equal |
-| -eq      | Check *number*                     |
+| -eq      | Check if *numbers* are equal       |
+| -ne      | Check if *numbers* are not equal   |
+| -gt      | Greater than                       |
+| -lt      | Less than                          |
+
+An enhanced and other way of writing conditional operators are using double square brackets and can do advanced operations like pattern matching:
+#+begin_src shell
+  [[ STRING1 = STRING2 ]]
+#+end_src
+
+Conditional operators usage on conditions:
+#+begin_src shell
+  [ COND1 ] && [ COND2 ]
+  [[ COND1 && COND2 ]]
+
+  [ COND1 ] || [ COND2 ]
+  [[ COND1 || COND2 ]]
+#+end_src
+
