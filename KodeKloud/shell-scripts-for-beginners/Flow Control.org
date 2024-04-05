@@ -8,6 +8,9 @@
   - [[#else-if-statement][else if Statement]]
   - [[#else-statement][else Statement]]
 - [[#conditional-operators][Conditional Operators]]
+- [[#loops][Loops]]
+  - [[#for-loop][for Loop]]
+  - [[#while-loop][while Loop]]
 
 * Conditional Logic
 
@@ -31,6 +34,7 @@
            <statement>
   fi
 #+end_src
+
 
 ** else Statement
 #+begin_src shell
@@ -76,5 +80,49 @@ Conditional operators usage on conditions:
 
   [ COND1 ] || [ COND2 ]
   [[ COND1 || COND2 ]]
+#+end_src
+
+* Loops
+
+** for Loop
+#+begin_src shell
+  for item in <list of items>
+  do
+      <command> $item
+  done
+#+end_src
+
+For the ~<list of items>~, we can store it inside a file like a ~txt~ file, then we can execute the loop like this:
+#+begin_src shell
+  for item in `cat items.txt`
+  do
+      <command> $item
+  done
+
+  for item in $(cat items.txt)
+  do
+      <command> $item
+  done
+#+end_src
+
+Using a range of numbers
+#+begin_src shell
+  for item in {0..100}
+  do
+      <command> $item
+  done
+
+  for (( item = 0; item <= 100; item++))
+  do
+      <command> $item
+  done
+#+end_src
+
+** while Loop
+#+begin_src shell
+  while [ CONDITION ]
+  do
+      <statement>
+  done
 #+end_src
 
