@@ -18,11 +18,12 @@ Notes: [[file:elisp/][Emacs Lisp]]
 
 * Computer Architecture
 Reading material: Computer Systems: A Programmer's Perspective
+
 Notes: [[file:CS-APP/][CS: APP]]
 
 * Containers
 Notes:
-[[file:KodeKloud/docker-for-the-absolute-beginner/][Docker for the Absolute Beginner]]
+- [[file:KodeKloud/docker-for-the-absolute-beginner/][Docker for the Absolute Beginner]]
 
 * Devops
 Notes: 
