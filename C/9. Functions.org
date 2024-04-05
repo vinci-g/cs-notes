@@ -17,6 +17,7 @@
 - [[#program-termination][Program Termination]]
   - [[#the-exit-function][The ~exit~ Function]]
 - [[#recursion][Recursion]]
+  - [[#the-quicksort-algorithm][The Quicksort Algorithm]]
 
 * Defining and Calling Functions
 A function that returns a value: [[file:sample-program/average.c][average.c]].
@@ -219,3 +220,59 @@ Basically, ~return <expression>~ == ~exit(<expression>)~.
 The difference is that ~exit~ causes the program termination regardless of which function calls it, while ~return~ causes program termination only when it appears in the ~main~ function.
 
 * Recursion
+A function is recursive if it calls itself.
+
+#+begin_src c
+  // computing n factorial
+  int fact(int n)
+  {
+    if (n <= 1)
+      return 1;
+    else
+      return n * fact(n - 1);
+  }
+#+end_src
+
+#+begin_src c
+  // computing x^n = x * x^(n-1)
+  int power(int x, int n)
+  {
+    if (n == 0)
+      return 1;
+    else
+      return x * power(x, n - 1);
+  }
+
+  int power(int x, int n)
+  {
+    return n == 0 ? 1 : x * power(x, n - 1);
+  }
+#+end_src
+
+All recursive functions need a *termination condition* to prevent infinite recursion.
+
+** The Quicksort Algorithm
+In practice, recursion often arises naturally as a result of an algorithm design technique known as /divide-and-conquer/ in which a large problem is divided into smaller pieces and then tackled by the same algorithm.
+
+*Quicksort* is an example of the divide-and-conquer strategy and goes as follows (for simplicity, assume that the array being sorted is indexed from 1 to /n/):
+1. Choose an array element ~e~ (the "partitioning element"), then rearrange the array so that the elements ~1, ..., i - 1~ are less than or equal to ~e~, the element ~i~ contains ~e~, and the elements ~i + 1, ..., n~ are greater than or equal to ~e~.
+2. Sort elements ~1, ..., i - 1~ by using Quicksort recursively.
+3. Sort elements ~i + 1, ..., n~ by using Quicksort recursively.
+
+The algorithm relies on two "markers" named /low/ and /high/, which keep track of the positions within the array.
+
+Initially /low/ points to the first element of the array and /high/ points to the last element.
+
+We start by copying the first element (partitioning element) into a temporary location elsewhere, leaving a "hole" in the array.
+
+We then move /high/ across the array from right to left until it points to an element that is smaller than the partitioning element.
+
+We copy the element to the "hole" that the /low/ points to which creates a new "hole" pointed at by /high/.
+
+We then move /low/ from left to right looking for an element that is larger than the partitioning element.
+
+We find one, we copy it to the hole /high/ points to, then the process repeats with /low/ and /high/ taking turns until they meet somewhere in the middle of the array.
+
+At that point, both will point at a hole and all we need is to copy the partitioning element into the hole.
+
+Example C code using Quicksort: 
