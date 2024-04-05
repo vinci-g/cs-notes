@@ -15,6 +15,8 @@
   - [[#compound-literals][Compound Literals]]
 - [[#the-return-statement][The ~return~ Statement]]
 - [[#program-termination][Program Termination]]
+  - [[#the-exit-function][The ~exit~ Function]]
+- [[#recursion][Recursion]]
 
 * Defining and Calling Functions
 A function that returns a value: [[file:sample-program/average.c][average.c]].
@@ -194,4 +196,26 @@ Example use cases:
 #+end_src
 
 * Program Termination
+Take note that omitting a return type of function is not legal.
 
+It is also not best practice to omit ~void~ in ~main~'s parameter list. (~main~ sometimes does have two parameters named ~argc~ and ~argv~).
+
+It is a good practice to always return a /status code/ even if there is no plans to use it since it is good for program testing.
+
+** The ~exit~ Function
+~exit~ belongs to ~<stdlib.h>~ and its arguments has the same meaning with ~main~'s return value which is indicating the programs status at termination.
+
+#+begin_src c
+  // normal termintation
+  exit(0);
+  exit(EXIT_SUCCESS);
+
+  // abnormal termination
+  exit(EXIT_FAILURE)
+#+end_src
+
+Basically, ~return <expression>~ == ~exit(<expression>)~.
+
+The difference is that ~exit~ causes the program termination regardless of which function calls it, while ~return~ causes program termination only when it appears in the ~main~ function.
+
+* Recursion
