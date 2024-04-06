@@ -11,6 +11,7 @@
 - [[#loops][Loops]]
   - [[#for-loop][for Loop]]
   - [[#while-loop][while Loop]]
+- [[#case-statements][Case Statements]]
 
 * Conditional Logic
 
@@ -126,3 +127,26 @@ Using a range of numbers
   done
 #+end_src
 
+* Case Statements
+Example:
+#+begin_src bash
+  while true
+  do
+      echo "1. Shutdown"
+      echo "2. Restart"
+      echo "3. Exit Menu"
+      read -p "Enter your choice: " choice
+
+      case $choice in
+          1) shutdown now
+             ;;
+          2) shutdown -r now
+             ;;
+          3) break
+             ;;
+          *) continue
+             ;;
+
+      esac
+  done
+#+end_src

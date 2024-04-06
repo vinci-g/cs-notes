@@ -1,0 +1,56 @@
+#+TITLE: Shebang
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#shebang][Shebang]]
+- [[#exit-codes][Exit Codes]]
+- [[#functions][Functions]]
+
+* Shebang
+There are certain functionalities that are only available for newer shells such as ~bash~ and would not work on older shells like ~Bourne Shell (sh)~.
+
+The ~shebang~ is just a line in a shell script that a user specify in a shell script which indicates what shell a script must run in.
+
+#+begin_src shell
+  #!/bin/bash
+  # <script>
+#+end_src
+
+It is best practice to always start a script with a ~shebang~ line.
+
+* Exit Codes
+If a code/command runs successfully, it returns an /EXIT STATUS/ of 0, and an /EXIT STATUS/ of greater than 0 it fails.
+
+Running ~echo $?~ returns the exit code on the last command executed.
+
+#+begin_src shell
+  # exiting the code and returning an exit status of 1
+  exit 1
+#+end_src
+
+It is always best practice to always return the appropriate exit code for your program.
+
+* Functions
+#+begin_src shell
+  function <function_name>() {
+      <statement>
+  }
+
+  #calling the function
+  <function_name> <argument>
+#+end_src
+
+In defining function, instead of ~exit~, we use ~return~ as the ~exit~ command exits the stops the code execution entirely while the ~return~ exits just the function call. This is similar in C.
+
+To get a value from a function, use the ~echo~ command and assign to a variable. The ~return~ statement is not used to return a value from a function and mainly used to return an exit status.
+
+#+begin_src shell
+  #!/bin/bash
+
+  function add() {
+      echo $(( $1 + $2 ))
+  }
+
+  sum=$(add 3 5)
+#+end_src

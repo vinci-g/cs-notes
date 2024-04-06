@@ -1,0 +1,35 @@
+#+TITLE: Cloud Computing
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#what-is-cloud-computing][What is Cloud Computing?]]
+  - [[#cloud-computing-models][Cloud Computing Models]]
+- [[#aws][AWS]]
+
+* What is Cloud Computing?
+Traditional IT services would be taking care of all the infrastructure, like installing new servers and hardware, operation and security installation, etc. which are all on-premise.
+
+| Pros                  | Cons                       |
+|-----------------------+----------------------------|
+| Improved security     | Increased cost             |
+| Greater customization | Limited scalability        |
+| More control          | Responsible for everything |
+|                       | Limited locations          |
+|                       | More personnel             |
+|                       | Long provisioning times    |
+
+*Cloud computing* is the *on-demand* delivery of IT resources and works in a *client-server model* which is *pay-as-you-go* access to resources.
+
+** Cloud Computing Models
+- Cloud
+  - Shared responsibility for Security and Operations
+- On-Premise
+  - All are in a data center
+  - Responsible for all security and operations
+- Hybrid
+  - Some in cloud and some not in cloud
+
+* AWS
+With AWS compared to traditional IT:
+- We can provision hardware (which is a service)...
