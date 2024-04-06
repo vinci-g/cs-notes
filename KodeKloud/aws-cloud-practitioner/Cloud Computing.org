@@ -6,6 +6,11 @@
 - [[#what-is-cloud-computing][What is Cloud Computing?]]
   - [[#cloud-computing-models][Cloud Computing Models]]
 - [[#aws][AWS]]
+  - [[#core-service-categories][Core Service Categories]]
+  - [[#ways-to-communicate-with-aws][Ways to Communicate with AWS]]
+- [[#benefits-of-the-cloud][Benefits of the Cloud]]
+- [[#cloud-economics][Cloud Economics]]
+- [[#cloud-design-principles][Cloud Design Principles]]
 
 * What is Cloud Computing?
 Traditional IT services would be taking care of all the infrastructure, like installing new servers and hardware, operation and security installation, etc. which are all on-premise.
@@ -32,4 +37,57 @@ Traditional IT services would be taking care of all the infrastructure, like ins
 
 * AWS
 With AWS compared to traditional IT:
-- We can provision hardware (which is a service)...
+- We can provision hardware (which is a service) that includes network and power.
+- Get access to configurable services instead of managing physical objects.
+
+** Core Service Categories
+- Compute
+- Network and Content Delivery
+- Storage
+- Database
+- Security, Identity, and Compliance
+- Management and Governance
+
+** Ways to Communicate with AWS
+- AWS Console (Web)
+- AWS CLI
+- AWS SDK (Software Development Kit)
+
+* Benefits of the Cloud
+1. Trade upfront expense for variable expense
+   - Basically pay for what you use
+2. Stop focusing on data centers
+   - More focus on customers and applications
+3. Stop guessing capacity
+   - Scale in and out as needed
+4. Benefit from massive economies of scale
+   - Price drop per unit used
+5. Increase provision speed and business agility
+   - Provision in seconds or minutes
+6. Go global in minutes
+   - AWS global infrastructure available globally
+
+* Cloud Economics
+- Free Tier
+  - AWS has a free tier that offers free services either forever or for a specific time period.
+- On-Demand
+  - Basically pay for what you need and use
+- Reservations
+  - Commit paying to a service for a specific time which AWS gives a discount
+- Volume Discounts
+  - More unit consumption, less price
+- Price Drops
+  - AWS does price drops on their services
+
+* Cloud Design Principles
+- Design for Failure
+  - Be intentional about failure and add redundancy
+  - Increased resiliency
+- Decouple Components
+  - Put a queue or scaling layer in between components
+  - Components should be loosely coupled and flexible in sudden change in traffic
+- Implement Elasticity
+  - Scale up and down as you need it
+- Think Parallel
+  - Increase concurrency
+  - Think about doing things horizontally instead of vertically

@@ -1,0 +1,102 @@
+#+TITLE: Security and Compliance
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#shared-responsibility-model][Shared Responsibility Model]]
+- [[#security-and-compliance][Security and Compliance]]
+- [[#identity-and-access-management-iam][Identity and Access Management (IAM)]]
+  - [[#iam-policies][IAM Policies]]
+  - [[#groups][Groups]]
+  - [[#role][Role]]
+
+* Shared Responsibility Model
+With traditional IT, a physical infrastructure, we manage all of the security ourselves.
+
+With AWS, basically it becomes a team effort where both we and AWS manage security.
+
+The /shared responsibility model/ is basically to indicate the responsibility of the customer and AWS.
+
+*Customer* = Responsibility for security *IN* the cloud
+*AWS* = Responsibility for security *OF* the cloud
+
+| Customer                                                        | AWS                                    |
+|-----------------------------------------------------------------+----------------------------------------|
+| Customer Data                                                   | Software                               |
+| Platform, Applications, Identity & Access Management            | Compute, Storage, Database, Networking |
+| OS, Network & Firewall Configuration                            | Hardware/AWS Global Infrastructure     |
+| Client Sida Data Encryption & Data Integrity Authentication     | Regions                                |
+| Server-Side Encryption (File System and/or Data)                | Availability Zones                     |
+| Networking Traffic Protection (Encryption, Integrity, Identity) | Edge Locations                         |
+
+Reference: [[https://aws.amazon.com/compliance/shared-responsibility-model][Shared Responsibility Model]]
+
+* Security and Compliance
+Compliance and regulatory frameworks are set of guidelines and best practices that organizations must follow to meet regulatory requirements.
+
+AWS undergoes certification reviews and audits to meet regulatory requirements and these audit reports are available on *AWS Artifact*.
+
+*AWS Compliance Center* is a central location to research cloud-related regulatory requirements and their impact on your industry.
+
+*AWS Audit Manager* collects data to prepare for audits and ensures that you comply with regulatory standards, and build audit ready reports.
+
+*AWS Config* tracks how the resource is configured and records previous configuration state to show how the configs have changed over time.
+
+* Identity and Access Management (IAM)
+When creating an account, it will create a /root user/ which has access to everything in the account and can perform any action on any resource.
+
+*IAM* manages access to AWS resources and handles who is authenticated and what they are authorized to do.
+
+Three types of /identities/:
+- Users
+- Groups
+- Roles
+
+IAM policies define what resources a user/group/role has access to and what actions they can perform on them.
+
+By default, creating a new user would not give access to any AWS services to that user and should be explicity given permission.
+
+** IAM Policies
+An IAM policy is a document that eithers grant or deny access to a specific service or resource.
+
+When creating policies, we must follow the principle of least privilege, where we give the bare minimum access to what the user need.
+
+Policy example:
+#+begin_src json
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "SecondStatement",
+        "Effect": "Allow",
+        "Action": "ec2:*",
+        "Resource": "*"
+      },
+      {
+        "Sid": "ThirdStatement",
+        "Effect": "Allow",
+        "Action": [
+          "s3:List*",
+          "s3:Get*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::bucket1",
+          "arn:aws:s3:::bucket1/*",
+        ]
+      }
+    ]
+  }
+#+end_src
+
+~Version~ defines the policy version to use (refer to IAM documentation).
+~Statement~ is the list of rules that we want for the specific IAM policy
+~Sid~ is the statement ID which is an optional identifier for the policy statement
+~Effect~ can only be ~Allow~ or ~Deny~
+~Action~ is what we are allowing/denying it to do. From the example we are allowing the user anything EC2 related.
+~Resource~ is the resource the action is applying to
+
+** Groups
+Groups are a collection of IAM users that share the same policy.
+
+** Role
+IAM Roles allows a user to *temporarily* have the policy of the role. Basically adding more access for a limited amount of time.
