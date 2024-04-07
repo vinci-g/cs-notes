@@ -9,6 +9,10 @@
   - [[#iam-policies][IAM Policies]]
   - [[#groups][Groups]]
   - [[#role][Role]]
+- [[#organizations][Organizations]]
+- [[#resources-for-security-in-aws][Resources for Security in AWS]]
+  - [[#prevention][Prevention]]
+  - [[#detection][Detection]]
 
 * Shared Responsibility Model
 With traditional IT, a physical infrastructure, we manage all of the security ourselves.
@@ -100,3 +104,30 @@ Groups are a collection of IAM users that share the same policy.
 
 ** Role
 IAM Roles allows a user to *temporarily* have the policy of the role. Basically adding more access for a limited amount of time.
+
+* Organizations
+Organizations can manage multiple AWS accounts, where we can limit the policy an account has using /service control policies/.
+
+With organizations, we have organizational unit which is basically groups for accounts.
+
+* Resources for Security in AWS
+** Prevention
+*** AWS Web Application Firewall
+Monitor HTTP requests that are forwarded to web applications to protect it from attacks.
+
+With AWS WAF, we need to define a set of rules called Web ACL (Access Control Lists).
+- Specify the resource to monitor
+- Provide an inspection criteria
+- Define an action to take based on the inspection criteria
+
+Protects applications from common attacks like SQL injection and XSS attack.
+
+*** AWS Shield
+Detect and mitigates sophisticated DDoS (Distributed Denial of Service) attacks.
+
+*** AWS Network Firewall
+Stateful firewall to protect incoming traffic entering and leaving a VPC (Virtual Private Cloud)
+
+** Detection
+*** AWS Inspector
+Scans workloads running on AWS for vulnerabilities and undesired network exposure.

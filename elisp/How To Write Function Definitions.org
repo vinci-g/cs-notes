@@ -6,6 +6,10 @@
 - [[#the-defun-macro][The 'defun' Macro]]
 - [[#install-a-function-definition][Install a Function Definition]]
   - [[#change-a-function-definition][Change a Function Definition]]
+- [[#make-a-function-interactive][Make a Function Interactive]]
+- [[#different-options-for-interactive][Different Options for Interactive]]
+- [[#install-code-permanently][Install Code Permanently]]
+- [[#let][~let~]]
 
 * The 'defun' Macro
 /Function definition/ is basicaly the code attached to a symbol and is created by evaluating a Lisp expression that starts with the symbol ~defun~ (define function).
@@ -37,3 +41,36 @@ Take note that defining a function and then using it will not work. We need to e
 ** Change a Function Definition
 Changing a function definition is just rewriting it and evaluating it again.
 
+* Make a Function Interactive
+We can make a function interactive, that is we can invoke ~M-x~ and the name of the function to run it, by adding the special form ~interactive~ immediately after the documentation.
+
+#+begin_src elisp
+  (defun multiply-number-by-seven (number)
+    "Multiply NUMBER by seven."
+    (interactive "p")
+    (message "The result is %d" (* 7 number)))
+#+end_src
+
+The ~"p"~ tells Emacs to pass the prefix argument to the function to use its value for the argument of the function.
+
+* Different Options for Interactive
+Refer to the elisp reference manual for a list of code characters besides ~p~ for interactive.
+
+Consider the function ~zap-to-char~:
+#+begin_src elisp
+  (interactive "p\ncZap to char: ")
+#+end_src
+
+The ~c~ tells the function the character.
+
+With the function ~zap-to-char~, the function would kill up to and including the character argument.
+
+* Install Code Permanently
+1. For code that is just for the user, the code/function can be put inside the ~.emacs~ initialization file.
+2. We can also put function definitions that we want installed in one or more files of their own an use the ~load~ function.
+3. For code that a whole site will use, we can put it in a file called ~site-init.el~ that is loaded when Emacs is built.
+
+For code that we want the Emacs community to use, we can post it on a computer network or submit a copy o tho Free Software Foundation. Just make sure to license the code and documentation.
+
+* ~let~
+~let~ is used to attach or bind a symbol to a value that will not confuse the Lisp interpreter with a variable of the same name that is part of the function.
