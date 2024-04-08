@@ -7,13 +7,22 @@ The notes here are from books I am studying from [[https://teachyourselfcs.com][
 I am also learning about DevOps technologies and concepts from [[https://kodekloud.com][KodeKloud]].
 
 
-* Programming Languages
+* Programming
+Reading material: Structure and Interpretation of Computer Programs
 
-** C
+Lectures: CS61A
+
+Notes: [[file:SICP/][SICP]]
+
+** Programming Languages
+*** C
 Reading material: C Programming: A Modern Approach
+
 Notes: [[file:C/][C]]
 
-** Emacs Lisp
+*** Emacs Lisp
+Reference: Introduction to Elisp (~eintr~)
+
 Notes: [[file:elisp/][Emacs Lisp]]
 
 * Computer Architecture
