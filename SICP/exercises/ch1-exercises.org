@@ -1,0 +1,102 @@
+#+TITLE: SICP Chapter 1 Exercises
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#11][1.1]]
+- [[#12][1.2]]
+- [[#13][1.3]]
+- [[#14][1.4]]
+- [[#15][1.5]]
+
+* 1.1
+#+begin_src scheme
+  10 ; 10
+
+  (+ 5 3 4) ; 12
+
+  (- 9 1) ; 8
+
+  (/ 6 2) ; 3
+
+  (+ (* 2 4) (- 4 6)) ; 6
+
+  (define a 3)
+  (define b (+ a 1))
+  (+ a b (* a b)) ; 19
+
+  (= a b) ; false, #f
+
+  (if (and (> b a) (< b (* a b)))
+      b
+      a) ; 4
+
+  (cond ((= a 4) 6)
+        ((= b 4) (+ 6 7 a))
+        (else 25)) ; 16
+
+  (* (cond ((> a b) a)
+           ((< a b) b)
+           (else -1))
+     (+ a 1)) ; 16
+
+#+end_src
+
+* 1.2
+Translate the following expression into prefix form: ~(5 + 4 + (2 - (3 - (6 + (4 / 5))))) / (3 * (6 - 2) * (2 - 7))~
+#+begin_src scheme
+  (/ (+ 5 4
+        (- 2
+           (- 3
+              (+ 6 (/ 4 5)))))
+     (* 3 (- 6 2) (- 2 7)))
+#+end_src
+
+* 1.3
+Define a procedure that takes three numbers as arguments and returns the sum of the squares of the two larger numbers.
+#+begin_src scheme
+  (define (sum-of-two-large x y z)
+    (cond ((and (< z x) (< z y)) (+ x y))
+          ((and (< y x) (< y z)) (+ x z))
+          ((and (< x y) (< x z)) (+ y z))))
+#+end_src
+
+* 1.4
+Use the model of evaluation to describe the behaviour of the following procedure:
+#+begin_src scheme
+  (define (a-plus-abs-b a b)
+    ((if (> b 0) + -) a b))
+#+end_src
+
+The procedure checks if ~b~ is greater than 0 then applies the corresponding operator to add a positive or negative value of ~b~.
+
+* 1.5
+What behavior can we observe for an interpreter that uses applicative order and normal order evaluation with the following procedure:
+#+begin_src scheme
+  (define (p) (p))
+  (define (test x y)
+    (if (= x y) 0 y))
+
+  (test 0 (p))
+#+end_src
+
+Applicative Order:
+#+begin_src scheme
+  (test 0 (p))
+  (test 0 (p))
+  ...
+#+end_src
+
+In applicative order where we evaluate then apply, ~(p)~ will call itself indefinitely.
+
+Normal Order:
+#+begin_src scheme
+  (test 0 (p))
+
+  (if (= 0 0) 0 (p))
+
+  0
+#+end_src
+
+Using normal order, the result is 0. This is because ~(p)~ is not evaluated until it is needed which turns ~y~ essentially to 0. Since the condition is true, we get the value 0 and ~(p)~ inside the ~if~ statement is not evaluated.
+

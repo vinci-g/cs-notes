@@ -1,0 +1,148 @@
+#+TITLE: Building Abstractions with Procedure
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#the-elements-of-programming][The Elements of Programming]]
+  - [[#expressions][Expressions]]
+  - [[#naming-and-the-environment][Naming and the Environment]]
+  - [[#evaluating-combinations][Evaluating Combinations]]
+  - [[#compound-procedures][Compound Procedures]]
+  - [[#substitution-model-for-procedure-applications][Substitution Model for Procedure Applications]]
+  - [[#conditional-expressions-and-predicate][Conditional Expressions and Predicate]]
+
+* The Elements of Programming
+Every language has three mechanisms for combining simple ideas to complex ideas:
+1. *Primitive Expressions* - simplest entities of the language
+2. *Means of Combination* - compound elements are built from simple ones
+3. *Means of Abstraction* - compound elements can be named and manipulated as units
+
+There are two kinds of elements in programming:
+1. Data - element we want to manipulate
+2. Procedures - manipulates data
+
+** Expressions
+Expressions formed by delimiting a list of expressions within parentheses in order to denote procedure applications are called /combinations/.
+#+begin_src scheme
+  (+ 1 2)
+  ; + is the operator
+  ; 1 and 2 are the operands
+#+end_src
+
+The convention of placing the operator to the leftmost is called /prefix notation/ which can take in an arbitrary number of arguments, and allow combinations to be nested.
+
+#+begin_src scheme
+  (+ 1 2 3 4 5)
+
+  (+ (* 3
+        (+ 1 2))
+     (/ 4 2))
+#+end_src
+
+** Naming and the Environment
+Defining a variable:
+#+begin_src scheme
+  (define pi 3.14159)
+  (define radius 10)
+  (define circumference (* 2 pi radius))
+#+end_src
+
+The /environment/ is a "memory" in the interpreter that remebers the defined symbols with a value.
+
+** Evaluating Combinations
+1. Evaluate the subexpressions of the combination.
+2. Apply the procedure
+
+We can see that this evaluation is /recursive/ in nature since from the first procedure, we need to evaluate the elements before we can evaluate the combination.
+
+We can represent this in a tree where the operands "percolates upwards" from the terminal nodes which is an example of the process /tree accumulation/.
+
+Defining a symbol such as ~(define x 3)~ is not a combination but a /special form/ so rules on evaluating combinations does not apply.
+
+** Compound Procedures
+/Procedure definitions/ (also called /function definitions/ on other languages) is basically an abstraction technique to name a compound operation and can be referred as a unit.
+
+#+begin_src scheme
+  ; General form
+  ; (define (<name> <formal parameters>) (<body>))
+  (define (square x) (* x x))
+#+end_src
+
+We can then use ~square~ in other operations, or inside other procedure definitions:
+#+begin_src scheme
+  (square 2)
+  ; 4
+
+  (+ (square x) (square y))
+
+  (define (sum-of-squares x y)
+    (+ (square x) (square y)))
+
+  (define (f a)
+    (sum-of-squares (+ a 1) (* a 2)))
+  (f 5)
+  ; 136
+#+end_src
+
+** Substitution Model for Procedure Applications
+The procedure for evaluating compound arguments is basically the same as evaluating combinations which is to apply a compound procedure to arguments, evaluate the body of the procedure with each formal parameter replaced by the corresponding arguments.
+
+#+begin_src scheme
+  (f 5)
+  (sum-of-squares (+ 5 1) (* 5 2))
+  (+ (square 6) (square 10))
+  (+ (* 6 6) (* 10 10))
+  (+ (36) (100))
+  136
+#+end_src
+
+The process done above is called the /substitution method/ where we determine the "meaning" of the procedure application.
+
+*** Applicative Order vs Normal Order
+/Normal order/ is a form of evaluation where we expand the procedure application then reduce.
+#+begin_src scheme
+  (f 5)
+  (sum-of-squares (+ 5 1) (* 5 2))
+  (+ (square (+ 5 1)) (square (* 5 2)))
+  (+ (* (+ 5 1) (+ 5 1)) (* (* 5 2) (* 5 2)))
+  (+ (* 6 6) (* 10 10))
+  (+ 36 100)
+  136
+#+end_src
+
+/Applicative order/ is what the interpreter uses and is like the substitution model where we evaluate the arguments then apply.
+
+** Conditional Expressions and Predicate
+#+begin_src scheme
+  (define (abs x)
+    (cond ((> x 0) x)
+          ((= x 0) 0)
+          ((< x 0) (- x))))
+#+end_src
+
+The condition to test if an expression is true or false is called the /predicate/ and the result is called the /consequent expression/.
+
+We can also write the procedure as:
+#+begin_src scheme
+  (define (abs x)
+    (cond ((< x 0) (- x))
+          (else x)))
+
+  ; or
+
+  (define (abs x)
+    (if (< x 0)
+        (- x)
+        x))
+#+end_src
+
+Constructing compound predicates:
+#+begin_src
+  (and <e1> ... <en>)
+  
+  (or <e1> ... <en>)
+
+  (not <e>)
+#+end_src
+
+
