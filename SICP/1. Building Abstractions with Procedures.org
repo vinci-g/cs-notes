@@ -10,6 +10,9 @@
   - [[#compound-procedures][Compound Procedures]]
   - [[#substitution-model-for-procedure-applications][Substitution Model for Procedure Applications]]
   - [[#conditional-expressions-and-predicate][Conditional Expressions and Predicate]]
+  - [[#example-square-roots-by-newtons-method][Example Square Roots by Newton's Method]]
+  - [[#procedures-as-black-box-abstractions][Procedures as Black-Box Abstractions]]
+- [[#procedures-and-the-processes-they-generate][Procedures and the Processes They Generate]]
 
 * The Elements of Programming
 Every language has three mechanisms for combining simple ideas to complex ideas:
@@ -145,4 +148,65 @@ Constructing compound predicates:
   (not <e>)
 #+end_src
 
+** Example Square Roots by Newton's Method
+Computing the square root of a number using Newton's method:
+#+begin_src scheme
+  (define (sqrt-iter guess x)
+    (if (good-enough? guess x)
+        guess
+        (sqrt-iter (improve guess x) x)))
 
+  (define (improve guess x)
+    (average guess (/ x guess)))
+
+  (define (average x y)
+    (/ (+ x y) 2))
+
+  (define (good-enough? guess x)
+    (< (abs (- (square guess) x)) 0.001))
+
+  (define (sqrt x)
+    (sqrt-iter 1.0 x))
+
+#+end_src
+
+** Procedures as Black-Box Abstractions
+Basically, users that call procedures should not be concerned on the implementation of the procedure but only the effect/result it produces thus making it a black box.
+
+~square~ defined earlier is actually not a procedure but a /procedural abstraction/ where at this point, any method to compute the square of a number is equally good.
+
+Formal parameter names should not matter to a user, and it is local only to the procedure defined. Such name is called a /bound variable/ where the procedure "binds" its formal parameters.
+
+There is also a concept of free variables where the variable is not bound to the body of the procedure.
+
+In the case for computing the square root of a number, only the ~sqrt~ procedure is important to the users and auxilliary procedures might not be defined as part of another program. To remedy this we can utilize having /internal definitions/ to a procedure that is local to that procedure, called /block structure/.
+
+#+begin_src scheme
+  (define (sqrt x)
+    (define (good-enough? guess x)
+      (< (abs (- (square guess) x)) 0.001))
+    (define (improve guess x) (average guess (/ x guess)))
+    (define (sqrt-iter guess x)
+      (if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x) x)))
+    (sqrt-iter 1.0 x))
+
+  ; but since is bound to the definition of sqrt and the internal procedure definitions
+  ; it is not necessary to pass x explicitly to each of the procedures
+  ; instead we allow x to be a free variable in the internal definitions
+
+  (define (sqrt x)
+    (define (good-enough? guess)
+      (< (abs (- (square guess) x)) 0.001))
+    (define (improve guess) (average guess (/ x guess)))
+    (define (sqrt-iter guess)
+      (if (good-enough? guess)
+          guess
+          (sqrt-iter (improve guess))))
+    (sqrt-iter 1.0))
+#+end_src
+
+The setting of ~x~ as a free variable in the internal definitions is called /lexical scoping/.
+
+* Procedures and the Processes They Generate

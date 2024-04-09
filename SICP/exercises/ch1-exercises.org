@@ -8,6 +8,9 @@
 - [[#13][1.3]]
 - [[#14][1.4]]
 - [[#15][1.5]]
+- [[#16][1.6]]
+- [[#17][1.7]]
+- [[#18][1.8]]
 
 * 1.1
 #+begin_src scheme
@@ -100,3 +103,17 @@ Normal Order:
 
 Using normal order, the result is 0. This is because ~(p)~ is not evaluated until it is needed which turns ~y~ essentially to 0. Since the condition is true, we get the value 0 and ~(p)~ inside the ~if~ statement is not evaluated.
 
+* 1.6
+#+begin_src scheme
+  (define (new-if predicate then-clause else-clause)
+    (cond (predicate then-clause)
+          (else else-clause)))
+#+end_src
+
+Using ~new-if~ in place of the regular ~if~ in the square-root program in Chapter 1.1.7, what would happen?
+
+Using the new if will end with an infinite loop since ~new-if~ is not a special form and will evaluate the alternatives first. Since the second alternative is a recursive call to itself, an infinite loop will be the result.
+
+* 1.7
+
+* 1.8
