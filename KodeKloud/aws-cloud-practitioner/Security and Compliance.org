@@ -13,6 +13,7 @@
 - [[#resources-for-security-in-aws][Resources for Security in AWS]]
   - [[#prevention][Prevention]]
   - [[#detection][Detection]]
+  - [[#management][Management]]
 
 * Shared Responsibility Model
 With traditional IT, a physical infrastructure, we manage all of the security ourselves.
@@ -130,4 +131,69 @@ Stateful firewall to protect incoming traffic entering and leaving a VPC (Virtua
 
 ** Detection
 *** AWS Inspector
-Scans workloads running on AWS for vulnerabilities and undesired network exposure.
+- Scans workloads running on AWS for vulnerabilities and undesired network exposure.
+- Automatically scans EC2 instances, container images in ECR, and Lambda functions.
+- Produces report when vulnerabilities are found.
+- Re-run scans whenever changes are made that could introduce new vulnerabilities.
+  - Installing new package
+  - Installing patch
+  - New CVE is published
+
+*** AWS Guard Duty
+Identifies threats by continuously monitors the activity on a users AWS infrastructure that utilizes ML to detect users usual patterns and behaviors on the AWS account and will raise a notification when it detects something abnormal.
+
+*** Amazon Detective
+Grabs logs and findings from a couple of AWS services like Guard Duty findings, VPC flow logs, and CloudTrail logs, and uses ML to create static analysis and advanced visualization with interactive dashboards that shows resources behaviors and interactions over time.
+
+*** AWS Config
+Tracks and audits configuration of AWS resources over time.
+
+*** AWS Security Hub
+Automates security checks and brings security alerts in a centralized location.
+
+*** CloudTrail
+Tracks user activity within an AWS account like logging in, modifying security policies, and accessing, creating, or deleting a service.
+
+*** Amazon Security Lake
+Collects security logs from various source and aggregates it into one central location, then convert it to a storage and query efficient Parquet Format, and transform the data to the OCSF (Open Cybersecurity Schema Framework) schema.
+
+Once stored, we can have a variety of different subscribers consume that data.
+
+*** AWS Macie
+Uses pattern matching and ML to automatically discover sensitive data and will generate an inventory report of S3 buckets and scan objects for sensitive data.
+
+** Management
+
+*** Firewall Manager
+A security management service that allows the user to centrally configure and manage firewall rules across multiple AWS accounts, applications, and organizations.
+
+*** Resource Access Manager
+Securely share resources accross accounts, organization, and organizational units.
+
+*** AWS Cognito
+- Helps implement customer identity and access management for mobile and web applications.
+- Easy to add sign up or login functionality without social authentication to any app.
+- Manages all user credentials.
+
+*** IAM (Identity and Access Management)
+Manages access to AWS resources.
+
+**** IAM Identity Center
+Manage sign in security for all users in a central place and be able to give access to those users in different AWS accounts.
+
+*** Secrets Manager
+Store and manage credentials which an application can dynamically pull the secrets from the Secrets Manager.
+
+We can also configure automatic rotation schedule for our secrets.
+
+*** AWS Certificate Manager (ACM)
+Handles creating, storing, and renewing public/private certificates.
+
+*** AWS Private Certificate Authority
+Easy way to create private CA to manage private certificates within an organization.
+
+*** Key Management Service (KMS)
+Create and manage all cryptographic keys and provides granular control over who has access to the keys.
+
+*** Cloud Hardware Security Module (HSM)
+HSM is a place where all keys are securely stored.
