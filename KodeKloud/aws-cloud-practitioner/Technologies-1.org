@@ -1,0 +1,81 @@
+#+TITLE: Technologies - Part 1
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#aws-global-infrastructure][AWS Global Infrastructure]]
+  - [[#regions][Regions]]
+  - [[#availability-zones][Availability Zones]]
+  - [[#global-content-delivery--edge-locations][Global Content Delivery & Edge Locations]]
+  - [[#local-zones][Local Zones]]
+  - [[#edge-locations-vs-local-zones][Edge Locations vs Local Zones]]
+- [[#networking][Networking]]
+  - [[#vpc][VPC]]
+  - [[#subnets][Subnets]]
+
+* AWS Global Infrastructure
+
+** Regions
+An AWS Region is a geographic location where resources can be deployed.
+
+Each region is designed to be isolated from other regions across the globe which gives the following benefits:
+- Fault Tolerance
+- Stability
+
+Factors that we need to consider when selecting a region:
+1. Not all regions are the same
+2. Not all services are available on all regions
+3. GovCloud regions designed for U.S. Government and customers who need to meet regulartory and compliance requirements
+4. Select a region as close as possible to customers to minimize latency
+5. Cost of services vary from region to region
+6. Due to compliance and legal requirements, you may need to run your infrastructure in certain areas/countries
+
+** Availability Zones
+Within a region, there are *multiple* availability zones.
+
+An Availability Zone (AZ) is one or more discrete data center with redundant power, networking, and connectivity in an AWS region. Basically they provide redundancy within a region.
+
+** Global Content Delivery & Edge Locations
+Edge locations are essentialy CDNs where customers from a different region can send a request to, an example a web server hosted in another region, through the customers local edge location, minimizing latency.
+
+** Local Zones
+Local zones are extensions of AWS regions that allows the user to select AWS services like compute or storage closer to the end-users.
+
+Local zones provide high-bandwidth, secure connection to the parent AWS region.
+
+Great for low-latency applications like real-time gaming, live streaming, and virtual workstations for the local city.
+
+** Edge Locations vs Local Zones
+Local Zones
+- Extensions of regions physically located in major cities across the world
+- Have their own isolated infrastructure but connected to the parent AWS region
+- Provide access to subset of services like EC2 & EBS
+
+Edge Locations
+- Geographically dispersed compute sites
+- Support services such as CloudFront (content delivery network), Route53, AWS WAF
+- Limited to mostly CDN services
+- Hundreds of Edge Locations as they are not full sized
+
+* Networking
+By default, deploying an application to AWS will give us our own mini private cloud which are isolated therefore other customers won't be able to communicate with our application.
+
+These private clouds are called VPCs (Virtual Private Cloud).
+
+** VPC
+A VPC is a secure isolated network hosted within AWS.
+
+VPC isolates computing resources from other computing resources available in the cloud.
+
+Allows customers full control over the networking in the cloud:
+- Subnetting (IP address)
+- Routing (Route tables)
+- Firewalls
+- Gateways
+
+We can not only have one but multiple VPCs where can segment out different VPCs for different environments, different applications, etc. It is up to the customer to architect/design on how to use multiple VPCs.
+
+A VPC is specific to a single region and acts as a network boundary
+
+** Subnets
+Subnets are a group of IP addresses in your VPC and resides in a within a single availability zone.
