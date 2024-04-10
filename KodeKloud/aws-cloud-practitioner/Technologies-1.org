@@ -12,6 +12,12 @@
 - [[#networking][Networking]]
   - [[#vpc][VPC]]
   - [[#subnets][Subnets]]
+  - [[#nat-gateway][NAT Gateway]]
+- [[#firewall][Firewall]]
+  - [[#stateless-firewall][Stateless Firewall]]
+  - [[#stateful-firewall][Stateful Firewall]]
+  - [[#network-access-control-list-nacl][Network Access Control List (NACL)]]
+  - [[#security-group][Security Group]]
 
 * AWS Global Infrastructure
 
@@ -75,7 +81,64 @@ Allows customers full control over the networking in the cloud:
 
 We can not only have one but multiple VPCs where can segment out different VPCs for different environments, different applications, etc. It is up to the customer to architect/design on how to use multiple VPCs.
 
-A VPC is specific to a single region and acts as a network boundary
+A VPC is specific to a single region and acts as a network boundary.
+
+With a hybrid deployment model, we can connect physical data centers to a VPC using a VPN.
+
+Every VPC has a range of IP addresses assigned to it called the /CIDR block/ that defines the IP addresses the resources in that VPC can use.
+
+*** Default VPCs
+There are two type of VPCs
+1. Default
+   - /16 IPV4 CIDR block 172.31.0.0/16 (65,536 addresses)
+   - /20 default subnet in each Availability Zone (4,096 addresses)
+   - Internet gateway already attached to the VPC
+   - A route that points all traffic (0.0.0.0/0) to the internet gateway
+   - Default security group and network access control list
+2. Custom
+
+Every account has a default VPC in each region and have configurations defined by AWS.
+
+Custom VPCs allow the user to create/modify configurations associated with the VPC.
 
 ** Subnets
 Subnets are a group of IP addresses in your VPC and resides in a within a single availability zone.
+
+They can be made both public or private to allow external access to resources within them.
+
+Subnets within a VPC must be within a CIDR range.
+
+The first 4 IP addresses of a subnet are reserved and cannot be used.
+- 192.168.10.0 - network address
+- 192.168.10.1 - 192.168.10.3 - reserved for AWS
+
+The last address of a subnet, 192.168.10.255 is reserved as a broadcast address.
+
+*Internet Gateway* allows subnets in a VPC to communicate with the Internet and vice versa, and determines whether a subnet is public or private.
+
+** NAT Gateway
+NAT Gateways are different from internet gateways as connections must always be initiated from the private subnet to get a response. Internet gateways on the other hand allow either side to initiate a connection.
+
+Deployed in a public subnet that acts as a medium/middleman for the private subnet and the internet gateway.
+
+* Firewall
+
+** Stateless Firewall
+Firewalls monitor traffic and only allow traffic permitted by a set of predetermined rules, and are broken down into inbound and outbound rules.
+
+Stateless firewalls must be configured to allow both inbound and outbound traffic.
+
+** Stateful Firewall
+Intelligent to understand which request and response are a part of the same connection.
+
+If the request is permitted then the response automatically permitted as well.
+
+** Network Access Control List (NACL)
+Filter traffic entering and leaving a subnet but not within a subnet.
+
+Stateless firewalls so rules must be set for inbound and outbound connections.
+
+** Security Group
+Act as firewalls for individual resources (EC2, RDS, LB).
+
+Stateful firewalls so only the requests needs to be allowed.
