@@ -13,11 +13,14 @@
   - [[#vpc][VPC]]
   - [[#subnets][Subnets]]
   - [[#nat-gateway][NAT Gateway]]
-- [[#firewall][Firewall]]
-  - [[#stateless-firewall][Stateless Firewall]]
-  - [[#stateful-firewall][Stateful Firewall]]
-  - [[#network-access-control-list-nacl][Network Access Control List (NACL)]]
-  - [[#security-group][Security Group]]
+  - [[#firewall][Firewall]]
+- [[#storage][Storage]]
+  - [[#block-storage][Block Storage]]
+  - [[#file-storage][File Storage]]
+  - [[#object-storage][Object Storage]]
+- [[#compute][Compute]]
+  - [[#ec2][EC2]]
+  - [[#amazon-machine-image-ami][Amazon Machine Image (AMI)]]
 
 * AWS Global Infrastructure
 
@@ -121,24 +124,121 @@ NAT Gateways are different from internet gateways as connections must always be 
 
 Deployed in a public subnet that acts as a medium/middleman for the private subnet and the internet gateway.
 
-* Firewall
+** Firewall
 
-** Stateless Firewall
+*** Stateless Firewall
 Firewalls monitor traffic and only allow traffic permitted by a set of predetermined rules, and are broken down into inbound and outbound rules.
 
 Stateless firewalls must be configured to allow both inbound and outbound traffic.
 
-** Stateful Firewall
+*** Stateful Firewall
 Intelligent to understand which request and response are a part of the same connection.
 
 If the request is permitted then the response automatically permitted as well.
 
-** Network Access Control List (NACL)
+*** Network Access Control List (NACL)
 Filter traffic entering and leaving a subnet but not within a subnet.
 
 Stateless firewalls so rules must be set for inbound and outbound connections.
 
-** Security Group
+*** Security Group
 Act as firewalls for individual resources (EC2, RDS, LB).
 
 Stateful firewalls so only the requests needs to be allowed.
+
+* Storage
+There are different types of storages namely:
+1. Block storage
+2. File storage
+3. Object storage
+
+** Block Storage
+Block storage breaks up data into blocks and then stores those blocks as separate pieces each with a unique identifier.
+
+A collection of blocks can be presented to the OS as a volume where the OS creates a filesystem on top of it.
+
+A block collection can also be presented as a hard drive where we can install an OS on it and make it bootable.
+
+The only type of storage that is bootable.
+
+*** Amazon Elastic Block Storage (EBS)
+EBS are associated with a specific availability zone therefore we cannot have an EC2 instance connected to a block storage in a separate availability zone.
+
+** File Storage
+*Amazon Elastic File System* (EFS)
+
+Stores data in a hierarchical structure of files and folders.
+
+Filesystem that is accessible remotely and can be mounted. Functionality is the same as any other filesystem like in our machine.
+
+Multiple clients can access the same data.
+
+** Object Storage
+*S3*
+
+Stores objects (which in essence are nothing more than files) which is any type of file.
+
+Does not a folder structure therefore cannot be mounted or booted. It can only be used to retrieve files.
+
+Great for storing logs and media files.
+
+There are different storage classes in S3 that provide varying level of:
+- Data Access
+- Resiliency
+- Cost
+
+*** S3 Standard (Default)
+- Can handle two simultaneous AZ failures
+- 99.999999999% durability
+- Cost: Gb/month + Gb of data outbound
+- Most expensive storage class
+- Data is readily available
+
+*** S3 Standard-IA (Infrequent Access)
+- Can handle two simultaneous AZ failures
+- 99.999999999% durability
+- Cheaper than S3 Standard
+- Has a retrieval fee
+- Minimum duration charge of 90 days
+- Minimum size charge of 128kb per object
+
+*** S3 One Zone-IA
+- Data is stored in only one availability zone
+- Not required to handle AZ failure
+- But basically almost the same as S3 Standard-IA
+
+*** S3 Glacier-Instant
+- Low cost option for rarely accessed data
+- Performance same as that of S3 Standard
+- Cheaper than S3 Standard and S3 Standard-IA
+- Higher retrieval cost
+
+*** S3 Glacier Flexible
+- Data isn't immediately available
+- Cheaper than all the storage classes mentioned above
+- Minimum size charge of 40kb per object
+- During retrieval, objects are stored in S3 Standard-IA class temporarily
+
+*** S3 Glacier Deep Archive
+- Cheapest storage class in S3
+- Minimum size charge of 40kb per object
+- Long retrieval of objects (hours)
+
+*** S3 Intelligent-Tiering
+- Automatically reduces storage cost by intelligently moving data to the most cost effective access tier
+- All objects will incur a monitoring/automation cost per 1000 objects on top of the cost of the storage class
+  
+* Compute
+The service responsible for providing servers in the cloud is EC2.
+
+** EC2
+Service that provides secure, resizable, compute capacity in the cloud.
+
+Allows us to provision a server within AWS in minutes.
+
+Multiple EC2 instances can be deployed on a single server using virtual machines.
+
+VPCs are used to logically isolate each customer's infrastructure.
+
+** Amazon Machine Image (AMI)
+AMI is an image that provides the information required to launch an EC2 instance.
