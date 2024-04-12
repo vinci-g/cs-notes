@@ -1,0 +1,143 @@
+#+TITLE: Technologies - Part 2
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#databases][Databases]]
+- [[#sql-datastores][SQL Datastores]]
+  - [[#relational-database-service-rds][Relational Database Service (RDS)]]
+  - [[#aurora-rds-aurora][Aurora (RDS Aurora)]]
+  - [[#aurora-serverless-v2][Aurora Serverless V2]]
+  - [[#redshift][Redshift]]
+- [[#nosql-datastores][NoSQL Datastores]]
+  - [[#dynamodb][DynamoDB]]
+  - [[#documentdb][DocumentDB]]
+  - [[#keyspaces][Keyspaces]]
+  - [[#neptune][Neptune]]
+  - [[#elasticache][ElastiCache]]
+  - [[#opensearch-service][OpenSearch Service]]
+  - [[#amazon-quantum-ledger-database-services-qldb][Amazon Quantum Ledger Database Services (QLDB)]]
+  - [[#timestream][Timestream]]
+- [[#application-integration][Application Integration]]
+  - [[#amazon-simple-notification-service-sns][Amazon Simple Notification Service (SNS)]]
+  - [[#amazon-simple-queue-service-sqs][Amazon Simple Queue Service (SQS)]]
+  - [[#amazon-elastic-load-balancing][Amazon Elastic Load Balancing]]
+  - [[#amazon-autoscaling][Amazon Autoscaling]]
+  - [[#other-services][Other Services]]
+- [[#management][Management]]
+
+* Databases
+Types of databases(datastores) in AWS:
+1. Self-Managed Datastores
+   - Full control over the database
+   - Database running on EC2 VMs or ECS or EKS
+   - Increased control and flexibility
+   - Increased operational overhead and responsibility
+   - For specific software or security requirements
+2. SQL Datastores
+   - Relationship with tables
+   - Used for complex relationships with data
+   - For transactional or reporting use cases
+3. NoSQL Datastores
+   - For simple but specific needs for data
+   - Search, high performance, documents
+
+* SQL Datastores
+All RDS services features encryption, replication, scaling and more.
+
+RDS and Redshift are the primary SQL database systems.
+
+RDS has 5 flavors it supports, Oracle, MySQL, MariaDB, MS SQL, PostgreSQL
+
+** Relational Database Service (RDS)
+- Managed service for databases
+- Transactional processing
+- Hard to grow in size and performance
+
+** Aurora (RDS Aurora)
+- Managed service for databases
+- Cloud native
+- Higher capacity and performance
+- Grows more easily than the main RDS service
+
+** Aurora Serverless V2
+- Managed service for databases
+- Cloud native
+- Higher capacity and performance
+- Capacity can go up and down and much easier than other RDS services
+- Pay a little for storage but not compute when you are not using it
+
+** Redshift
+- Data warehouse, not transactional
+- Petabyte scale
+- Serverless and "Server"-ed versions
+- Reporting and not E-commerce or web traffic
+
+* NoSQL Datastores
+
+** DynamoDB
+- Lightning fast key-value datastore of AWS
+
+** DocumentDB
+- Store data and retrieve documents that are more like a collection of data
+  - Essays
+  - Profiles
+- MongoDB compatibility
+
+** Keyspaces
+- For large-scale unstructured data that has more structure to it
+- DB that can run in many different locations across the planet
+- Cassandra compatibility
+
+** Neptune
+- Detect relationships between data
+- For usage like fraud detection or social network relationships
+
+** ElastiCache
+Offers two service for in memory database
+1. Memcached
+2. Redis
+
+For caching or tracking user session data
+
+** OpenSearch Service
+- Searching through a bunch of information like a google search that give relevant or related results
+
+** Amazon Quantum Ledger Database Services (QLDB)
+- DB with an immutable record of every change in the database
+
+** Timestream
+- Captures data from various sources at high scale and maintains the timestamp
+
+* Application Integration
+Manipulating traffic/communication between applications.
+
+** Amazon Simple Notification Service (SNS)
+Used in between applications when a user wants to send a message to customers via text, email, or mobile, or you want to copy a single message to multiple applications.
+
+** Amazon Simple Queue Service (SQS)
+When sending a message to another application and user traffic ramps up, the messages will be put in a queue until our backend can process them.
+
+Basically controlling the flow of messages as to not overload the backend.
+
+** Amazon Elastic Load Balancing
+Spread the load evenly across a bunch of services.
+
+Used to direct traffic to backend servers and distributes workloads evenly. Unhealthy servers are not available if failing.
+
+Can be used with EC2, and Lambda among others.
+
+** Amazon Autoscaling
+Allow to scale up and down to numbers you specify within the specified limits.
+
+** Other Services
+- Amazon AppFlow
+  - Solves the problem of copying data from 3rd party services into AWS
+- Amazon EventBridge
+  - Coordinates events across applications
+- Amazon MQ
+  - Managed Queue is like SQS but using open-source software instead of AWS proprietary
+- Amazon Step Functions
+  - Organize serverless functions so they can work like a full application
+
+* Management
