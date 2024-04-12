@@ -20,7 +20,8 @@
   - [[#object-storage][Object Storage]]
 - [[#compute][Compute]]
   - [[#ec2][EC2]]
-  - [[#amazon-machine-image-ami][Amazon Machine Image (AMI)]]
+  - [[#lambda][Lambda]]
+  - [[#containers][Containers]]
 
 * AWS Global Infrastructure
 
@@ -227,7 +228,7 @@ There are different storage classes in S3 that provide varying level of:
 *** S3 Intelligent-Tiering
 - Automatically reduces storage cost by intelligently moving data to the most cost effective access tier
 - All objects will incur a monitoring/automation cost per 1000 objects on top of the cost of the storage class
-  
+
 * Compute
 The service responsible for providing servers in the cloud is EC2.
 
@@ -240,5 +241,131 @@ Multiple EC2 instances can be deployed on a single server using virtual machines
 
 VPCs are used to logically isolate each customer's infrastructure.
 
-** Amazon Machine Image (AMI)
+*** Amazon Machine Image (AMI)
 AMI is an image that provides the information required to launch an EC2 instance.
+
+It is a blueprint that contains information such as what OS and software/packages should be installed in an instance to be used to deploy identital EC2 instances.
+
+AMIs can be customized to add application source code, add dependencies, and customize OS firewall.
+
+*** Instance Types
+Instance types are basically EC2 specs that have varying combinations of CPU, memory, storage, and networking capacity.
+
+*General Purpose*
+ - Good balance of compute, memory, and networking resources
+ - Used for diverse workloads
+ - Ideal for apps that use resources in equal proportions
+
+*Compute Optimized*
+ - For compute-heavy applications
+ - High performance CPUs
+ - For batch processing, media transcoding, ML, and gaming servers
+
+*Memory Optimized*
+- Fast performance for memory-intensive workloads
+- Suited for databases
+
+*Storage Optimized*
+- For workloads that require high sequential read & write access to large data sets on local storage
+- Can deliver tens of thousands of low latency, random I/O operations per second (IOPS)
+
+*Accelerated Computing*
+- Utilize hardware accelerators to perform expensive calculations
+- Great for graphics processing and data pattern matching
+
+*** EC2 Pricing Options
+1. On-demand pricing
+   - Pay for compute capacity by the hour
+   - Only billed when the instance is running
+     - Still charged for storage attached to instance
+   - No upfront payment or long-term commitment
+   - Great for short-term, irregular, or unpredictable workloads
+   - Customer EC2 instances run on shared hosts
+2. Spot pricing
+   - Offers spare compute capacity at discounted rates
+   - Recommended for:
+     - Apps that have flexible start and end time
+     - Low compute prices
+   - Not suited for workloads that cannot tolerate interruptions
+3. Reserve Pricing
+   - Reserve an instance and get a discounted price
+   - Offers discounted rates when reserved for a certain period (1 year or 3 year contract)
+   - Basically commiting to using an on-demand instance for a long term period for a lower (reserved) price
+
+** Lambda
+AWS Lambda is a compute service that lets you run code without having to provision or manage servers.
+
+Lambda is AWS' /serverless/ offering wherein AWS manages the server maintenance, scaling, capacity provisioning, and logging.
+
+Has three main components:
+1. Lambda Function
+   - A regular function
+2. Trigger
+   - Determines when the lambda function runs
+   - Should be an event that takes place within AWS
+3. Event
+   - Information about what trigger took place
+
+*** Use Cases
+- File Processing
+- Stream Processing
+- Web Application
+- Mobile/Web Backend
+
+*** Benefits of Lambda
+- No servers to manage
+  - No need for an infra team
+  - No patching/upgrading
+  - Faster development
+- Auto scale to handle traffic spikes
+- Pay for what you use
+  - Pay per invocation
+  - No extra cost for low traffic
+
+*** Downsides for Lambda
+- No local state
+  - Needs separate database to store data that needs to persist
+- Limited execution duration
+  - Functions can run at most 15 minutes
+  - Not good for long running task
+- Cold starts that occur due to the time it takes to initialize and load the function
+  - /SnapStart/ and provisioned concurrency helps mitigate cold starts
+
+*** Pricing
+- Number of times a function ran
+- How long did it run for
+- How much memory/CPU did it require
+
+** Containers
+Containers are a tool to package an application that contains all the necessary files, libraries, and dependencies needed for the application to run.
+
+Basically small and lightweight versions of virtual machines.
+
+Container orchestrators on another hand are the brains of containerized environments and are responsible for:
+- Deploying containers acroll all available servers
+- Load balancing requests to containers
+- Provide container to container connectivity
+- Restarting failed containers
+- Moving containers when hosts fail
+
+*** Elastic Container Service (ECS)
+Fully managed container orchestrator service that helps manage, and scale containerized applications.
+
+The containers managed by ECS run on EC2 instances or Fargate.
+
+*** Elastic Kubernetes Service (EKS)
+Users are responsible for managing both the control-plane and worker nodes.
+
+EKS is a managed Kubernetes service meaning:
+- EKS manages the control-plane for you
+- User still manages the worker nodes
+  - Using Fargate allows AWS to manage the worker nodes
+
+EKS runs and scales control-planes across multiple AZ and scale control-plane instances based on load.
+
+*** ECS vs EKS
+ECS is *proprietary* so moving to another cloud provider can be difficult while EKS is Kubernetes and can be run on any platform.
+
+ECS has a simpler architecture while with EKS you have to learn Kubernetes as well as EKS specific features.
+
+ECS has no pricing for the control plane, only pay for the infrastructure running applications while EKS is more expensive because we need to pay for the worker nodes and the control plane.
