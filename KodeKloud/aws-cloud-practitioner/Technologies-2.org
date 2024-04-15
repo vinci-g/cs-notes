@@ -25,6 +25,21 @@
   - [[#amazon-autoscaling][Amazon Autoscaling]]
   - [[#other-services][Other Services]]
 - [[#management][Management]]
+  - [[#cloudformation][CloudFormation]]
+  - [[#opsworks][OpsWorks]]
+  - [[#systems-manager][Systems Manager]]
+  - [[#aws-organizations][AWS Organizations]]
+  - [[#aws-service-catalog][AWS Service Catalog]]
+  - [[#aws-control-tower][AWS Control Tower]]
+  - [[#aws-config--aws-cloudtrail][AWS Config & AWS CloudTrail]]
+  - [[#other-management-services][Other Management Services]]
+- [[#migration-and-transfer][Migration and Transfer]]
+  - [[#the-cloud-adoption-framework][The Cloud Adoption Framework]]
+  - [[#aws-migration-hub][AWS Migration Hub]]
+  - [[#migration-strategies][Migration Strategies]]
+  - [[#offline-migration][Offline Migration]]
+  - [[#online-migration][Online Migration]]
+  - [[#moving-applications-databases-and-whole-racks-of-servers-to-aws][Moving applications, databases, and whole racks of servers to AWS]]
 
 * Databases
 Types of databases(datastores) in AWS:
@@ -141,3 +156,138 @@ Allow to scale up and down to numbers you specify within the specified limits.
   - Organize serverless functions so they can work like a full application
 
 * Management
+Management services are services that manage other services.
+
+Provision or optimizes other AWS services.
+
+** CloudFormation
+Creates other AWS services using files.
+
+** OpsWorks
+Installs specific software into your servers.
+
+** Systems Manager
+E2E management solution for resources on AWS and on premise environments.
+
+** AWS Organizations
+Centrally govern and manage multiple AWS accounts
+
+** AWS Service Catalog
+Takes in CloudFormation and Terraform creation templates and turn them into a vending machine for your users on AWS.
+
+** AWS Control Tower
+Helps you set up AWS organizations in a secure best practice way with auditing, logging, and compliance rules in place.
+
+** AWS Config & AWS CloudTrail
+*AWS Config* is used to record and evaluate all configuration and changes in your AWS services.
+
+*AWS CloudTrail* is a service that tracks and records all user and API activity in your AWS account.
+
+** Other Management Services
+- Launch Wizard
+  - Walks you on setting up 3rd party applications on AWS
+- Licence Manager
+  - Track licences in AWS (from other companies)
+- Computer Optimizer
+  - Tells you when you are being inefficient in AWS with Compute.
+- Trusted Advisor
+  - A best practice advisor that tells you when you are not following best practices.
+- Resource Explorer
+  - Allows you to search and discover your resources on AWS
+- Resource Group and Tag Editor
+  - A way to group, tag, and manage your services
+
+* Migration and Transfer
+
+** The Cloud Adoption Framework
+It is a way of thinking about different concerns, perspective and areas for 6 key areas:
+1. Business
+2. People
+3. Governance
+4. Platform
+5. Security
+6. Operations
+
+** AWS Migration Hub
+Allows you to centralize and see all migration you have in place via AWS services.
+
+** Migration Strategies
+
+*** Rehosting (Lift-and-Shift)
+Basically taking a server as it is and moving to AWS. No changing of applications, databases, etc. A literal copy and paste to the cloud.
+
+Easiest and quickest way to migrate but with the least benefits when moving/migrating to AWS.
+
+*** Replatforming (Lift, Tinker, and Shift)
+Almost similar with /rehosting/ but with a few changes on the platform like the OS for example.
+
+*** Refactoring (or Rearchitecting)
+Most invasive and time consuming migration strategy.
+
+Radically changes a traditional server and migrate to AWS by rearchitecturing the whole system architecture to AWS services.
+
+Gets the most benefit in all aspect of AWS engagement.
+
+*** Repurchasing
+Basically repurchasing a service but on AWS instead of in a traditional server.
+
+*** Retaining (Do Nothing)
+Keeping the traditional server until it retires.
+
+*** Retiring
+
+** Offline Migration
+
+*** The Snow Family
+
+**** Snowball Edge Storage Optimized
+- Small compute
+- Medium data
+- Data transfer 80TB
+
+**** Snowball Edge Compute Optimized
+- Medium compute
+- Small data
+- Portable compute
+
+**** Snowmobile
+- No compute
+- Large data
+- 100 PB of data
+
+**** Snowcone
+- Small compute
+- Small storage
+- Portable compute
+
+** Online Migration
+
+*** Transfer Family
+
+**** FTP Version
+Transfer family for FTP that supports FTPS, SFTP, and more secure transfer to S3 or EFS.
+
+**** AS2 Version
+Transfer family for AS2 that supports using AS2 to send and receive messages using S3 as the backend.
+
+**** AWS DataSync
+Secure and online service that automates and accelerates moving data between on premise and AWS storage services.
+
+** Moving applications, databases, and whole racks of servers to AWS
+
+*** Application Discovery Service
+Discover information about the applications to migrate.
+
+*** Application Migration Service
+Move and improve applications to AWS.
+
+*** Database Migration Service
+Migrate database to AWS as a one time thing or continuosly.
+
+*** Elastic Disaster Recovery
+Fast, reliable recovery.
+
+Copies disks, tracks all the changes and puts it in small EC2 instances that gets upsized and makes it live and can transfer traffic over to the instances
+
+*** Mainframe Modernization
+Mainframe migration engineering.
