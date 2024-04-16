@@ -1,0 +1,355 @@
+#+TITLE: Technologies - Part 3
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#ai-and-ml][AI and ML]]
+- [[#aiml-services][AI/ML Services]]
+  - [[#sagemaker][Sagemaker]]
+  - [[#lex-for-chatbots][Lex for Chatbots]]
+  - [[#kendra][Kendra]]
+  - [[#comprehend][Comprehend]]
+  - [[#polly][Polly]]
+  - [[#rekognition][Rekognition]]
+  - [[#textract][Textract]]
+  - [[#transcribe][Transcribe]]
+  - [[#translate][Translate]]
+- [[#analytics-services][Analytics Services]]
+  - [[#amazon-athena][Amazon Athena]]
+  - [[#data-exchange][Data Exchange]]
+  - [[#emr-elastic-map-reduce][EMR (Elastic Map Reduce)]]
+  - [[#glue][Glue]]
+  - [[#kinesis][Kinesis]]
+  - [[#msk][MSK]]
+  - [[#opensearch-service][OpenSearch Service]]
+  - [[#quicksight][QuickSight]]
+  - [[#redshift][Redshift]]
+- [[#business-application-services][Business Application Services]]
+  - [[#simple-email-service-ses][Simple Email Service (SES)]]
+  - [[#connect][Connect]]
+- [[#customer-engagement-services][Customer Engagement Services]]
+  - [[#activate-for-startups][Activate for Startups]]
+  - [[#aws-iq][AWS IQ]]
+  - [[#managed-services][Managed Services]]
+  - [[#aws-support][AWS Support]]
+- [[#developer-services][Developer Services]]
+  - [[#appconfig][AppConfig]]
+  - [[#cloudshell][CloudShell]]
+  - [[#cloud9][Cloud9]]
+  - [[#cloudartifact][CloudArtifact]]
+  - [[#codecommit][CodeCommit]]
+  - [[#codedeploy][CodeDeploy]]
+  - [[#codepipeline][CodePipeline]]
+  - [[#codestar-being-retired][CodeStar (Being retired)]]
+  - [[#x-ray][X-Ray]]
+- [[#end-user-computing][End-User Computing]]
+  - [[#workspaces][WorkSpaces]]
+  - [[#workspaces-web][WorkSpaces Web]]
+  - [[#appstream-20][AppStream 2.0]]
+- [[#frontend-and-mobile-services][Frontend and Mobile Services]]
+  - [[#amplify][Amplify]]
+  - [[#appsync][AppSync]]
+- [[#iot-services][IoT Services]]
+  - [[#iot-core][IoT Core]]
+  - [[#iot-greengrass][IoT Greengrass]]
+
+* AI and ML
+AI is the ability of a machine to do a human task.
+
+ML is a branch of AI and is a methodology on how we teach AI the task.
+
+* AI/ML Services
+
+** Sagemaker
+Fully managed service where we can build, train, and deploy models.
+
+Integrated with Jupyter notebooks.
+
+Benefits:
+- Ease of use
+- Scalability
+- Comprehensive toolset
+
+*** Use Cases
+- Predictive analysis
+- Recommendation systems
+- Fraud detection
+
+** Lex for Chatbots
+Lex is used for chat bots using voice or text that integrates well with other AWS services.
+
+Uses NLU (Natural Language Understanding) and ASR (Automatic Speech Recognition).
+
+*** Use Cases
+- Customer service chatbots
+- Voice-enabled applications
+- Informational bots
+
+** Kendra
+Kendra is a highly accurate and easy to use enterprise search service that indexes enterpise documents.
+
+Uses ML to answer natural language queries for enterprise documents which it indexes (just for enterprise).
+
+Benefits:
+- Facilitates informed decision making
+- Enhanced productivity
+- Improve customer satisfaction
+
+*** Use Cases
+- Enterprise search
+- Knowledge management
+- Customer service
+
+** Comprehend
+Uncovers insights and relationships with text.
+
+Uses NLP and deep learning to do sentiment analysis, entity recognition, language detection, etc.
+
+*** Use Cases
+- Content personalization
+- Compliance monitoring
+- Social media monitoring
+
+** Polly
+Text to speech service in a life-like voice for various language and voice variety.
+
+Provides high quality voice output and customization options.
+
+*** Use Cases
+- Content narration
+- Voice assistants
+- Educational tools
+- Accessibility
+
+** Rekognition
+Analyzes images and videos using deep learning technology to do image and video analysis, and facial analysis and recognition.
+
+*** Use Cases
+- Security and surveillance
+- Content moderation
+- Customer engagement
+- Accessibility
+
+** Textract
+Uses ML to do text and data extraction that can also recognize forms and table recognition.
+
+Benefits:
+- Enhance efficiency by not doing data extraction manually
+- Facilitating digital transformation
+
+*** Use Cases
+- Automated Data Entry
+- Content Migration
+- Compliance Monitoring
+- Search and Discovery
+
+** Transcribe
+Audio/Video to text converter using ASR that offers custom vocabulary, speaker diarization, and multiple language support.
+
+*** Use Cases
+- Content creation
+- Subtitling and captioning
+- Accessibility
+- Voice analytics
+
+** Translate
+Uses NMT (Neural Machine Technology) to translate one language to another and can offer real time translation.
+
+* Analytics Services
+
+** Amazon Athena
+The Query Telescope
+
+Athena imports data (say from S3) and puts it in an SQL database that is in memory and can run SQL queries against it for log analysis and Data Lake queries.
+
+** Data Exchange
+Selling or acquiring 3rd party data
+
+** EMR (Elastic Map Reduce)
+Allows you process vast amounts of data across resizable clusters which is used data transformation and analytics.
+
+** Glue
+Fully managed ETL service for data preparation for analytics.
+
+** Kinesis
+Collects, processes, and analyze streaming data near real time.
+
+** MSK
+AWS Kafka service that runs the same as Kinesis.
+
+** OpenSearch Service
+AWS variant of ElasticSearch that offers search, log analytics, and real time analytics.
+
+** QuickSight
+Data visualization that has BI dashboards and data story telling.
+
+** Redshift
+Archiving service that can do data visualization and is an SQL database.
+
+* Business Application Services
+
+** Simple Email Service (SES)
+Business communicator
+
+Send mass marketing transactional informational emails.
+
+** Connect
+Customer service desk.
+
+Has voice and chat to manage customer interaction that offers call routing, interactive voice response (IVR), and real time analytics.
+
+* Customer Engagement Services
+
+** Activate for Startups
+Offers components and structure for taking a startup idea concept to an actual production software.
+
+Provides credits to access AWS services, technical support and training, and facilitatin access to AWS startup community.
+
+** AWS IQ
+Connect users to experts that understand AWS and can offer a secure platform for project collaboration.
+
+Basically connecting AWS experts and clients.
+
+** Managed Services
+Infrastructure operations management tool.
+
+Can aid in migration and cloud adoption processes.
+
+** AWS Support
+Offers technical support and guidance and provides infrastructure event management.
+
+* Developer Services
+
+** AppConfig
+Application configuration manager and for deploying configurations.
+
+Can enable application tuning, flag management for applications, and ensures safe deployments by gradually rolling out changes.
+
+** CloudShell
+Browser based shell to manage AWS services.
+
+Can pre-authenticate CLI and has persistent file storage.
+
+** Cloud9
+Cloud based IDE.
+
+** CloudArtifact
+Host built code.
+
+Artifact repository for various libraries.
+
+** CodeCommit
+Source control service and has full integration for CI/CD pipelines.
+
+** CodeDeploy
+Responsible for automated deployments with centralized control.
+
+** CodePipeline
+Continuous delivery service.
+
+Orchestrate and streamline the release process with a visual workflow.
+
+For CI/CD.
+
+** CodeStar (Being retired)
+Pulls a bunch of AWS services into a best practice environment with a unified interface. It is a service that has templates for creating projects.
+
+** X-Ray
+Part of the CloudWatch list of services.
+
+Runs tracing and gives E2E service maps with your application and all the AWS services that are involved in the application.
+
+Used for performance optimizations, debugging, and general monitoring.
+
+* End-User Computing
+- Streamlined computing solutions
+- Remote networking
+- Secure data handling
+- Simplified IT management
+
+** WorkSpaces
+Personalized virtual desktop in the cloud with all the enterprise needs and features.
+
+Desktop-as-a-Service (DaaS)
+*** Use Cases
+- Remote working
+- Secure data handling
+- Simplified IT management
+
+** WorkSpaces Web
+Same as /WorkSpaces/ but on the web where you can have your "desktop" anywhere.
+
+*** Use Cases
+- Same with /WorkSpaces/
+- BYOD (Bring Your Own Device) environments
+- Good for educational setups
+
+** AppStream 2.0
+- Delivering desktop applications to any computer
+- Centralized application management
+- Secure data storage
+
+Shift towards cloud based solutions and reduces the need for high end hardware on the client side.
+
+*** Use Cases
+- Software vendors
+- Educational institutions
+- Enterprises
+
+* Frontend and Mobile Services
+
+** Amplify
+AWS service for building web and mobile applications.
+
+Core features:
+- Easy authentication
+- Backend functions
+- Hosting
+
+*** Use Cases
+- Building dynamic web and mobile apps
+- Providing real time updates
+
+** AppSync
+App development with GraphQL so mainly on the backend.
+
+Core features:
+- Real time updates
+- Offline functionality
+- Data synchronization
+
+*** Use Cases
+- Building dynamic web and mobile apps (mainly backend)
+- Providing real time updates
+
+* IoT Services
+
+** IoT Core
+Backbone of your IoT solutions.
+
+Core functionalities:
+- Device communication
+- Security
+- Data management
+
+Basicallly a device and fleet manager for IoT devices.
+
+*** Use Cases
+- Industrial automation and predictive maintenance
+- Smart home solutions
+- Connected vehicles and telematics
+
+** IoT Greengrass
+Local IoT orchestrator.
+
+Core functionalities:
+- Local compute
+- Messaging
+- Data caching
+
+Enables edge computing, local data processing and analysis, and secure device deployment and management.
+
+*** Use Cases
+- Industrial automation
+- Healthcare
+- Smart agriculture
