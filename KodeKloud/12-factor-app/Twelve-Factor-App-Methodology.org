@@ -1,4 +1,5 @@
-# Twelve-Factor App Methodology
+#+TITLE: Twelve-Factor App Methodology
+#+AUTHOR: vinci
 
 1. Codebase
     - Multiple apps should not share the same codebase and should be separated into each individual codebase.

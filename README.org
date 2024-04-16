@@ -2,43 +2,49 @@
 #+AUTHOR: vinci-g
 #+DESCRIPTION: Technical notes
 
-The notes here are from books I am studying from [[https://teachyourselfcs.com][Teach Yourself CS]]. As a self taught software engineer, I want to fill up the knowledge gaps I have from not taking CS in university.
+This repository is a collection of all my notes that I have studied for reference and general study material.
 
-I am also learning about DevOps technologies and concepts from [[https://kodekloud.com][KodeKloud]].
-
+Resources:
+- [[https://teachyourselfcs.com][Teach Yourself CS]]
+- [[https://kodekloud.com][KodeKloud]]
 
 * Programming
 Reading material: Structure and Interpretation of Computer Programs
 
 Lectures: CS61A
 
-Notes: [[file:SICP/][SICP]]
+[[file:SICP/][SICP]]
 
 ** Programming Languages
 *** C
 Reading material: C Programming: A Modern Approach
 
-Notes: [[file:C/][C]]
+[[file:C/][C]]
 
 *** Emacs Lisp
 Reference: Introduction to Elisp (~eintr~)
 
-Notes: [[file:elisp/][Emacs Lisp]]
+[[file:elisp/][Emacs Lisp]]
+
+* Cloud
+
+** AWS
+[[file:KodeKloud/aws-cloud-practitioner/][AWS Cloud Practitioner]]
 
 * Computer Architecture
 Reading material: Computer Systems: A Programmer's Perspective
 
-Notes: [[file:CS-APP/][CS: APP]]
+[[file:CS-APP/][CS: APP]]
 
 * Containers
-Notes:
 - [[file:KodeKloud/docker-for-the-absolute-beginner/][Docker for the Absolute Beginner]]
 
 * Devops
-Notes: 
 - [[file:KodeKloud/devops-prerequisite/][Devops Prerequisite]]
-- [[file:KodeKloud/12-factor-app/Twelve-Factor App Methodology.md][Twelve Factor Methodology]]
+- [[file:KodeKloud/12-factor-app/Twelve-Factor-App-Methodology.org][Twelve Factor Methodology]]
 
 * Linux
-Notes:
 - [[file:KodeKloud/linux-basics/][Linux Basics]]
+  
+* Shell/Bash Scripting
+[[file:KodeKloud/shell-scripts-for-beginners/][Shell Scripts Basics]]
