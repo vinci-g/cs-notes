@@ -13,38 +13,39 @@ Reading material: Structure and Interpretation of Computer Programs
 
 Lectures: CS61A
 
-[[file:SICP/][SICP]]
+[[file:cs/SICP/][SICP]]
 
 ** Programming Languages
 *** C
 Reading material: C Programming: A Modern Approach
 
-[[file:C/][C]]
+[[file:prog-lang/C/][C]]
 
 *** Emacs Lisp
 Reference: Introduction to Elisp (~eintr~)
 
-[[file:elisp/][Emacs Lisp]]
+[[file:prog-lang/elisp/][elisp]]
 
 * Cloud
 
 ** AWS
-[[file:KodeKloud/aws-cloud-practitioner/][AWS Cloud Practitioner]]
+[[file:cloud/aws-cloud-practitioner/][AWS Cloud Practitioner]]
 
 * Computer Architecture
 Reading material: Computer Systems: A Programmer's Perspective
 
-[[file:CS-APP/][CS: APP]]
+[[file:cs/CS-APP/][CS: APP]]
 
 * Containers
-- [[file:KodeKloud/docker-for-the-absolute-beginner/][Docker for the Absolute Beginner]]
+- [[file:devops/KodeKloud/docker-for-the-absolute-beginner/][Docker for Beginners]]
 
-* Devops
-- [[file:KodeKloud/devops-prerequisite/][Devops Prerequisite]]
-- [[file:KodeKloud/12-factor-app/Twelve-Factor-App-Methodology.org][Twelve Factor Methodology]]
+* DevOps
+- [[file:devops/KodeKloud/devops-prerequisite/][DevOps Prerequisites]]
+- [[file:devops/KodeKloud/12-factor-app/][12 Factor App]]
+
 
 * Linux
-- [[file:KodeKloud/linux-basics/][Linux Basics]]
+- [[file:devops/KodeKloud/linux-basics/][Linux Basics]]
   
 * Shell/Bash Scripting
-[[file:KodeKloud/shell-scripts-for-beginners/][Shell Scripts Basics]]
+[[file:devops/KodeKloud/shell-scripts-for-beginners/][Shell Scripts Introduction]]

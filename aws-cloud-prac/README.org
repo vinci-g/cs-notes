@@ -1,5 +1,0 @@
-#+TITLE: AWS Cloud Practitioner Course Notes
-#+AUTHOR: vinci_g
-#+DESCRIPTION: Course notes for Cloud Practitioner Exam
-#+OPTIONS: toc:nil
-

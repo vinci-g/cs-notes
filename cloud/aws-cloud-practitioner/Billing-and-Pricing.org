@@ -1,0 +1,147 @@
+#+TITLE: Billing and Pricing
+#+AUTHOR: vinci
+#+OPTIONS: toc
+
+* Table of Contents :toc:
+- [[#general-billing-in-aws][General Billing in AWS]]
+  - [[#fundamentals-of-pricing][Fundamentals of Pricing]]
+  - [[#free-tier][Free Tier]]
+- [[#general-billing-for-other-services][General Billing for Other Services]]
+  - [[#elastic-block-store][Elastic Block Store]]
+  - [[#s3][S3]]
+  - [[#dynamodb][DynamoDB]]
+  - [[#cloudfront][CloudFront]]
+  - [[#macie][Macie]]
+- [[#impact-of-account-structures-on-billing][Impact of Account Structures on Billing]]
+- [[#tools-for-billing-analysis][Tools for Billing Analysis]]
+  - [[#billing-dashboard][Billing Dashboard]]
+  - [[#cost-explorer][Cost Explorer]]
+  - [[#cost-and-usage-report-cur][Cost and Usage Report (CUR)]]
+  - [[#aws-budgets][AWS Budgets]]
+- [[#aws-support-options][AWS Support Options]]
+  - [[#basic-support][Basic Support]]
+  - [[#developer][Developer]]
+  - [[#business][Business]]
+  - [[#enterprise-on-ramp][Enterprise On-Ramp]]
+  - [[#enterprise][Enterprise]]
+- [[#aws-marketplace][AWS Marketplace]]
+
+* General Billing in AWS
+
+** Fundamentals of Pricing
+There are three general drivers of billing:
+1. Compute (Used/Requested)
+2. Storage (Used/Requested)
+3. Network (Used/Requested (Outbound only))
+
+Pricing:
+1. Duration Pricing
+2. Request Pricing
+
+Pricing Models:
+1. On Demand
+2. Savings Plan
+   - Pay upfront and get more for what you paid for
+3. Spot
+   - Basically get excess capacity/resource to utilize until a customer uses it
+4. Reservation
+   - Reserve a service/resource and pay for it whether you use it or not
+
+** Free Tier
+Mainly for learning and testing.
+
+- Free Trials
+- Free for 12 months
+- Always free
+
+* General Billing for Other Services
+
+** Elastic Block Store
+- Volumes - Size & Type / Time
+- Snapshots - Size / Time
+- EBS Fast Snapshot Restore
+- EBS Direct APIs for Snapshots
+
+** S3
+- Class of storage
+- Number and size of objects stored
+- How many and kind of requests made on S3
+- Are you pulling out of S3 (outbound)?
+- Enabled management and backup features?
+
+** DynamoDB
+- Cost is based on the amount of Read Capacity Units and Write Capacity Units
+
+** CloudFront
+- Data taken out
+- # of HTTP/HTTPS requests
+- Invalidation requests
+- Lambda@edge add on
+
+** Macie
+- Amount of data you scan
+
+* Impact of Account Structures on Billing
+Consolidated billing is for multiple accounts but only one account (the payor account) gets billed for all the accounts.
+
+For 2 or more accounts in an organization, it functions the same as consolidated billing.
+
+Two or more accounts in Control Tower, still one payer for all the accounts.
+
+Consolidated billing options allow for billing by account.
+
+* Tools for Billing Analysis
+
+** Billing Dashboard
+"The Bill", basically the overview of the bill and can show billing breakdown.
+
+** Cost Explorer
+Visual representation of the billing and allows manipulation of data for cost analysis.
+
+** Cost and Usage Report (CUR)
+Very detailed spreadsheet of cost and usage report.
+
+** AWS Budgets
+For applying limitations on what you spend on AWS.
+
+* AWS Support Options
+
+** Basic Support
+Free for all customers and is the cheapest option (free).
+
+** Developer
+For experimenting and testing on AWS with slight increase in Trusted Advisor checks.
+
+12 hour SLA
+
+$29 or 3% of total AWS spend.
+
+** Business
+Minimum if you have production workloads on AWS.
+
+Lowest tier that has all Trusted Advisor checks.
+
+24/7 support on phone and web, and chat access to AWS Cloud support.
+
+1 hour response time for mission critical workloads.
+
+100% or Tier % of spend
+
+** Enterprise On-Ramp
+Recommended for mission-critical workloads in AWS.
+
+Has a pool of Technical Account Managers with Concierge Support Team
+
+30 min response time.
+
+$5,500 or 10% of spend
+
+** Enterprise
+Private TAM
+
+15 min response time.
+
+$5,500 or Tier % of spend
+
+* AWS Marketplace
+Marketplace for 3rd party resources.
